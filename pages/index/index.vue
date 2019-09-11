@@ -1,17 +1,3 @@
-## 在manifest.json中授权 permission
-
-```
-wx.getLocation的方法需要在 manifest.json 微信小程序中授权  微信接口描述 
-
-传统的在pages.json 配置一下信息不生效。
-"permission": {
-	"scope.userLocation": {
-	  "desc": "你的位置信息将用于小程序位置接口的效果展示"
-	}
-  },
-```
-## 使用方法
-```
 <template>
     <view class="content">
         <hchPosition :storeData="storeData" :markers="markers"></hchPosition>
@@ -40,20 +26,20 @@ export default {
 			markers: [//门店在地图上的标记 以下字段必填 
 				{
 				id:1,
-			    latitude: 24.4483294023427,
-			    longitude: 118.08479034393311,
-			    iconPath: '../../static/门店.png',
+			    latitude: 22.656830122431952,
+			    longitude: 114.01990361901852,
+			    iconPath: '../../static/hch-position/门店.png',
 				callout:{
-					content:"门店XXXXX1号店",
+					content:"柜机投放地福田大厦",
 					borderRadius:10,
 					padding:10,
 					display:"ALWAYS",
 				}
 			}, {
 				id:2,
-			    latitude: 24.45580,
-			    longitude: 118.12266,
-			    iconPath: '../../static/门店.png',
+			    latitude: 22.663465,
+			    longitude: 114.023343,
+			    iconPath: '../../static/hch-position/门店.png',
 				callout:{
 					content:"门店XXXXX2号店",
 					borderRadius:10,
@@ -66,12 +52,35 @@ export default {
 	components:{
 		hchPosition,
 	}, 
-    methods: {
+	onLoad() {
+		let t=this;
+		uni.login({
+			success:function(e){
+				console.log(e.code,'code')
+				t.getapiinfo(e.code)
+			}
+		})
 		
+	},
+    methods: {
+		async getapiinfo(code){
+			let info= await this.$apis.chencklogin({code:code});
+			if(info.code==0){
+				uni.reLaunch(
+				{url:"../../pages/auth/auth"}
+				)
+			}else{
+				console.log('已登录')
+			}
+		},
     },
 	onShow() {
 		
 	}
 }
 </script>
-```
+
+<style lang="scss">
+	
+	
+</style>
