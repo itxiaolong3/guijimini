@@ -14,6 +14,10 @@
             "path" : "pages/auth/auth",
             "style" : {"navigationBarTitleText": "授权页面"}
         }
+        ,{
+            "path" : "pages/personcenter/orderlist/orderlist",
+            "style" : {"navigationBarTitleText": "订单列表"}
+        }
     ],
 	"permission": {
 		"scope.userLocation": {

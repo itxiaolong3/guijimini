@@ -41,11 +41,11 @@
 				userinfo:{},
 				orderTypeLise:[
 					//name-标题 icon-图标 badge-角标
+					{name:'全部订单',icon:'l4.png',badge:19},
 					{name:'待付款',icon:'l1.png',badge:1},
 					{name:'待发货',icon:'l2.png',badge:2},
 					{name:'待收货',icon:'l3.png',badge:6},
-					{name:'待评价',icon:'l4.png',badge:9},
-					{name:'退换货',icon:'l5.png',badge:0}
+					{name:'售后订单',icon:'l5.png',badge:0}
 				],
 				severList:[
 					[
@@ -77,7 +77,8 @@
 			},
 			//用户点击订单类型
 			toOrderType(index){
-				uni.showToast({title: this.orderTypeLise[index].name});
+				//uni.showToast({title: this.orderTypeLise[index].name});
+				uni.navigateTo({url:'./orderlist/orderlist?tbIndex='+index}) 
 			},
 			//用户点击列表项
 			toPage(list_i,li_i){
@@ -130,7 +131,7 @@ page{background-color:#fff}
 	&.noborder{border-bottom:0}
 		.icon{
 			flex-shrink:0;width:50upx;height:50upx;
-			image{width:50upx;height:50upx}
+			image{width:55upx;height:55upx}
 		}
 		.text{padding-left:20upx;width:100%;color:#666}
 		.to{flex-shrink:0;width:40upx;height:40upx}

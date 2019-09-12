@@ -2,7 +2,8 @@
   "pages": [
     "pages/index/index",
     "pages/personcenter/personcenter",
-    "pages/auth/auth"
+    "pages/auth/auth",
+    "pages/personcenter/orderlist/orderlist"
   ],
   "subPackages": [],
   "window": {

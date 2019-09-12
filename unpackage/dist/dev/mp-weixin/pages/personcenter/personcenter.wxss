@@ -232,8 +232,8 @@ page {
       height: 50rpx;
 }
 .list .li .icon image {
-        width: 50rpx;
-        height: 50rpx;
+        width: 55rpx;
+        height: 55rpx;
 }
 .list .li .text {
       padding-left: 20rpx;

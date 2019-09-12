@@ -1,8 +1,8 @@
 (global["webpackJsonp"] = global["webpackJsonp"] || []).push([["common/vendor"],[
 /* 0 */
-/*!****************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/喜果小程序/main.js ***!
-  \****************************************************************/
+/*!***************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/main.js ***!
+  \***************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7476,9 +7476,9 @@ module.exports = g;
 
 /***/ }),
 /* 4 */
-/*!*******************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/喜果小程序/pages.json ***!
-  \*******************************************************************/
+/*!******************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/pages.json ***!
+  \******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7598,9 +7598,9 @@ function normalizeComponent (
 
 /***/ }),
 /* 11 */
-/*!**********************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/喜果小程序/apis/index.js ***!
-  \**********************************************************************/
+/*!*********************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/apis/index.js ***!
+  \*********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7614,9 +7614,9 @@ var savainfo = function savainfo(data) {return _http.default.POST("".concat(_ind
 
 /***/ }),
 /* 12 */
-/*!*********************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/喜果小程序/apis/http.js ***!
-  \*********************************************************************/
+/*!********************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/apis/http.js ***!
+  \********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7744,9 +7744,9 @@ var savainfo = function savainfo(data) {return _http.default.POST("".concat(_ind
 
 /***/ }),
 /* 13 */
-/*!*******************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/喜果小程序/config/index.config.js ***!
-  \*******************************************************************************/
+/*!******************************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/config/index.config.js ***!
+  \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7781,9 +7781,9 @@ CONFIG["development"];exports.default = _default;
 
 /***/ }),
 /* 14 */
-/*!*************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/喜果小程序/main.js?{"page":"pages%2Findex%2Findex"} ***!
-  \*************************************************************************************************/
+/*!************************************************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Findex%2Findex"} ***!
+  \************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8591,9 +8591,9 @@ if (hadRuntime) {
 
 /***/ }),
 /* 23 */
-/*!***************************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/喜果小程序/main.js?{"page":"pages%2Fpersoncenter%2Fpersoncenter"} ***!
-  \***************************************************************************************************************/
+/*!**************************************************************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fpersoncenter"} ***!
+  \**************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8614,9 +8614,9 @@ createPage(_personcenter.default);
 /* 29 */,
 /* 30 */,
 /* 31 */
-/*!***********************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/喜果小程序/main.js?{"page":"pages%2Fauth%2Fauth"} ***!
-  \***********************************************************************************************/
+/*!**********************************************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Fauth%2Fauth"} ***!
+  \**********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8626,6 +8626,29 @@ createPage(_personcenter.default);
 var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
 var _auth = _interopRequireDefault(__webpack_require__(/*! ./pages/auth/auth.vue */ 32));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 createPage(_auth.default);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
+
+/***/ }),
+/* 32 */,
+/* 33 */,
+/* 34 */,
+/* 35 */,
+/* 36 */,
+/* 37 */,
+/* 38 */,
+/* 39 */
+/*!***********************************************************************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Forderlist%2Forderlist"} ***!
+  \***********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
+
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
+var _orderlist = _interopRequireDefault(__webpack_require__(/*! ./pages/personcenter/orderlist/orderlist.vue */ 40));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+createPage(_orderlist.default);
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
 
 /***/ })
