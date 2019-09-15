@@ -2,10 +2,10 @@
 	<view>
 		<view class="header" v-bind:class="{'status':isH5Plus}">
 			<view class="userinfo">
-				<view class="face"><image :src="userinfo.face"></image></view>
+				<view class="face"><image :src="userinfo.user_logo"></image></view>
 				<view class="info">
-					<view class="username">{{userinfo.username}}</view>
-					<view class="integral">积分:{{userinfo.integral}}</view>
+					<view class="username">{{userinfo.user_name}}</view>
+					<view class="integral">手机号:{{userinfo.phone}}</view>
 				</view>
 			</view>
 			<view class="setting"><image src="../../static/HM-PersonalCenter/setting.png"></image></view>
@@ -32,13 +32,13 @@
 	export default {
 		data() {
 			return {
+				userinfo:[],
 				//#ifdef APP-PLUS
 				isH5Plus:true,
 				//#endif
 				//#ifndef APP-PLUS
 				isH5Plus:false,
 				//#endif
-				userinfo:{},
 				orderTypeLise:[
 					//name-标题 icon-图标 badge-角标
 					{name:'全部订单',icon:'l4.png',badge:19},
@@ -66,14 +66,35 @@
 			//加载
 			this.init();
 		},
+		onReady() {
+				let t=this;
+				uni.login({
+					success:function(e){
+						t.getapiinfo(e.code)
+					}
+				})
+		},
 		methods: {
+			async getapiinfo(code){
+				let info= await this.$apis.chencklogin({code:code});
+				let t=this;
+				if(info.code==0){
+					uni.reLaunch(
+					{url:"../../pages/auth/auth"}
+					)
+				}else{
+					this.userinfo=info.data;
+					uni.setStorageSync('openid',info.data.openid)
+					console.log(this.userinfo,'已登录')
+				}
+			},
 			init() {
 				//用户信息
-				this.userinfo={
-					face:'../../static/HM-PersonalCenter/face.jpeg',
-					username:"VIP会员10240",
-					integral:"1435"
-				}		
+				// this.userinfo={
+				// 	face:'../../static/HM-PersonalCenter/face.jpeg',
+				// 	username:"VIP会员10240",
+				// 	integral:"1435"
+				// }		
 			},
 			//用户点击订单类型
 			toOrderType(index){

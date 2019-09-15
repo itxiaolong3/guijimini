@@ -1,8 +1,8 @@
 (global["webpackJsonp"] = global["webpackJsonp"] || []).push([["common/vendor"],[
 /* 0 */
-/*!***************************************************!*\
-  !*** D:/chenjinlong/githuademo/guijimini/main.js ***!
-  \***************************************************/
+/*!********************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js ***!
+  \********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7476,9 +7476,9 @@ module.exports = g;
 
 /***/ }),
 /* 4 */
-/*!******************************************************!*\
-  !*** D:/chenjinlong/githuademo/guijimini/pages.json ***!
-  \******************************************************/
+/*!***********************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/pages.json ***!
+  \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7598,25 +7598,32 @@ function normalizeComponent (
 
 /***/ }),
 /* 11 */
-/*!*********************************************************!*\
-  !*** D:/chenjinlong/githuademo/guijimini/apis/index.js ***!
-  \*********************************************************/
+/*!**************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/apis/index.js ***!
+  \**************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.savainfo = exports.chencklogin = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! ./http.js */ 12));
+Object.defineProperty(exports, "__esModule", { value: true });exports.savephone = exports.getphone = exports.openidtogetinfo = exports.savainfo = exports.chencklogin = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! ./http.js */ 12));
 var _indexConfig = _interopRequireDefault(__webpack_require__(/*! @/config/index.config.js */ 13));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 // 获取用户资料
-var chencklogin = function chencklogin(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/chenckislogin"), data);};exports.chencklogin = chencklogin;
-var savainfo = function savainfo(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/savauserinfo"), data);};exports.savainfo = savainfo;
+var chencklogin = function chencklogin(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/chenckislogin"), data);};
+//保存个人信息
+exports.chencklogin = chencklogin;var savainfo = function savainfo(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/savauserinfo"), data);};
+//openid获取个人信息
+exports.savainfo = savainfo;var openidtogetinfo = function openidtogetinfo(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/openidtogetinfo"), data);};
+//获取手机号
+exports.openidtogetinfo = openidtogetinfo;var getphone = function getphone(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/getphone"), data);};
+//保存手机号
+exports.getphone = getphone;var savephone = function savephone(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/savephone"), data);};exports.savephone = savephone;
 
 /***/ }),
 /* 12 */
-/*!********************************************************!*\
-  !*** D:/chenjinlong/githuademo/guijimini/apis/http.js ***!
-  \********************************************************/
+/*!*************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/apis/http.js ***!
+  \*************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7744,9 +7751,9 @@ var savainfo = function savainfo(data) {return _http.default.POST("".concat(_ind
 
 /***/ }),
 /* 13 */
-/*!******************************************************************!*\
-  !*** D:/chenjinlong/githuademo/guijimini/config/index.config.js ***!
-  \******************************************************************/
+/*!***********************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/config/index.config.js ***!
+  \***********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7781,9 +7788,9 @@ CONFIG["development"];exports.default = _default;
 
 /***/ }),
 /* 14 */
-/*!************************************************************************************!*\
-  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Findex%2Findex"} ***!
-  \************************************************************************************/
+/*!*****************************************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Findex%2Findex"} ***!
+  \*****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8591,9 +8598,9 @@ if (hadRuntime) {
 
 /***/ }),
 /* 23 */
-/*!**************************************************************************************************!*\
-  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fpersoncenter"} ***!
-  \**************************************************************************************************/
+/*!*******************************************************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fpersoncenter"} ***!
+  \*******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8614,9 +8621,9 @@ createPage(_personcenter.default);
 /* 29 */,
 /* 30 */,
 /* 31 */
-/*!**********************************************************************************!*\
-  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Fauth%2Fauth"} ***!
-  \**********************************************************************************/
+/*!***************************************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fauth%2Fauth"} ***!
+  \***************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8637,9 +8644,9 @@ createPage(_auth.default);
 /* 37 */,
 /* 38 */,
 /* 39 */
-/*!***********************************************************************************************************!*\
-  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Forderlist%2Forderlist"} ***!
-  \***********************************************************************************************************/
+/*!****************************************************************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Forderlist%2Forderlist"} ***!
+  \****************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 

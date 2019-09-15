@@ -53,29 +53,13 @@ export default {
 		hchPosition,
 	}, 
 	onLoad() {
-		let t=this;
-		uni.login({
-			success:function(e){
-				console.log(e.code,'code')
-				t.getapiinfo(e.code)
-			}
-		})
-		
+		console.log('index-onload')
 	},
     methods: {
-		async getapiinfo(code){
-			let info= await this.$apis.chencklogin({code:code});
-			if(info.code==0){
-				uni.reLaunch(
-				{url:"../../pages/auth/auth"}
-				)
-			}else{
-				console.log('已登录')
-			}
-		},
+		
     },
 	onShow() {
-		
+		console.log('index-onShow')
 	}
 }
 </script>

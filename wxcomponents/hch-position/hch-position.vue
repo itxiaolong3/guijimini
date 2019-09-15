@@ -23,7 +23,10 @@
 			<cover-image class="address-icon" src="../../static/hch-position/定位.png"></cover-image>
 			<cover-image class="postion" src="../../static/hch-position/postion.png" @click="barkpostion()"></cover-image>
 			<cover-image class="person" src="../../static/hch-position/person.png" @click="gotoupersoncenter()"></cover-image>
-			<cover-view class="doqrcode" @click="scanCode()">扫&nbsp;一&nbsp;扫</cover-view>
+			<cover-view class="doqrcode">
+				<button class="getphone" v-if="!userinfo.phone"  open-type="getPhoneNumber" @getphonenumber="scanCode">扫&nbsp;一&nbsp;扫</button>
+				<span v-if="userinfo.phone" @click="scanCode()">扫&nbsp;一&nbsp;扫</span>
+				</cover-view>
         </view>
     </view>
 </template>
@@ -85,24 +88,66 @@ export default {
             longitude: 114.023343,
 			controls:[
 				
-			]
+			],
+			userinfo:[]
         }
     },
     methods: {
+		async getapiinfo(code){
+			let info= await this.$apis.chencklogin({code:code});
+			let t=this;
+			if(info.code==0){
+				uni.reLaunch(
+				{url:"../../pages/auth/auth"}
+				)
+			}else{
+				this.userinfo=info.data;
+				uni.setStorageSync('openid',info.data.openid)
+				console.log(this.userinfo,'已登录')
+			}
+		},
+		async openidtogetinfo(openid){
+			let info= await this.$apis.openidtogetinfo({openid:openid});
+			this.userinfo=info.data;
+		},
 		gotoupersoncenter(){
 			uni.navigateTo({
 				url:'../../pages/personcenter/personcenter'
 			})
 			//uni.showToast({title:'跳到个人中心',duration:2000,icon:'none'});
 		},
-		scanCode(){
-			uni.scanCode({
-				success:function(e){
-					console.log(e,'扫码成功返回')
-				},fail:function(e){
-					console.log(e,'扫码失败返回')
-				}
-			})
+		async savaphone(openid,phone){
+			this.$apis.savephone({openid:openid,phone:phone});
+			this.openidtogetinfo(openid)
+		},
+		async getphone(code,iv,encryptedData){
+			let info= await this.$apis.getphone({code:code,iv:iv,encryptedData:encryptedData});
+			console.log(info.data.phoneNumber,'手机授权返回')
+			let getopenid=uni.getStorageSync('openid');
+			this.savaphone(getopenid,info.data.phoneNumber);
+		},
+		scanCode(e){
+			//判断是否已授权手机号
+			console.log(this.userinfo.phone,'手机号')
+			let t=this;
+			if(this.userinfo.phone==null||this.userinfo.phone==''){
+				uni.login({
+					success:function(ee){
+						t.getphone(ee.code,e.detail.iv,e.detail.encryptedData)
+					}
+				})
+				console.log('没手机号')
+				console.log(e,'返回信息')
+			}else{
+				uni.scanCode({
+					success:function(e){
+						console.log(e,'扫码成功返回')
+					},fail:function(e){
+						console.log(e,'扫码失败返回')
+					}
+				})
+			}
+		
 		},
 		// 点击了门店信息进行导航
 		storeDesEvn(){
@@ -210,10 +255,17 @@ export default {
 		
     },
 	onShow() {
-		
+		console.log('hch-postion on show')
 	},
 	onReady() {
-		
+		console.log('hch-postion on onReady')
+		let t=this;
+		uni.login({
+			success:function(e){
+				console.log(e.code,'code')
+				t.getapiinfo(e.code)
+			}
+		})
   },
 }
 </script>
@@ -326,5 +378,15 @@ export default {
 		height: 140upx;
 		background-color: #333333;
 		color: #fff;
+		.getphone{
+			position:absolute;
+			z-index:3;
+			left: 0;
+			bottom:0;
+			width: 100%;
+			height: 100%;
+			background-color: #333333;
+			color: #fff;
+		}
 	}
 </style>
