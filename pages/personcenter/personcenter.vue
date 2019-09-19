@@ -90,11 +90,11 @@
 			},
 			init() {
 				//用户信息
-				// this.userinfo={
-				// 	face:'../../static/HM-PersonalCenter/face.jpeg',
-				// 	username:"VIP会员10240",
-				// 	integral:"1435"
-				// }		
+				this.userinfo={
+					user_logo:'../../static/hch-position/person.png',
+					user_name:"昵称",
+					phone:""
+				}		
 			},
 			//用户点击订单类型
 			toOrderType(index){
