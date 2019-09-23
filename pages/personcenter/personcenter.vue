@@ -5,7 +5,10 @@
 				<view class="face"><image :src="userinfo.user_logo"></image></view>
 				<view class="info">
 					<view class="username">{{userinfo.user_name}}</view>
-					<view class="integral">手机号:{{userinfo.phone}}</view>
+					<view class="integral" v-if="userinfo.phone">手机号:{{userinfo.phone}}</view>
+					<view  v-if="!userinfo.phone">
+						<button class="getphoncss" open-type="getPhoneNumber" @getphonenumber="dogetphone">获取手机号</button>
+						</view>
 				</view>
 			</view>
 			<view class="setting"><image src="../../static/HM-PersonalCenter/setting.png"></image></view>
@@ -37,7 +40,7 @@
 				isH5Plus:true,
 				//#endif
 				//#ifndef APP-PLUS
-				isH5Plus:false,
+				//isH5Plus:false,
 				//#endif
 				orderTypeLise:[
 					//name-标题 icon-图标 badge-角标
@@ -60,6 +63,7 @@
 						{name:'关于平台',icon:'about.png'}
 					]
 				]
+				
 			}
 		},
 		onLoad() {
@@ -87,6 +91,29 @@
 					uni.setStorageSync('openid',info.data.openid)
 					console.log(this.userinfo,'已登录')
 				}
+			},
+			async openidtogetinfo(openid){
+				let info= await this.$apis.openidtogetinfo({openid:openid});
+				this.userinfo=info.data;
+			},
+			async savaphone(openid,phone){
+				this.$apis.savephone({openid:openid,phone:phone});
+				this.openidtogetinfo(openid)
+			},
+			async getphone(code,iv,encryptedData){
+				let info= await this.$apis.getphone({code:code,iv:iv,encryptedData:encryptedData});
+				console.log(info.data.phoneNumber,'手机授权返回')
+				let getopenid=uni.getStorageSync('openid');
+				this.savaphone(getopenid,info.data.phoneNumber);
+			},
+			dogetphone(e){
+				let t=this;
+				uni.login({
+					success:function(ee){
+						t.getphone(ee.code,e.detail.iv,e.detail.encryptedData)
+					}
+				})
+				console.log(e,'返回信息')
 			},
 			init() {
 				//用户信息
@@ -157,5 +184,11 @@ page{background-color:#fff}
 		.text{padding-left:20upx;width:100%;color:#666}
 		.to{flex-shrink:0;width:40upx;height:40upx}
 	}
+}
+.getphoncss{
+	background: none;
+	font-size: 30upx;
+	height: 55upx;
+	color: #fff;
 }
 </style>

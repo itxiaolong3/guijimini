@@ -135,6 +135,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 var _default =
 {
   data: function data() {
@@ -144,7 +147,7 @@ var _default =
 
 
 
-      isH5Plus: false,
+      //isH5Plus:false,
 
       orderTypeLise: [
       //name-标题 icon-图标 badge-角标
@@ -165,6 +168,7 @@ var _default =
       { name: '历史记录', icon: 'history.png' },
       { name: '联系客服', icon: 'kefu.png' },
       { name: '关于平台', icon: 'about.png' }]] };
+
 
 
 
@@ -195,6 +199,29 @@ var _default =
                   console.log(this.userinfo, '已登录');
                 }case 5:case "end":return _context.stop();}}}, _callee, this);}));function getapiinfo(_x) {return _getapiinfo.apply(this, arguments);}return getapiinfo;}(),
 
+    openidtogetinfo: function () {var _openidtogetinfo = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2(openid) {var info;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:_context2.next = 2;return (
+                  this.$apis.openidtogetinfo({ openid: openid }));case 2:info = _context2.sent;
+                this.userinfo = info.data;case 4:case "end":return _context2.stop();}}}, _callee2, this);}));function openidtogetinfo(_x2) {return _openidtogetinfo.apply(this, arguments);}return openidtogetinfo;}(),
+
+    savaphone: function () {var _savaphone = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3(openid, phone) {return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:
+                this.$apis.savephone({ openid: openid, phone: phone });
+                this.openidtogetinfo(openid);case 2:case "end":return _context3.stop();}}}, _callee3, this);}));function savaphone(_x3, _x4) {return _savaphone.apply(this, arguments);}return savaphone;}(),
+
+    getphone: function () {var _getphone = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4(code, iv, encryptedData) {var info, getopenid;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:_context4.next = 2;return (
+                  this.$apis.getphone({ code: code, iv: iv, encryptedData: encryptedData }));case 2:info = _context4.sent;
+                console.log(info.data.phoneNumber, '手机授权返回');
+                getopenid = uni.getStorageSync('openid');
+                this.savaphone(getopenid, info.data.phoneNumber);case 6:case "end":return _context4.stop();}}}, _callee4, this);}));function getphone(_x5, _x6, _x7) {return _getphone.apply(this, arguments);}return getphone;}(),
+
+    dogetphone: function dogetphone(e) {
+      var t = this;
+      uni.login({
+        success: function success(ee) {
+          t.getphone(ee.code, e.detail.iv, e.detail.encryptedData);
+        } });
+
+      console.log(e, '返回信息');
+    },
     init: function init() {
       //用户信息
       this.userinfo = {

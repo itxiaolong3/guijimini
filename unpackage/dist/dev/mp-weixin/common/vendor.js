@@ -7605,7 +7605,7 @@ function normalizeComponent (
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.savephone = exports.getphone = exports.openidtogetinfo = exports.savainfo = exports.chencklogin = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! ./http.js */ 12));
+Object.defineProperty(exports, "__esModule", { value: true });exports.savesingres = exports.ismmsign = exports.getsingparm = exports.savephone = exports.getphone = exports.openidtogetinfo = exports.savainfo = exports.chencklogin = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! ./http.js */ 12));
 var _indexConfig = _interopRequireDefault(__webpack_require__(/*! @/config/index.config.js */ 13));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 // 获取用户资料
@@ -7617,7 +7617,13 @@ exports.savainfo = savainfo;var openidtogetinfo = function openidtogetinfo(data)
 //获取手机号
 exports.openidtogetinfo = openidtogetinfo;var getphone = function getphone(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/getphone"), data);};
 //保存手机号
-exports.getphone = getphone;var savephone = function savephone(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/savephone"), data);};exports.savephone = savephone;
+exports.getphone = getphone;var savephone = function savephone(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/savephone"), data);};
+//获取签约参数
+exports.savephone = savephone;var getsingparm = function getsingparm(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/getsingparm"), data);};
+//判断该用户是否已签约
+exports.getsingparm = getsingparm;var ismmsign = function ismmsign(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/ismmsign"), data);};
+//保存签约协议ID
+exports.ismmsign = ismmsign;var savesingres = function savesingres(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/savesingres"), data);};exports.savesingres = savesingres;
 
 /***/ }),
 /* 12 */

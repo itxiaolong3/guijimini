@@ -247,4 +247,10 @@ page {
       width: 40rpx;
       height: 40rpx;
 }
+.getphoncss {
+  background: none;
+  font-size: 30rpx;
+  height: 55rpx;
+  color: #fff;
+}
 

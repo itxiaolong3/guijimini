@@ -65,18 +65,52 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 26));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var _default =
 {
   onLaunch: function onLaunch() {
     //console.log('App onLaunch')
 
   },
-  onShow: function onShow() {
-    //console.log('App onShow')
+  methods: {
+    //更新个人信息
+    savesingres: function () {var _savesingres = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(openid, contract_id) {var info;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
+                  this.$apis.savesingres({ openid: openid, contract_id: contract_id }));case 2:info = _context.sent;case 3:case "end":return _context.stop();}}}, _callee, this);}));function savesingres(_x, _x2) {return _savesingres.apply(this, arguments);}return savesingres;}() },
+
+
+  onShow: function onShow(res) {
+    console.log(res, 'app中显示');
+    if (res.scene === 1038) {// 场景值1038：从被打开的小程序返回
+      var _res$referrerInfo = res.referrerInfo,appId = _res$referrerInfo.appId,extraData = _res$referrerInfo.extraData;
+      if (appId == 'wxbd687630cd02ce1d') {// appId为wxbd687630cd02ce1d：从签约小程序跳转回来
+        if (typeof extraData == 'undefined') {
+          // TODO
+          // 客户端小程序不确定签约结果，需要向商户侧后台请求确定签约结果
+          if (res) {
+            console.log(res, '不确定签约结果');
+          }
+          return;
+        }
+        if (extraData.return_code == 'SUCCESS') {
+          // TODO
+          // 客户端小程序签约成功，需要向商户侧后台请求确认签约结果
+          var contract_id = extraData.contract_id;
+          var openid = uni.getStorageSync('openid');
+          //this.savesingres(openid,contract_id)
+          console.log(contract_id, '签约协议ID');
+          return;
+        } else {
+          // TODO
+          // 签约失败
+          console.log(contract_id, '签约失败');
+          return;
+        }
+      }
+    }
   },
   onHide: function onHide() {
     // console.log('App Hide')
   } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 /* 8 */

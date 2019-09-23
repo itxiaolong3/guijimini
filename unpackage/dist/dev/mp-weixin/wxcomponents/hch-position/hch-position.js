@@ -196,9 +196,11 @@ var _default =
       controls: [],
 
 
-      userinfo: [] };
+      userinfo: [],
+      extra_data: {} };
 
   },
+
   methods: {
     getapiinfo: function () {var _getapiinfo = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(code) {var info, t;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
                   this.$apis.chencklogin({ code: code }));case 2:info = _context.sent;
@@ -213,6 +215,7 @@ var _default =
                   console.log(this.userinfo, '已登录');
                 }case 5:case "end":return _context.stop();}}}, _callee, this);}));function getapiinfo(_x) {return _getapiinfo.apply(this, arguments);}return getapiinfo;}(),
 
+    //更新个人信息
     openidtogetinfo: function () {var _openidtogetinfo = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2(openid) {var info;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:_context2.next = 2;return (
                   this.$apis.openidtogetinfo({ openid: openid }));case 2:info = _context2.sent;
                 this.userinfo = info.data;case 4:case "end":return _context2.stop();}}}, _callee2, this);}));function openidtogetinfo(_x2) {return _openidtogetinfo.apply(this, arguments);}return openidtogetinfo;}(),
@@ -233,6 +236,76 @@ var _default =
                 getopenid = uni.getStorageSync('openid');
                 this.savaphone(getopenid, info.data.phoneNumber);case 6:case "end":return _context4.stop();}}}, _callee4, this);}));function getphone(_x5, _x6, _x7) {return _getphone.apply(this, arguments);}return getphone;}(),
 
+    //获取签约参数
+    getsingparm: function () {var _getsingparm = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee5() {var info, t;return _regenerator.default.wrap(function _callee5$(_context5) {while (1) {switch (_context5.prev = _context5.next) {case 0:_context5.next = 2;return (
+                  this.$apis.getsingparm());case 2:info = _context5.sent;
+                t = this;
+                uni.showLoading({
+                  title: '跳转中...' });
+
+                if (info.code == 1) {
+                  console.log(info.data, '返回参数');
+                  console.log(info.data.appid, '返回appid');
+                  console.log(info.data.sign, '返回sign');
+                  console.log(info.data.mch_id, '返回mch_id');
+                  console.log(info.data.timestamp, '返回timestamp');
+                  uni.hideLoading();
+                  this.extra_data = info.data;
+                  //console.log(this.extra_data,'传参数')
+                  uni.navigateToMiniProgram({
+                    appId: 'wxbd687630cd02ce1d',
+                    path: 'pages/index/index',
+                    extraData: {
+                      "appid": info.data.appid,
+                      "mch_id": info.data.mch_id,
+                      "notify_url": info.data.notify_url,
+                      "contract_code": info.data.contract_code,
+                      "contract_display_account": info.data.contract_display_account,
+                      "plan_id": info.data.plan_id,
+                      "request_serial": info.data.request_serial,
+                      "timestamp": info.data.timestamp,
+                      "sign": info.data.sign },
+
+                    success: function success(res) {
+                      // 打开成功
+                      console.log(res, '打开成功');
+                    },
+                    fail: function fail(res) {
+                      console.log(res, '打开失败');
+                    } });
+
+                }case 6:case "end":return _context5.stop();}}}, _callee5, this);}));function getsingparm() {return _getsingparm.apply(this, arguments);}return getsingparm;}(),
+
+    //是否已签约
+    ismmsign: function () {var _ismmsign = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee6() {var getopenid, info, t;return _regenerator.default.wrap(function _callee6$(_context6) {while (1) {switch (_context6.prev = _context6.next) {case 0:
+                getopenid = uni.getStorageSync('openid');_context6.next = 3;return (
+                  this.$apis.ismmsign({ openid: getopenid }));case 3:info = _context6.sent;
+                t = this;
+                console.log(info, '是否签约');
+                if (info.data) {
+                  uni.scanCode({
+                    success: function success(e) {
+                      console.log(e, '扫码成功返回');
+                    }, fail: function fail(e) {
+                      console.log(e, '扫码失败返回');
+                    } });
+
+                } else {
+                  //还没签约
+                  uni.showModal({
+                    title: '温馨提示',
+                    content: '请完成完成微信免密支付签约',
+                    confirmText: '去签约',
+                    success: function success(res) {
+                      if (res.confirm) {
+                        t.getsingparm();
+                      } else if (res.cancel) {
+                        console.log('用户点击取消');
+                      }
+                    } });
+
+                }case 7:case "end":return _context6.stop();}}}, _callee6, this);}));function ismmsign() {return _ismmsign.apply(this, arguments);}return ismmsign;}(),
+
     scanCode: function scanCode(e) {
       //判断是否已授权手机号
       console.log(this.userinfo.phone, '手机号');
@@ -246,13 +319,14 @@ var _default =
         console.log('没手机号');
         console.log(e, '返回信息');
       } else {
-        uni.scanCode({
-          success: function success(e) {
-            console.log(e, '扫码成功返回');
-          }, fail: function fail(e) {
-            console.log(e, '扫码失败返回');
-          } });
-
+        t.ismmsign();
+        // uni.scanCode({
+        // 	success:function(e){
+        // 		console.log(e,'扫码成功返回')
+        // 	},fail:function(e){
+        // 		console.log(e,'扫码失败返回')
+        // 	}
+        // })
       }
 
     },

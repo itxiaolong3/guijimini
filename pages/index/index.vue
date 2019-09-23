@@ -58,8 +58,8 @@ export default {
     methods: {
 		
     },
-	onShow() {
-		console.log('index-onShow')
+	onShow(res) {
+		   console.log(res,'index中onshow')         
 	}
 }
 </script>

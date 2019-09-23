@@ -163,8 +163,8 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   methods: {},
 
 
-  onShow: function onShow() {
-    console.log('index-onShow');
+  onShow: function onShow(res) {
+    console.log(res, 'index中onshow');
   } };exports.default = _default;
 
 /***/ })
