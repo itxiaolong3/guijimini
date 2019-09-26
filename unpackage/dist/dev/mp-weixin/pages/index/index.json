@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "首页",
+  "navigationBarTitleText": "已开锁",
   "usingComponents": {
     "hch-position": "/wxcomponents/hch-position/hch-position"
   }

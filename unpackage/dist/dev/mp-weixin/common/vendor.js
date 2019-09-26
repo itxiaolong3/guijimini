@@ -10,7 +10,7 @@
 /* WEBPACK VAR INJECTION */(function(createApp) {__webpack_require__(/*! uni-pages */ 4);
 var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
 var _App = _interopRequireDefault(__webpack_require__(/*! ./App */ 5));
-var $apis = _interopRequireWildcard(__webpack_require__(/*! ./apis/index.js */ 11));function _interopRequireWildcard(obj) {if (obj && obj.__esModule) {return obj;} else {var newObj = {};if (obj != null) {for (var key in obj) {if (Object.prototype.hasOwnProperty.call(obj, key)) {var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {};if (desc.get || desc.set) {Object.defineProperty(newObj, key, desc);} else {newObj[key] = obj[key];}}}}newObj.default = obj;return newObj;}}function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
+var $apis = _interopRequireWildcard(__webpack_require__(/*! ./apis/index.js */ 14));function _interopRequireWildcard(obj) {if (obj && obj.__esModule) {return obj;} else {var newObj = {};if (obj != null) {for (var key in obj) {if (Object.prototype.hasOwnProperty.call(obj, key)) {var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {};if (desc.get || desc.set) {Object.defineProperty(newObj, key, desc);} else {newObj[key] = obj[key];}}}}newObj.default = obj;return newObj;}}function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
 _vue.default.config.productionTip = false;
 _vue.default.prototype.$apis = $apis;
 _App.default.mpType = 'app';
@@ -7489,364 +7489,18 @@ module.exports = g;
 /* 5 */,
 /* 6 */,
 /* 7 */,
-/* 8 */,
-/* 9 */,
-/* 10 */
-/*!********************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/runtime/componentNormalizer.js ***!
-  \********************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return normalizeComponent; });
-/* globals __VUE_SSR_CONTEXT__ */
-
-// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
-// This module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle.
-
-function normalizeComponent (
-  scriptExports,
-  render,
-  staticRenderFns,
-  functionalTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier, /* server only */
-  shadowMode /* vue-cli only */
-) {
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // render functions
-  if (render) {
-    options.render = render
-    options.staticRenderFns = staticRenderFns
-    options._compiled = true
-  }
-
-  // functional template
-  if (functionalTemplate) {
-    options.functional = true
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = 'data-v-' + scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = shadowMode
-      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
-      : injectStyles
-  }
-
-  if (hook) {
-    if (options.functional) {
-      // for template-only hot-reload because in that case the render fn doesn't
-      // go through the normalizer
-      options._injectStyles = hook
-      // register for functioal component in vue file
-      var originalRender = options.render
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return originalRender(h, context)
-      }
-    } else {
-      // inject component registration as beforeCreate hook
-      var existing = options.beforeCreate
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
-    }
-  }
-
-  return {
-    exports: scriptExports,
-    options: options
-  }
-}
-
-
-/***/ }),
-/* 11 */
-/*!**************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/apis/index.js ***!
-  \**************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.savesingres = exports.ismmsign = exports.getsingparm = exports.savephone = exports.getphone = exports.openidtogetinfo = exports.savainfo = exports.chencklogin = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! ./http.js */ 12));
-var _indexConfig = _interopRequireDefault(__webpack_require__(/*! @/config/index.config.js */ 13));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-
-// 获取用户资料
-var chencklogin = function chencklogin(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/chenckislogin"), data);};
-//保存个人信息
-exports.chencklogin = chencklogin;var savainfo = function savainfo(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/savauserinfo"), data);};
-//openid获取个人信息
-exports.savainfo = savainfo;var openidtogetinfo = function openidtogetinfo(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/openidtogetinfo"), data);};
-//获取手机号
-exports.openidtogetinfo = openidtogetinfo;var getphone = function getphone(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/getphone"), data);};
-//保存手机号
-exports.getphone = getphone;var savephone = function savephone(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/savephone"), data);};
-//获取签约参数
-exports.savephone = savephone;var getsingparm = function getsingparm(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/getsingparm"), data);};
-//判断该用户是否已签约
-exports.getsingparm = getsingparm;var ismmsign = function ismmsign(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/ismmsign"), data);};
-//保存签约协议ID
-exports.ismmsign = ismmsign;var savesingres = function savesingres(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/savesingres"), data);};exports.savesingres = savesingres;
-
-/***/ }),
-/* 12 */
-/*!*************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/apis/http.js ***!
-  \*************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function HTTP(obj, config) {
-
-  var defaultConfig = {
-    isRes: false,
-    loading: false };
-
-
-  config = _objectSpread({}, defaultConfig,
-  config);
-
-
-
-  // 如果需要显示loading,mask防止点击穿透
-  config.loading && uni.showLoading({
-    title: '加载中',
-    mask: true });
-
-
-  return new Promise(function (resolve, reject) {
-
-    var options = {
-      url: "",
-      method: "GET",
-      data: {},
-      dataType: "json",
-      header: {
-        "content-type": "application/json",
-        "X-requested-With": "XMLHttpRequest" },
-
-      success: function success(res) {
-        //console.log("HTTP请求结果：",res)
-        uni.hideLoading();
-        // 状态码为200
-        if (res.statusCode == 200) {
-          var data = res.data;
-
-          //自动校验用户是否登录过期
-          if (data.code == 0) {
-            uni.showToast({ title: data.msg, duration: 1500, icon: 'none' });
-          }
-
-          //返回 { code:10000,msg:"消息",data:[] }
-          if (config.isRes) {
-            resolve(data);
-          }
-          // 返回 data:[]
-          else {
-              resolve(data || true);
-              // if (data.code == "00") {
-              // 	resolve(data.data || true)
-              // } else {
-              // 	wx.showToast({
-              // 		title: data.msg,
-              // 		icon: "none",
-              // 		duration: 2000
-              // 	})
-              // 	reject(data.msg);
-              // }
-            }
-        } else {
-          reject("HTTP:状态码异常！");
-        }
-      },
-      fail: function fail(err) {
-        uni.hideLoading();
-        uni.showToast({
-          title: "网络异常，请稍后再试!",
-          icon: "none" });
-
-        reject("网络异常，请稍后再试!");
-      },
-      complete: function complete() {} };
-
-
-    options = _objectSpread({}, options,
-    obj);
-
-
-    var OPENID = uni.getStorageSync("openId");
-    if (OPENID) options["header"]["openId"] = OPENID;
-
-    if (options.url && options.method) {
-      wx.request(options);
-    } else {
-      wx.showToast({
-        title: 'HTTP：缺失参数',
-        icon: "none",
-        duration: 2000 });
-
-    }
-  });
-
-}var _default =
-
-
-
-{
-  GET: function GET(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var config = arguments.length > 2 ? arguments[2] : undefined;
-    return HTTP({
-      url: url,
-      data: data,
-      method: "GET" },
-    config);
-  },
-  POST: function POST(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var config = arguments.length > 2 ? arguments[2] : undefined;
-    return HTTP({
-      url: url,
-      data: data,
-      method: "POST" },
-    config);
-  },
-
-  POSTformdata: function POSTformdata(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var config = arguments.length > 2 ? arguments[2] : undefined;
-    return HTTP({
-      url: url,
-      data: data,
-      method: "POST" },
-    config);
-  } };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
-
-/***/ }),
-/* 13 */
-/*!***********************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/config/index.config.js ***!
-  \***********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var CONFIG = {
-  //开发环境配置
-  development: {
-    loginTitleTxt: "it小龙", // 登录页标题
-    copyrightTxt: "柜机1.0", // 版本信息
-    assetsPath: "https://xj.itxiaolong.cn/img", // 静态资源路径
-    baseUrl: "https://xj.itxiaolong.cn/api",
-    tokenKey: "WECHAT_TRADE", // 登录标识
-    testOpenId: "oEjRxwy7jL9PgG0kWeb4VcDTZEas", // 小程序测试openId
-    forcedLogin: false, // touristMode游客模式下APP是否强制用户登录 场景：当用户进入登录页面后无法后退。
-    touristMode: true // APP是否开启游客模式， 游客模式true开启：APP打开后可以进入首页和无权限的页面，游客模式false关闭：APP打开后首先需要登录才能进入， 此时forcedLogin配置项失效。
-  },
-
-  //生产环境配置
-  production: {
-    loginTitleTxt: "it小龙", // 登录页标题
-    copyrightTxt: "柜机1.0", // 版本信息
-    assetsPath: "/static/img", // 静态资源路径
-    baseUrl: "https://xj.itxiaolong.cn/api",
-    tokenKey: "WECHAT_TRADE", // 登录标识
-    testOpenId: "oEjRxwy7jL9PgG0kWeb4VcDTZEas", // 小程序测试openId
-    forcedLogin: false, // touristMode游客模式下APP是否强制用户登录 场景：当用户进入登录页面后无法后退。
-    touristMode: true // APP是否开启游客模式， 游客模式true开启：APP打开后可以进入首页和无权限的页面，游客模式false关闭：APP打开后首先需要登录才能进入， 此时forcedLogin配置项失效。
-  } };var _default =
-
-
-CONFIG["development"];exports.default = _default;
-
-/***/ }),
-/* 14 */
-/*!*****************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Findex%2Findex"} ***!
-  \*****************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
-
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _index = _interopRequireDefault(__webpack_require__(/*! ./pages/index/index.vue */ 15));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-createPage(_index.default);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
-
-/***/ }),
-/* 15 */,
-/* 16 */,
-/* 17 */,
-/* 18 */,
-/* 19 */,
-/* 20 */
-/*!*******************************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fpersoncenter"} ***!
-  \*******************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
-
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _personcenter = _interopRequireDefault(__webpack_require__(/*! ./pages/personcenter/personcenter.vue */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-createPage(_personcenter.default);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
-
-/***/ }),
-/* 21 */,
-/* 22 */,
-/* 23 */,
-/* 24 */,
-/* 25 */,
-/* 26 */
+/* 8 */
 /*!**********************************************************!*\
   !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
   \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! regenerator-runtime */ 27);
+module.exports = __webpack_require__(/*! regenerator-runtime */ 9);
 
 
 /***/ }),
-/* 27 */
+/* 9 */
 /*!************************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime-module.js ***!
   \************************************************************/
@@ -7877,7 +7531,7 @@ var oldRuntime = hadRuntime && g.regeneratorRuntime;
 // Force reevalutation of runtime.js.
 g.regeneratorRuntime = undefined;
 
-module.exports = __webpack_require__(/*! ./runtime */ 28);
+module.exports = __webpack_require__(/*! ./runtime */ 10);
 
 if (hadRuntime) {
   // Restore the original runtime.
@@ -7893,7 +7547,7 @@ if (hadRuntime) {
 
 
 /***/ }),
-/* 28 */
+/* 10 */
 /*!*****************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime.js ***!
   \*****************************************************/
@@ -8624,9 +8278,357 @@ if (hadRuntime) {
 
 
 /***/ }),
+/* 11 */,
+/* 12 */,
+/* 13 */
+/*!********************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/runtime/componentNormalizer.js ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return normalizeComponent; });
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+function normalizeComponent (
+  scriptExports,
+  render,
+  staticRenderFns,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier, /* server only */
+  shadowMode /* vue-cli only */
+) {
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // render functions
+  if (render) {
+    options.render = render
+    options.staticRenderFns = staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = 'data-v-' + scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = shadowMode
+      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      : injectStyles
+  }
+
+  if (hook) {
+    if (options.functional) {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      var originalRender = options.render
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return originalRender(h, context)
+      }
+    } else {
+      // inject component registration as beforeCreate hook
+      var existing = options.beforeCreate
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    }
+  }
+
+  return {
+    exports: scriptExports,
+    options: options
+  }
+}
+
+
+/***/ }),
+/* 14 */
+/*!**************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/apis/index.js ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.savesingres = exports.ismmsign = exports.getsingparm = exports.savephone = exports.getphone = exports.openidtogetinfo = exports.savainfo = exports.chencklogin = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! ./http.js */ 15));
+var _indexConfig = _interopRequireDefault(__webpack_require__(/*! @/config/index.config.js */ 16));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+
+// 获取用户资料
+var chencklogin = function chencklogin(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/chenckislogin"), data);};
+//保存个人信息
+exports.chencklogin = chencklogin;var savainfo = function savainfo(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/savauserinfo"), data);};
+//openid获取个人信息
+exports.savainfo = savainfo;var openidtogetinfo = function openidtogetinfo(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/openidtogetinfo"), data);};
+//获取手机号
+exports.openidtogetinfo = openidtogetinfo;var getphone = function getphone(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/getphone"), data);};
+//保存手机号
+exports.getphone = getphone;var savephone = function savephone(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/savephone"), data);};
+//获取签约参数
+exports.savephone = savephone;var getsingparm = function getsingparm(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/getsingparm"), data);};
+//判断该用户是否已签约
+exports.getsingparm = getsingparm;var ismmsign = function ismmsign(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/ismmsign"), data);};
+//保存签约协议ID
+exports.ismmsign = ismmsign;var savesingres = function savesingres(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/savesingres"), data);};exports.savesingres = savesingres;
+
+/***/ }),
+/* 15 */
+/*!*************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/apis/http.js ***!
+  \*************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function HTTP(obj, config) {
+
+  var defaultConfig = {
+    isRes: false,
+    loading: false };
+
+
+  config = _objectSpread({}, defaultConfig,
+  config);
+
+
+
+  // 如果需要显示loading,mask防止点击穿透
+  config.loading && uni.showLoading({
+    title: '加载中',
+    mask: true });
+
+
+  return new Promise(function (resolve, reject) {
+
+    var options = {
+      url: "",
+      method: "GET",
+      data: {},
+      dataType: "json",
+      header: {
+        "content-type": "application/json",
+        "X-requested-With": "XMLHttpRequest" },
+
+      success: function success(res) {
+        //console.log("HTTP请求结果：",res)
+        uni.hideLoading();
+        // 状态码为200
+        if (res.statusCode == 200) {
+          var data = res.data;
+
+          //自动校验用户是否登录过期
+          if (data.code == 0) {
+            uni.showToast({ title: data.msg, duration: 1500, icon: 'none' });
+          }
+
+          //返回 { code:10000,msg:"消息",data:[] }
+          if (config.isRes) {
+            resolve(data);
+          }
+          // 返回 data:[]
+          else {
+              resolve(data || true);
+              // if (data.code == "00") {
+              // 	resolve(data.data || true)
+              // } else {
+              // 	wx.showToast({
+              // 		title: data.msg,
+              // 		icon: "none",
+              // 		duration: 2000
+              // 	})
+              // 	reject(data.msg);
+              // }
+            }
+        } else {
+          reject("HTTP:状态码异常！");
+        }
+      },
+      fail: function fail(err) {
+        uni.hideLoading();
+        uni.showToast({
+          title: "网络异常，请稍后再试!",
+          icon: "none" });
+
+        reject("网络异常，请稍后再试!");
+      },
+      complete: function complete() {} };
+
+
+    options = _objectSpread({}, options,
+    obj);
+
+
+    var OPENID = uni.getStorageSync("openId");
+    if (OPENID) options["header"]["openId"] = OPENID;
+
+    if (options.url && options.method) {
+      wx.request(options);
+    } else {
+      wx.showToast({
+        title: 'HTTP：缺失参数',
+        icon: "none",
+        duration: 2000 });
+
+    }
+  });
+
+}var _default =
+
+
+
+{
+  GET: function GET(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var config = arguments.length > 2 ? arguments[2] : undefined;
+    return HTTP({
+      url: url,
+      data: data,
+      method: "GET" },
+    config);
+  },
+  POST: function POST(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var config = arguments.length > 2 ? arguments[2] : undefined;
+    return HTTP({
+      url: url,
+      data: data,
+      method: "POST" },
+    config);
+  },
+
+  POSTformdata: function POSTformdata(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var config = arguments.length > 2 ? arguments[2] : undefined;
+    return HTTP({
+      url: url,
+      data: data,
+      method: "POST" },
+    config);
+  } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+/* 16 */
+/*!***********************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/config/index.config.js ***!
+  \***********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var CONFIG = {
+  //开发环境配置
+  development: {
+    loginTitleTxt: "it小龙", // 登录页标题
+    copyrightTxt: "柜机1.0", // 版本信息
+    assetsPath: "https://xj.itxiaolong.cn/img", // 静态资源路径
+    baseUrl: "https://xj.itxiaolong.cn/api",
+    tokenKey: "WECHAT_TRADE", // 登录标识
+    testOpenId: "oEjRxwy7jL9PgG0kWeb4VcDTZEas", // 小程序测试openId
+    forcedLogin: false, // touristMode游客模式下APP是否强制用户登录 场景：当用户进入登录页面后无法后退。
+    touristMode: true // APP是否开启游客模式， 游客模式true开启：APP打开后可以进入首页和无权限的页面，游客模式false关闭：APP打开后首先需要登录才能进入， 此时forcedLogin配置项失效。
+  },
+
+  //生产环境配置
+  production: {
+    loginTitleTxt: "it小龙", // 登录页标题
+    copyrightTxt: "柜机1.0", // 版本信息
+    assetsPath: "/static/img", // 静态资源路径
+    baseUrl: "https://xj.itxiaolong.cn/api",
+    tokenKey: "WECHAT_TRADE", // 登录标识
+    testOpenId: "oEjRxwy7jL9PgG0kWeb4VcDTZEas", // 小程序测试openId
+    forcedLogin: false, // touristMode游客模式下APP是否强制用户登录 场景：当用户进入登录页面后无法后退。
+    touristMode: true // APP是否开启游客模式， 游客模式true开启：APP打开后可以进入首页和无权限的页面，游客模式false关闭：APP打开后首先需要登录才能进入， 此时forcedLogin配置项失效。
+  } };var _default =
+
+
+CONFIG["development"];exports.default = _default;
+
+/***/ }),
+/* 17 */
+/*!***********************************************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fgoodlist%2Fgoodlist"} ***!
+  \***********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
+
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
+var _goodlist = _interopRequireDefault(__webpack_require__(/*! ./pages/goodlist/goodlist.vue */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+createPage(_goodlist.default);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
+
+/***/ }),
+/* 18 */,
+/* 19 */,
+/* 20 */,
+/* 21 */,
+/* 22 */,
+/* 23 */,
+/* 24 */,
+/* 25 */
+/*!*******************************************************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fpersoncenter"} ***!
+  \*******************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
+
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
+var _personcenter = _interopRequireDefault(__webpack_require__(/*! ./pages/personcenter/personcenter.vue */ 26));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+createPage(_personcenter.default);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
+
+/***/ }),
+/* 26 */,
+/* 27 */,
+/* 28 */,
 /* 29 */,
 /* 30 */,
-/* 31 */
+/* 31 */,
+/* 32 */,
+/* 33 */
 /*!***************************************************************************************************!*\
   !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fauth%2Fauth"} ***!
   \***************************************************************************************************/
@@ -8637,19 +8639,19 @@ if (hadRuntime) {
 /* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
 
 var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _auth = _interopRequireDefault(__webpack_require__(/*! ./pages/auth/auth.vue */ 32));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+var _auth = _interopRequireDefault(__webpack_require__(/*! ./pages/auth/auth.vue */ 34));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 createPage(_auth.default);
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
 
 /***/ }),
-/* 32 */,
-/* 33 */,
 /* 34 */,
 /* 35 */,
 /* 36 */,
 /* 37 */,
 /* 38 */,
-/* 39 */
+/* 39 */,
+/* 40 */,
+/* 41 */
 /*!****************************************************************************************************************************!*\
   !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Forderlist%2Forderlist"} ***!
   \****************************************************************************************************************************/
@@ -8660,8 +8662,31 @@ createPage(_auth.default);
 /* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
 
 var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _orderlist = _interopRequireDefault(__webpack_require__(/*! ./pages/personcenter/orderlist/orderlist.vue */ 40));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+var _orderlist = _interopRequireDefault(__webpack_require__(/*! ./pages/personcenter/orderlist/orderlist.vue */ 42));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 createPage(_orderlist.default);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
+
+/***/ }),
+/* 42 */,
+/* 43 */,
+/* 44 */,
+/* 45 */,
+/* 46 */,
+/* 47 */,
+/* 48 */,
+/* 49 */
+/*!*****************************************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Findex%2Findex"} ***!
+  \*****************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
+
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
+var _index = _interopRequireDefault(__webpack_require__(/*! ./pages/index/index.vue */ 50));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+createPage(_index.default);
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
 
 /***/ })

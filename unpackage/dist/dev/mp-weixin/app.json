@@ -1,9 +1,10 @@
 {
   "pages": [
-    "pages/index/index",
+    "pages/goodlist/goodlist",
     "pages/personcenter/personcenter",
     "pages/auth/auth",
-    "pages/personcenter/orderlist/orderlist"
+    "pages/personcenter/orderlist/orderlist",
+    "pages/index/index"
   ],
   "subPackages": [],
   "window": {
