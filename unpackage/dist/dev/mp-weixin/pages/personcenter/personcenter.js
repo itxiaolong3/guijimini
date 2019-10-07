@@ -138,10 +138,43 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
     return {
+      //个人信息,
+      user: {
+        username: '游客1002',
+        face: '../../static/img/my.png',
+        signature: '点击昵称跳转登录/注册页',
+        integral: 0,
+        balance: 0,
+        envelope: 0 },
+
       userinfo: [],
 
 
@@ -159,13 +192,13 @@ var _default =
 
       severList: [
       [
-      { name: '库存管理', icon: 'skv.png' },
+      // {name:'我要充值',icon:'skv.png'},
       { name: '售后申请', icon: 'sellafter.png' },
       { name: '我要上货', icon: 'upgood.png' },
       { name: '反馈意见', icon: 'comment.png' }],
 
       [
-      { name: '历史记录', icon: 'history.png' },
+      // {name:'历史记录',icon:'history.png'},
       { name: '联系客服', icon: 'kefu.png' },
       { name: '关于平台', icon: 'about.png' }]] };
 

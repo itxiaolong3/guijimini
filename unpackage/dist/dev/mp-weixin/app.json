@@ -1,10 +1,12 @@
 {
   "pages": [
-    "pages/goodlist/goodlist",
+    "pages/index/index",
     "pages/personcenter/personcenter",
     "pages/auth/auth",
     "pages/personcenter/orderlist/orderlist",
-    "pages/index/index"
+    "pages/goodlist/goodlist",
+    "pages/advdetail/advdetail",
+    "pages/xieyi/xieyi"
   ],
   "subPackages": [],
   "window": {

@@ -11,7 +11,7 @@
 						</view>
 				</view>
 			</view>
-			<view class="setting"><image src="../../static/HM-PersonalCenter/setting.png"></image></view>
+			<!-- <view class="setting"><image src="../../static/HM-PersonalCenter/setting.png"></image></view> -->
 		</view>
 		<view class="orders">
 			<view class="box">
@@ -21,6 +21,30 @@
 				</view>
 			</view>
 		</view> 
+		<view class="balance-info">
+			<view class="left">
+				<!-- <view class="box">
+					<view class="num">{{user.integral}}</view>
+					<view class="text">积分</view>
+				</view> -->
+				<view class="box">
+					<view class="num">{{user.envelope}}</view>
+					<view class="text">优惠券</view>
+				</view>
+				<view class="box">
+					<view class="num">{{user.balance}}</view>
+					<view class="text">余额</view>
+				</view>
+			</view>
+			<view class="right">
+				<view class="box" @tap="toDeposit">
+					<view class="img">
+						<view class="icon chongzhi"><image src="../../static/img/addmoney.png"></image></view>
+					</view>
+					<view class="text">充值</view>
+				</view>
+			</view>
+		</view>
 		<view class="list" v-for="(list,list_i) in severList" :key="list_i">
 			<view class="li" v-for="(li,li_i) in list" @tap="toPage(list_i,li_i)" v-bind:class="{'noborder':li_i==list.length-1}"  hover-class="hover" :key="li.name" >
 				<view class="icon"><image :src="'../../static/HM-PersonalCenter/sever/'+li.icon"></image></view>
@@ -35,6 +59,15 @@
 	export default {
 		data() {
 			return {
+				//个人信息,
+				user:{
+					username:'游客1002',
+					face:'../../static/img/my.png',
+					signature:'点击昵称跳转登录/注册页',
+					integral:0,
+					balance:0,
+					envelope:0
+				},
 				userinfo:[],
 				//#ifdef APP-PLUS
 				isH5Plus:true,
@@ -52,13 +85,13 @@
 				],
 				severList:[
 					[
-						{name:'库存管理',icon:'skv.png'},
+						// {name:'我要充值',icon:'skv.png'},
 						{name:'售后申请',icon:'sellafter.png'},
 						{name:'我要上货',icon:'upgood.png'},
 						{name:'反馈意见',icon:'comment.png'}
 					],
 					[
-						{name:'历史记录',icon:'history.png'},
+						// {name:'历史记录',icon:'history.png'},
 						{name:'联系客服',icon:'kefu.png'},
 						{name:'关于平台',icon:'about.png'}
 					]
@@ -173,7 +206,7 @@ page{background-color:#fff}
 	}
 }
 .list{
-	width:100%;border-bottom:solid 26upx #f1f1f1;
+	width:100%;border-bottom:solid 2upx #f1f1f1;
 	.li{
 		width:92%;height:100upx;padding:0 4%;border-bottom:solid 1upx #e7e7e7;display:flex;align-items:center;
 	&.noborder{border-bottom:0}
@@ -187,8 +220,64 @@ page{background-color:#fff}
 }
 .getphoncss{
 	background: none;
-	font-size: 30upx;
-	height: 55upx;
+	font-size: 26rpx;
+	height: 40rpx;
 	color: #fff;
+	line-height: 40rpx;
+
 }
+.balance-info{
+			display: flex;
+			padding: 10upx 0;
+			box-shadow:0 0 10upx rgba(0,0,0,0.15);margin-bottom:40upx;
+			.left{
+				width: 75%;
+				display: flex;
+				.box{
+					width: 50%;
+					font-size: 28upx;
+					
+					.num{
+						width: 100%;
+						height: 50upx;
+						display: flex;
+						justify-content: center;
+						align-items: flex-end;
+						color: #f9a453;
+					}
+					.text{
+						width: 100%;
+						display: flex;
+						justify-content: center;
+						color: #3d3d3d;
+						font-size: 28upx;
+					}
+				}
+			}
+			.right{
+				border-left: solid 1upx #17e6a1;
+				width: 25%;
+				.box{
+					
+					.img{
+						width: 100%;
+						height: 50upx;
+						display: flex;
+						justify-content: center;
+						align-items: flex-end;
+						.icon{
+							font-size: 45upx;
+							color: #e78901;
+						}
+					}
+					.text{
+						width: 100%;
+						display: flex;
+						justify-content: center;
+						font-size: 28upx;
+						color: #3d3d3d;
+					}
+				}
+			}
+		}
 </style>

@@ -1,51 +1,68 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*每个页面公共css */
+image {
+  display: block;
+  width: 48rpx;
+  height: 48rpx;
+}
+.df {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+.bgja {
+  background-image: -webkit-gradient(linear, right top, left top, from(#008001), to(#008001));
+  background-image: -o-linear-gradient(right, #008001, #008001);
+  background-image: linear-gradient(right, #008001, #008001);
+  background-image: -webkit-linear-gradient(right, #008001, #008001);
+}
+.zdTabBar {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 20;
+  background: #ffffff;
+}
+.zdTabBar .ul {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+.zdTabBar .ul .li {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  padding-top: 5px;
+  position: relative;
+}
+.zdTabBar .ul .li .img {
+  width: 25px;
+  height: 25px;
+  overflow: hidden;
+  margin: 0 auto;
+}
+.zdTabBar .ul .li .ic {
+  width: 50px;
+  height: 50px;
+  background-image: -webkit-gradient(linear, right top, left top, from(#008001), to(#008001));
+  background-image: -o-linear-gradient(right, #008001, #008001);
+  background-image: linear-gradient(right, #008001, #008001);
+  background-image: -webkit-linear-gradient(right, #008001, #008001);
+  border-radius: 50%;
+  text-align: center;
+  font-size: 20px;
+  line-height: 50px;
+  font-weight: bold;
+  color: #ffffff;
+  margin: -20px auto 5px;
+}
+.zdTabBar .ul .li .p {
+  margin-top: 2px;
+  text-align: center;
+  font-size: 10px;
+  line-height: 18px;
+  margin-bottom: 2px;
+}
 

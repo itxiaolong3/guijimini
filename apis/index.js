@@ -17,5 +17,15 @@ export const getsingparm = (data) => http.POST(`${config.baseUrl}/index/getsingp
 export const ismmsign = (data) => http.POST(`${config.baseUrl}/index/ismmsign`, data);
 //保存签约协议ID
 export const savesingres = (data) => http.POST(`${config.baseUrl}/index/savesingres`, data);
+//轮播图列表
+export const bannerlist = (data) => http.POST(`${config.baseUrl}/minapi/bannerlist`, data);
+//广告
+export const getadv = (data) => http.POST(`${config.baseUrl}/minapi/getadv`, data);
+//用户协议
+export const xieyi = (data) => http.POST(`${config.baseUrl}/minapi/xieyi`, data);
+//获取短信验证码
+export const sendsms = (data) => http.POST(`${config.baseUrl}/minapi/sendsmsnew`, data);
+//注册手机号
+export const regphone = (data) => http.POST(`${config.baseUrl}/minapi/regphonenew`, data);
 
 

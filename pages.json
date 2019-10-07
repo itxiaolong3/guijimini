@@ -1,7 +1,7 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-			"path": "pages/goodlist/goodlist",
+			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "首页"
 			}
@@ -19,8 +19,16 @@
             "style" : {"navigationBarTitleText": "订单列表"}
         }
         ,{
-            "path" : "pages/index/index",
+            "path" : "pages/goodlist/goodlist",
             "style" : {"navigationBarTitleText": "已开锁"}
+        }
+        ,{
+            "path" : "pages/advdetail/advdetail",
+            "style" : {"navigationBarTitleText": "内容详细"}
+        }
+        ,{
+            "path" : "pages/xieyi/xieyi",
+            "style" : {"navigationBarTitleText": "协议内容"}
         }
     ],
 	"permission": {
