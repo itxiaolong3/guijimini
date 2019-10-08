@@ -178,13 +178,28 @@
 				let t=this;
 				console.log(info,'是否签约')
 				if(info.data){
-					uni.scanCode({
-						success:function(e){
-							console.log(e,'扫码成功返回')
-						},fail:function(e){
-							console.log(e,'扫码失败返回')
-						}
-					})
+					
+					uni.showModal({
+					    title: '温馨提示',
+					    content: '测试模式跳过真正扫柜开柜',
+						confirmText:'知道了',
+					    success: function (res) {
+					        if (res.confirm) {
+					          uni.navigateTo(
+					          {url:"../../pages/goodlist/goodlist?productNumber="+0}
+					          )  
+					        } else if (res.cancel) {
+					            console.log('用户点击取消');
+					        }
+					    }
+					});
+					// uni.scanCode({
+					// 	success:function(e){
+					// 		console.log(e,'扫码成功返回')
+					// 	},fail:function(e){
+					// 		console.log(e,'扫码失败返回')
+					// 	}
+					// })
 				}else{
 					//还没签约
 					uni.showModal({

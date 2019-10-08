@@ -25,7 +25,7 @@
 			<cover-image class="person" src="../../static/hch-position/person.png" @click="gotoupersoncenter()"></cover-image>
 			<cover-view class="doqrcode">
 				<button class="getphone" v-if="!userinfo.phone"  open-type="getPhoneNumber" @getphonenumber="scanCode">扫&nbsp;一&nbsp;扫</button>
-				<span v-if="userinfo.phone" @click="scanCode()">扫&nbsp;一&nbsp;扫</span>
+				<button class="getphone" v-if="userinfo.phone"  @click="scanCode">扫&nbsp;一&nbsp;扫</button>
 				</cover-view>
         </view>
     </view>
@@ -89,9 +89,11 @@ export default {
 			controls:[
 				
 			],
-			userinfo:[]
+			userinfo:[],
+			extra_data:{}
         }
     },
+	
     methods: {
 		async getapiinfo(code){
 			let info= await this.$apis.chencklogin({code:code});
@@ -106,6 +108,7 @@ export default {
 				console.log(this.userinfo,'已登录')
 			}
 		},
+		//更新个人信息
 		async openidtogetinfo(openid){
 			let info= await this.$apis.openidtogetinfo({openid:openid});
 			this.userinfo=info.data;
@@ -126,12 +129,53 @@ export default {
 			let getopenid=uni.getStorageSync('openid');
 			this.savaphone(getopenid,info.data.phoneNumber);
 		},
+		//获取签约参数
+		async getsingparm(){
+			let info= await this.$apis.getsingparm();
+			let t=this;
+			uni.showLoading({
+			    title: '跳转中...'
+			});
+			if(info.code==1){
+				console.log(info.data,'返回参数')
+				console.log(info.data.appid,'返回appid')
+				console.log(info.data.sign,'返回sign')
+				console.log(info.data.mch_id,'返回mch_id')
+				console.log(info.data.timestamp,'返回timestamp')
+				uni.hideLoading();
+				this.extra_data=info.data
+				//console.log(this.extra_data,'传参数')
+				uni.navigateToMiniProgram({
+				  appId: 'wxbd687630cd02ce1d',
+				  path: 'pages/index/index',
+				  extraData:{
+					  "appid":info.data.appid,
+					  "mch_id":info.data.mch_id,
+					  "notify_url":info.data.notify_url,
+					  "contract_code":info.data.contract_code,
+					  "contract_display_account":info.data.contract_display_account,
+					  "plan_id":info.data.plan_id,
+					  "request_serial":info.data.request_serial,
+					  "timestamp":info.data.timestamp,
+					  "sign":info.data.sign
+				  },
+				  success(res) {
+				    // 打开成功
+					console.log(res,'打开成功')
+				  },
+				  fail(res){
+					  console.log(res,'打开失败')
+				  }
+				})
+			}
+		},
 		//是否已签约
 		async ismmsign(){
 			let getopenid=uni.getStorageSync('openid');
 			let info= await this.$apis.ismmsign({openid:getopenid});
-			Console.log(info,'是否签约')
-			if(info.code){
+			let t=this;
+			console.log(info,'是否签约')
+			if(info.data){
 				uni.scanCode({
 					success:function(e){
 						console.log(e,'扫码成功返回')
@@ -144,9 +188,10 @@ export default {
 				uni.showModal({
 				    title: '温馨提示',
 				    content: '请完成完成微信免密支付签约',
+					confirmText:'去签约',
 				    success: function (res) {
 				        if (res.confirm) {
-				            console.log('用户点击确定');
+				            t.getsingparm()
 				        } else if (res.cancel) {
 				            console.log('用户点击取消');
 				        }
@@ -164,9 +209,17 @@ export default {
 						t.getphone(ee.code,e.detail.iv,e.detail.encryptedData)
 					}
 				})
+				console.log('没手机号')
 				console.log(e,'返回信息')
 			}else{
-				t.ismmsign();
+				t.ismmsign()
+				// uni.scanCode({
+				// 	success:function(e){
+				// 		console.log(e,'扫码成功返回')
+				// 	},fail:function(e){
+				// 		console.log(e,'扫码失败返回')
+				// 	}
+				// })
 			}
 		
 		},
@@ -389,7 +442,7 @@ export default {
 	.doqrcode{
 		text-align: center;
 		position:absolute;
-		line-height:140upx;
+		line-height:150upx;
 		font-weight: bold;
 		z-index:2;
 		font-size: 50upx;
@@ -398,16 +451,18 @@ export default {
 		width: 100%;
 		height: 140upx;
 		background-color: #333333;
-		color: #fff;
 		.getphone{
 			position:absolute;
 			z-index:3;
 			left: 0;
 			bottom:0;
 			width: 100%;
-			height: 100%;
+			line-height:150upx;
+			height: 140upx;
+			font-size: 50upx;
 			background-color: #333333;
 			color: #fff;
+			font-weight: bold;
 		}
 	}
 </style>

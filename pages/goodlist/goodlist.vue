@@ -11,7 +11,29 @@
                 <!-- <text class="uni-product-tip">{{product.tip}}</text> -->
             </view>
         </view>
-		<uni-popup ref="popup" type="bottom">底部弹出 Popup</uni-popup>
+		<uni-popup ref="popup" type="bottom" :maskClick="maskclose">
+			<view class="tip">您已选购商品如下：一共消费：100元</view>
+			<view class="choosegood">
+				<view class="choosegoodimg">
+					<image  class="uni-product-image" src="../../static/img/goods/p3.jpg"></image>
+				</view>
+				<view class="desc">
+					<view>商品名称</view>
+					<view class="price">零售价：10元/斤</view>
+				</view>
+				<view>数量：x1</view>
+			</view>
+			<view class="choosegood">
+				<view class="choosegoodimg">
+					<image  class="uni-product-image" src="../../static/img/goods/p4.jpg"></image>
+				</view>
+				<view class="desc">
+					<view>商品名称2</view>
+					<view class="price">零售价：12元/斤</view>
+				</view>
+				<view>数量：x1</view>
+			</view>
+		</uni-popup>
     </view>
 </template>
 
@@ -20,6 +42,7 @@
     export default {
         data() {
             return {
+				maskclose:false,
                 title: 'product-list',
                 productList: [],
                 renderImage: false
@@ -77,7 +100,8 @@
 				this.$refs.popup.open()
 			}
         },
-        onLoad() {
+        onLoad(option) {
+			console.log(option.productNumber,'传过来')
             this.loadData();
             setTimeout(() => {
                 this.renderImage = true;
@@ -166,4 +190,25 @@
         padding: 0 10upx;
         border-radius: 5upx;
     }
+	.tip{
+		color: #008001;
+		margin-bottom: 15rpx;
+	}
+	.choosegood{
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin: 20rpx 1px;
+	}
+	.desc{
+		margin-left: -100rpx;
+	}
+	.price{
+		color: #848484;
+		padding-top: 20rpx;
+	}
+	.choosegoodimg image{
+		width: 140rpx;
+		height: 160rpx;
+	}
 </style>

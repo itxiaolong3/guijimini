@@ -124,9 +124,32 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {
   data: function data() {
     return {
+      maskclose: false,
       title: 'product-list',
       productList: [],
       renderImage: false };
@@ -184,7 +207,8 @@ __webpack_require__.r(__webpack_exports__);
       this.$refs.popup.open();
     } },
 
-  onLoad: function onLoad() {var _this2 = this;
+  onLoad: function onLoad(option) {var _this2 = this;
+    console.log(option.productNumber, '传过来');
     this.loadData();
     setTimeout(function () {
       _this2.renderImage = true;

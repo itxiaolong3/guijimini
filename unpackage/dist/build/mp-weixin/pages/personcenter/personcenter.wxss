@@ -205,7 +205,7 @@ page {
 }
 .list {
   width: 100%;
-  border-bottom: solid 26rpx #f1f1f1;
+  border-bottom: solid 2rpx #f1f1f1;
 }
 .list .li {
     width: 92%;
@@ -246,5 +246,100 @@ page {
               flex-shrink: 0;
       width: 40rpx;
       height: 40rpx;
+}
+.getphoncss {
+  background: none;
+  font-size: 26rpx;
+  height: 40rpx;
+  color: #fff;
+  line-height: 40rpx;
+}
+.balance-info {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 10rpx 0;
+  -webkit-box-shadow: 0 0 10rpx rgba(0, 0, 0, 0.15);
+          box-shadow: 0 0 10rpx rgba(0, 0, 0, 0.15);
+  margin-bottom: 40rpx;
+}
+.balance-info .left {
+    width: 75%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+.balance-info .left .box {
+      width: 50%;
+      font-size: 28rpx;
+}
+.balance-info .left .box .num {
+        width: 100%;
+        height: 50rpx;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        -webkit-box-align: end;
+        -webkit-align-items: flex-end;
+            -ms-flex-align: end;
+                align-items: flex-end;
+        color: #f9a453;
+}
+.balance-info .left .box .text {
+        width: 100%;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        color: #3d3d3d;
+        font-size: 28rpx;
+}
+.balance-info .right {
+    border-left: solid 1rpx #17e6a1;
+    width: 25%;
+}
+.balance-info .right .box .img {
+      width: 100%;
+      height: 50rpx;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+      -webkit-box-align: end;
+      -webkit-align-items: flex-end;
+          -ms-flex-align: end;
+              align-items: flex-end;
+}
+.balance-info .right .box .img .icon {
+        font-size: 45rpx;
+        color: #e78901;
+}
+.balance-info .right .box .text {
+      width: 100%;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+      font-size: 28rpx;
+      color: #3d3d3d;
 }
 

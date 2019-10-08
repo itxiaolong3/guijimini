@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "已开锁",
+  "usingComponents": {
+    "uni-popup": "/components/uni-popup/uni-popup"
+  }
+}

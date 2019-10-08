@@ -79,6 +79,12 @@ __webpack_require__.r(__webpack_exports__);
 
   onShow: function onShow(res) {
     console.log(res, 'app中显示');
+    if (res.query.productNumber) {
+      console.log(res.query.productNumber, '不为空');
+      // uni.reLaunch(
+      // {url:"../../pages/goodlist/goodlist?productNumber="+res.query.productNumber}
+      // )
+    }
     if (res.scene === 1038) {// 场景值1038：从被打开的小程序返回
       var _res$referrerInfo = res.referrerInfo,appId = _res$referrerInfo.appId,extraData = _res$referrerInfo.extraData;
       if (appId == 'wxbd687630cd02ce1d') {// appId为wxbd687630cd02ce1d：从签约小程序跳转回来

@@ -1,6 +1,6 @@
 {
   "navigationBarTitleText": "首页",
   "usingComponents": {
-    "hch-position": "/wxcomponents/hch-position/hch-position"
+    "tab-bar": "/components/tabBar"
   }
 }

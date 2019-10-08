@@ -1,0 +1,1 @@
+<view><view class="main" style="background:#FFF;padding:20rpx;"><rich-text nodes="{{article}}"></rich-text></view></view>
