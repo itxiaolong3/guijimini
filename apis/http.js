@@ -24,7 +24,7 @@ function HTTP(obj, config) {
 			data: {},
 			dataType: "json",
 			header: {
-				"content-type": "application/json",
+				"content-type": "application/x-www-form-urlencoded",
 				"X-requested-With": "XMLHttpRequest"
 			},
 			success: (res) => {

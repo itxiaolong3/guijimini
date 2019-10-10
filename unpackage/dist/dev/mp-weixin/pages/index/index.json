@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "首页",
+  "navigationBarTitleText": "用户充值",
   "usingComponents": {
     "tab-bar": "/components/tabBar"
   }

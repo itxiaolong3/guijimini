@@ -271,6 +271,12 @@ var _default =
     //用户点击列表项
     toPage: function toPage(list_i, li_i) {
       uni.showToast({ title: this.severList[list_i][li_i].name });
+    },
+
+    toDeposit: function toDeposit() {
+      uni.navigateTo({
+        url: './deposit/deposit' });
+
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

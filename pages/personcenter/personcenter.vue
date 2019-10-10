@@ -165,6 +165,12 @@
 			toPage(list_i,li_i){
 				uni.showToast({title: this.severList[list_i][li_i].name});
 			}
+			,
+			toDeposit(){
+				uni.navigateTo({
+					url:'./deposit/deposit'
+				})
+			},
 		}
 	}
 </script>
