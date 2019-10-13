@@ -212,6 +212,10 @@ var _default =
   },
   onReady: function onReady() {
     var t = this;
+    uni.showLoading({
+      title: '加载中...',
+      mask: true });
+
     uni.login({
       success: function success(e) {
         t.getapiinfo(e.code);
@@ -227,6 +231,7 @@ var _default =
                   { url: "../../pages/auth/auth" });
 
                 } else {
+                  uni.hideLoading();
                   this.userinfo = info.data;
                   uni.setStorageSync('openid', info.data.openid);
                   console.log(this.userinfo, '已登录');

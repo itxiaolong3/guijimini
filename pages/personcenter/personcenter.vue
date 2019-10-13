@@ -105,6 +105,10 @@
 		},
 		onReady() {
 				let t=this;
+				uni.showLoading({
+					title: '加载中...',
+					mask: true
+				});
 				uni.login({
 					success:function(e){
 						t.getapiinfo(e.code)
@@ -120,6 +124,7 @@
 					{url:"../../pages/auth/auth"}
 					)
 				}else{
+					uni.hideLoading();
 					this.userinfo=info.data;
 					uni.setStorageSync('openid',info.data.openid)
 					console.log(this.userinfo,'已登录')

@@ -1,13 +1,14 @@
 {
   "pages": [
-    "pages/personcenter/deposit/deposit",
+    "pages/index/index",
     "pages/personcenter/personcenter",
     "pages/auth/auth",
     "pages/personcenter/orderlist/orderlist",
     "pages/goodlist/goodlist",
     "pages/advdetail/advdetail",
     "pages/xieyi/xieyi",
-    "pages/index/index"
+    "pages/personcenter/deposit/deposit",
+    "pages/personcenter/paysuccess/paysuccess"
   ],
   "subPackages": [],
   "window": {
@@ -24,6 +25,5 @@
   "navigateToMiniProgramAppIdList": [
     "wxbd687630cd02ce1d"
   ],
-  "usingComponents": {},
-  "sitemapLocation": "sitemap20.json"
+  "usingComponents": {}
 }

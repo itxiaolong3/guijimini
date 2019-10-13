@@ -27,5 +27,7 @@ export const xieyi = (data) => http.POST(`${config.baseUrl}/minapi/xieyi`, data)
 export const sendsms = (data) => http.POST(`${config.baseUrl}/minapi/sendsmsnew`, data);
 //注册手机号
 export const regphone = (data) => http.POST(`${config.baseUrl}/minapi/regphonenew`, data);
-
-
+//获取充值活动数据
+export const getaddmoneyact = (data) => http.POST(`${config.baseUrl}/minapi/getaddmoneyact`, data);
+//微信免密扣款
+export const dowxpay = (data) => http.POST(`${config.baseUrl}/index/dowxpay`, data);
