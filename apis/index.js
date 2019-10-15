@@ -33,3 +33,9 @@ export const getaddmoneyact = (data) => http.POST(`${config.baseUrl}/minapi/geta
 export const dowxpay = (data) => http.POST(`${config.baseUrl}/index/dowxpay`, data);
 //查询订单是否支付
 export const checkorderstate = (data) => http.POST(`${config.baseUrl}/index/checkorderstate`, data);
+//获取优惠券接口
+export const couponlist = (data) => http.POST(`${config.baseUrl}/minapi/couponlist`, data);
+//获取我的优惠券列表
+export const mycouponlist = (data) => http.POST(`${config.baseUrl}/minapi/mycouponlist`, data);
+//领取优惠券
+export const getcoupon = (data) => http.POST(`${config.baseUrl}/minapi/getcoupon`, data);

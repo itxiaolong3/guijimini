@@ -175,6 +175,10 @@
 				uni.navigateTo({url:'./coupon/coupon?phone='+this.userinfo.phone}) 
 			}
 			,
+			//点击优惠券
+			tocoupon(){
+				uni.navigateTo({url:'./coupon/coupon?phone='+this.userinfo.phone}) 
+			},
 			toDeposit(){
 				uni.navigateTo({
 					url:'./deposit/deposit'

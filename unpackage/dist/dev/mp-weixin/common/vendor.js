@@ -2991,7 +2991,7 @@ function normalizeComponent (
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.checkorderstate = exports.dowxpay = exports.getaddmoneyact = exports.regphone = exports.sendsms = exports.xieyi = exports.getadv = exports.bannerlist = exports.savesingres = exports.ismmsign = exports.getsingparm = exports.savephone = exports.getphone = exports.openidtogetinfo = exports.savainfo = exports.chencklogin = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! ./http.js */ 15));
+Object.defineProperty(exports, "__esModule", { value: true });exports.getcoupon = exports.mycouponlist = exports.couponlist = exports.checkorderstate = exports.dowxpay = exports.getaddmoneyact = exports.regphone = exports.sendsms = exports.xieyi = exports.getadv = exports.bannerlist = exports.savesingres = exports.ismmsign = exports.getsingparm = exports.savephone = exports.getphone = exports.openidtogetinfo = exports.savainfo = exports.chencklogin = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! ./http.js */ 15));
 var _indexConfig = _interopRequireDefault(__webpack_require__(/*! @/config/index.config.js */ 16));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 // 获取用户资料
@@ -3025,7 +3025,13 @@ exports.regphone = regphone;var getaddmoneyact = function getaddmoneyact(data) {
 //微信免密扣款
 exports.getaddmoneyact = getaddmoneyact;var dowxpay = function dowxpay(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/dowxpay"), data);};
 //查询订单是否支付
-exports.dowxpay = dowxpay;var checkorderstate = function checkorderstate(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/checkorderstate"), data);};exports.checkorderstate = checkorderstate;
+exports.dowxpay = dowxpay;var checkorderstate = function checkorderstate(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/checkorderstate"), data);};
+//获取优惠券接口
+exports.checkorderstate = checkorderstate;var couponlist = function couponlist(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/couponlist"), data);};
+//获取我的优惠券列表
+exports.couponlist = couponlist;var mycouponlist = function mycouponlist(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/mycouponlist"), data);};
+//领取优惠券
+exports.mycouponlist = mycouponlist;var getcoupon = function getcoupon(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/getcoupon"), data);};exports.getcoupon = getcoupon;
 
 /***/ }),
 

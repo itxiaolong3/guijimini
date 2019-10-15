@@ -1,21 +1,18 @@
 <template>
 	<view>
 		<view class="tabr" :style="{top:headerTop}">
-			<view :class="{on:typeClass=='valid'}" @tap="switchType('valid')">领取列表({{couponValidList.length}})</view><view :class="{on:typeClass=='invalid'}"  @tap="switchType('invalid')">我的卡券</view>
+			<view :class="{on:typeClass=='valid'}" @tap="switchType('valid')">待领取({{couponValidList.length}})</view><view :class="{on:typeClass=='invalid'}"  @tap="switchType('invalid')">我的优惠券({{mycouponvalidList.length}})</view>
 			<view class="border" :class="typeClass"></view>
 		</view>
 		<view class="place" ></view>
 		<view class="list">
 			<!-- 优惠券列表 -->
 			<view class="sub-list valid" :class="subState">
-				<view class="tis" v-if="couponValidList.length==0">没有数据~</view>
+				<view class="tis" v-if="couponValidList.length==0">暂无优惠券哦~</view>
 				<view class="row" v-for="(row,index) in couponValidList" :key="index" >
-					<!-- 删除按钮 -->
-					<view class="menu" @tap.stop="deleteCoupon(row.id,couponValidList)">
-						<view class="icon shanchu"></view>
-					</view>
+					
 					<!-- content -->
-					<view class="carrier" :class="[typeClass=='valid'?theIndex==index?'open':oldIndex==index?'close':'':'']" @touchstart="touchStart(index,$event)" @touchmove="touchMove(index,$event)" @touchend="touchEnd(index,$event)">
+					<view class="carrier" :class="[typeClass=='valid'?theIndex==index?'open':oldIndex==index?'close':'':'']">
 						<view class="left">
 							<view class="title">
 								{{row.title}}
@@ -26,34 +23,31 @@
 							<view class="gap-top"></view>
 							<view class="gap-bottom"></view>
 						</view>
-						<view class="right">
+						<view class="right" @click="dogetcoupon(row.id)">
 							<view class="ticket">
 								<view class="num">
 									{{row.ticket}}
 								</view>
 								<view class="unit">
-									%
+									元
 								</view>
 							</view>
 							<view class="criteria">
 								{{row.criteria}}
 							</view>
 							<view class="use">
-								领取
+								立即领取
 							</view>
 						</view>
 					</view>
 				</view>
 			</view>
 			<view class="sub-list invalid" :class="subState">
-				<view class="tis" v-if="couponinvalidList.length==0">没有数据~</view>
-				<view class="row" v-for="(row,index) in couponinvalidList" :key="index" >
-					<!-- 删除按钮 -->
-					<view class="menu" @tap.stop="deleteCoupon(row.id,couponinvalidList)">
-						<view class="icon shanchu"></view>
-					</view>
+				<view class="tis" v-if="mycouponvalidList.length==0">暂无优惠券哦~</view>
+				<view class="row" v-for="(row,index) in mycouponvalidList" :key="index" >
+					
 					<!-- content -->
-					<view class="carrier" :class="[typeClass=='invalid'?theIndex==index?'open':oldIndex==index?'close':'':'']" @touchstart="touchStart(index,$event)" @touchmove="touchMove(index,$event)" @touchend="touchEnd(index,$event)">
+					<view class="carrier" :class="[typeClass=='invalid'?theIndex==index?'open':oldIndex==index?'close':'':'']" >
 						<view class="left">
 							<view class="title">
 								{{row.title}}
@@ -61,9 +55,9 @@
 							<view class="term">
 								{{row.termStart}} ~ {{row.termEnd}}
 							</view>
-							<view class="icon shixiao">
+							<!-- <view class="icon shixiao">
 								
-							</view>
+							</view> -->
 							<view class="gap-top"></view>
 							<view class="gap-bottom"></view>
 						</view>
@@ -80,7 +74,7 @@
 								{{row.criteria}}
 							</view>
 							<view class="use">
-								去查看
+								待使用
 							</view>
 						</view>
 					</view>
@@ -97,13 +91,12 @@
 		data() {
 			return {
 				couponValidList:[
-					{id:1,title:"折扣0.5%",termStart:"2019-04-01",termEnd:"2019-05-30",ticket:"0.25",criteria:"无门槛"},
-					{id:2,title:"家用电器立减100元",termStart:"2019-04-01",termEnd:"2019-05-30",ticket:"100",criteria:"满500使用"},
-					{id:3,title:"全场立减10元",termStart:"2019-04-01",termEnd:"2019-05-30",ticket:"10",criteria:"无门槛"},
-					{id:4,title:"全场立减50元",termStart:"2019-04-01",termEnd:"2019-05-30",ticket:"50",criteria:"满1000使用"}
-					
+					{id:1,title:"购物代金券立减10元",termStart:"2019-04-01",termEnd:"2019-05-30",ticket:"10",criteria:"无门槛",type:1},
+					{id:2,title:"全柜折扣券0.3%",termStart:"2019-04-01",termEnd:"2019-05-30",ticket:"0.3%",criteria:"无门槛",type:2},
+					{id:3,title:"全场立减10元",termStart:"2019-04-01",termEnd:"2019-05-30",ticket:"10",criteria:"无门槛",type:1},
+					{id:4,title:"全场立减50元",termStart:"2019-04-01",termEnd:"2019-05-30",ticket:"50",criteria:"满1000使用",type:1}
 				],
-				couponinvalidList:[
+				mycouponvalidList:[
 					{id:1,title:"日常用品立减10元",termStart:"2019-04-01",termEnd:"2019-05-30",ticket:"10",criteria:"满50使用"},
 					{id:2,title:"家用电器立减100元",termStart:"2019-04-01",termEnd:"2019-05-30",ticket:"100",criteria:"满500使用"},
 					{id:3,title:"全场立减10元",termStart:"2019-04-01",termEnd:"2019-05-30",ticket:"10",criteria:"无门槛"},
@@ -128,8 +121,8 @@
 		    }, 1000);
 		},
 		onLoad(option) {
-			let phone = parseInt(option.phone);
-			console.log("传过来的手机号: " + phone);
+			let getphone = parseInt(option.phone);
+			console.log(getphone,'传过来的手机号')
 			//兼容H5下排序栏位置
 			// #ifdef H5
 				//定时器方式循环获取高度为止，这么写的原因是onLoad中head未必已经渲染出来。
@@ -141,9 +134,45 @@
 					}
 				},1);
 			// #endif
+			this.couponlist();
+			this.mycouponlist();
 		},
 		methods: {
+			//领取优惠券
+			dogetcoupon(id){
+				uni.showLoading({title: '领取中...'});
+				this.getcoupon(id)
+			},
+			//获取优惠券列表
+			async couponlist(){
+				let getopenid=uni.getStorageSync('openid');
+				let info= await this.$apis.couponlist({openId:getopenid});
+				this.couponValidList=info.data.couponList;
+			},
+			//获取我的优惠券
+			async mycouponlist(){
+				let getopenid=uni.getStorageSync('openid');
+				let info= await this.$apis.mycouponlist({openId:getopenid});
+				this.mycouponvalidList=info.data.couponList;
+			},
+			async getcoupon(id){
+				let getopenid=uni.getStorageSync('openid');
+				let info= await this.$apis.getcoupon({openId:getopenid,ticketId:id});
+				if(info.data.code==200){
+					uni.hideLoading();
+					uni.showToast({
+						title:'领取成功',icon:'none',duration:2000
+					})
+					this.couponlist();
+				}else{
+					uni.showToast({
+						title:'领取失败',icon:'fail',duration:1500
+					})
+				}
+			},
 			switchType(type){
+				this.couponlist();
+				this.mycouponlist();
 				if(this.typeClass==type){
 					return ;
 				}
@@ -159,72 +188,7 @@
 					this.subState = this.typeClass=='valid'?'':this.subState;
 				},200)
 			},
-			//控制左滑删除效果-begin
-			touchStart(index,event){
-				//多点触控不触发
-				if(event.touches.length>1){
-					this.isStop = true;
-					return ;
-				}
-				this.oldIndex = this.theIndex;
-				this.theIndex = null;
-				//初始坐标
-				this.initXY = [event.touches[0].pageX,event.touches[0].pageY];
-			},
-			touchMove(index,event){
-				//多点触控不触发
-				if(event.touches.length>1){
-					this.isStop = true;
-					return ;
-				}
-				let moveX = event.touches[0].pageX - this.initXY[0];
-				let moveY = event.touches[0].pageY - this.initXY[1];
-				
-				if(this.isStop||Math.abs(moveX)<5){
-					return ;
-				}
-				if (Math.abs(moveY) > Math.abs(moveX)){
-					// 竖向滑动-不触发左滑效果
-					this.isStop = true;
-					return;
-				}
-				
-				if(moveX<0){
-					this.theIndex = index;
-					this.isStop = true;
-				}else if(moveX>0){
-					if(this.theIndex!=null&&this.oldIndex==this.theIndex){
-						this.oldIndex = index;
-						this.theIndex = null;
-						this.isStop = true;
-						setTimeout(()=>{
-							this.oldIndex = null;
-						},150)
-					}
-				}
-			},
 			
-			touchEnd(index,$event){
-				//解除禁止触发状态
-				this.isStop = false;
-			},
-			
-			//删除商品
-			deleteCoupon(id,List){
-				let len = List.length;
-				for(let i=0;i<len;i++){
-					if(id==List[i].id){
-						List.splice(i, 1);
-						break;
-					}
-				}
-				this.oldIndex = null;
-				this.theIndex = null;
-			},
-			
-			discard() {
-				//丢弃
-			}
 			
 			
 		}
@@ -248,9 +212,6 @@
 		}
 		&.jian {
 			&:before{content:"\e643";}
-		}
-		&.shanchu {
-			&:before{content:"\e6a4";}
 		}
 		&.shixiao {
 			&:before{content:"\e669";}
@@ -327,6 +288,7 @@
 			height: 60upx;
 			justify-content: center;
 			align-items: center;
+			color: #C0C0C0;
 			font-size: 32upx;
 		}
 		.row{
@@ -418,9 +380,9 @@
 					color: #fff;
 					background:linear-gradient(to right,#ec625c,#ee827f);
 					&.invalid{
-						background:linear-gradient(to right,#aaa,#999);
+						background:linear-gradient(to right,#4D86C1,#5886B7);
 						.use{
-							color: #aaa;
+							color: #5886B7;
 						}
 					}
 					justify-content: center;
@@ -448,7 +410,7 @@
 						height: 40upx;
 						justify-content: center;
 						align-items: center;
-						font-size: 28upx;
+						font-size: 24upx;
 						background-color: #fff;
 						color: #ee827f;
 						border-radius: 40upx;
@@ -456,35 +418,7 @@
 					}
 				}
 			}
-			/*
-			<view class="carrier" :class="[theIndex==index?'open':oldIndex==index?'close':'']" @touchstart="touchStart(index,$event)" @touchmove="touchMove(index,$event)" @touchend="touchEnd(index,$event)">
-				<view class="left">
-					<view class="title">
-						10元日常用品类
-					</view>
-					<view class="term">
-						2019-04-01~2019-05-30
-					</view>
-				</view>
-				<view class="right">
-					<view class="ticket">
-						<view class="num">
-							10
-						</view>
-						<view class="unit">
-							元
-						</view>
-					</view>
-					<view class="criteria">
-						满50使用
-					</view>
-					<view class="use">
-						去使用
-					</view>
-				</view>
-			</view>
-			* 
-			* */
+			
 		}
 	}
 	

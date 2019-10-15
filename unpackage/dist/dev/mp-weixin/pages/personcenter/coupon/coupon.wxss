@@ -53,9 +53,6 @@ page {
 .icon.jian:before {
     content: "\E643";
 }
-.icon.shanchu:before {
-    content: "\E6A4";
-}
 .icon.shixiao:before {
     content: "\E669";
 }
@@ -186,6 +183,7 @@ page {
     -webkit-align-items: center;
         -ms-flex-align: center;
             align-items: center;
+    color: #C0C0C0;
     font-size: 32rpx;
 }
 .sub-list .row {
@@ -201,35 +199,6 @@ page {
     overflow: hidden;
     z-index: 4;
     border: 0;
-    /*
-		<view class="carrier" :class="[theIndex==index?'open':oldIndex==index?'close':'']" @touchstart="touchStart(index,$event)" @touchmove="touchMove(index,$event)" @touchend="touchEnd(index,$event)">
-			<view class="left">
-				<view class="title">
-					10元日常用品类
-				</view>
-				<view class="term">
-					2019-04-01~2019-05-30
-				</view>
-			</view>
-			<view class="right">
-				<view class="ticket">
-					<view class="num">
-						10
-					</view>
-					<view class="unit">
-						元
-					</view>
-				</view>
-				<view class="criteria">
-					满50使用
-				</view>
-				<view class="use">
-					去使用
-				</view>
-			</view>
-		</view>
-		* 
-		* */
 }
 .sub-list .row .menu {
       position: absolute;
@@ -363,12 +332,12 @@ page {
                 justify-content: center;
 }
 .sub-list .row .carrier .right.invalid {
-          background: -webkit-gradient(linear, left top, right top, from(#aaa), to(#999));
-          background: -o-linear-gradient(left, #aaa, #999);
-          background: linear-gradient(to right, #aaa, #999);
+          background: -webkit-gradient(linear, left top, right top, from(#4D86C1), to(#5886B7));
+          background: -o-linear-gradient(left, #4D86C1, #5886B7);
+          background: linear-gradient(to right, #4D86C1, #5886B7);
 }
 .sub-list .row .carrier .right.invalid .use {
-            color: #aaa;
+            color: #5886B7;
 }
 .sub-list .row .carrier .right .ticket, .sub-list .row .carrier .right .criteria {
           width: 100%;
@@ -410,7 +379,7 @@ page {
           -webkit-align-items: center;
               -ms-flex-align: center;
                   align-items: center;
-          font-size: 28rpx;
+          font-size: 24rpx;
           background-color: #fff;
           color: #ee827f;
           border-radius: 40rpx;
