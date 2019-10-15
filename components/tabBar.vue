@@ -218,11 +218,21 @@
 			},
 			goto(e){
 				console.log(e,'选中')
+				let getphone=uni.getStorageSync('phone')
 				if(e==1){
-					uni.navigateTo({url:'../../pages/personcenter/orderlist/orderlist?tbIndex=0'})
+					if(this.userinfo.phone==null||this.userinfo.phone==''){
+						if(getphone==null||getphone==''){
+							this.$refs.popup.open()
+						}else{
+							uni.navigateTo({url:'../../pages/personcenter/orderlist/orderlist?tbIndex=0'})
+						}
+						
+					}else{
+						uni.navigateTo({url:'../../pages/personcenter/orderlist/orderlist?tbIndex=0'})
+					}
+					
 				}else if(e==2){
 					//先判断是否手机号注册
-					let getphone=uni.getStorageSync('phone')
 					console.log(getphone,'getphone')
 					if(this.userinfo.phone==null||this.userinfo.phone==''){
 						if(getphone==null||getphone==''){
@@ -236,9 +246,17 @@
 					}
 					
 				}else if(e==3){
-					uni.navigateTo({
-						url:'../../pages/personcenter/personcenter'
-					})
+					if(this.userinfo.phone==null||this.userinfo.phone==''){
+						if(getphone==null||getphone==''){
+							this.$refs.popup.open()
+						}else{
+							uni.navigateTo({url:'../../pages/personcenter/personcenter'})
+						}
+						
+					}else{
+						uni.navigateTo({url:'../../pages/personcenter/personcenter'})
+					}
+					
 				}
 			},
 			getsmscode: function() {

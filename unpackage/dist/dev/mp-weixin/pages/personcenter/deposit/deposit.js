@@ -123,7 +123,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 8));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var uniPopup = function uniPopup() {return __webpack_require__.e(/*! import() | components/uni-popup/uni-popup */ "components/uni-popup/uni-popup").then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 96));};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 8));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var uniPopup = function uniPopup() {return __webpack_require__.e(/*! import() | components/uni-popup/uni-popup */ "components/uni-popup/uni-popup").then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 104));};var _default =
 
 
 
@@ -244,7 +244,8 @@ __webpack_require__.r(__webpack_exports__);
       paytype: 'alipay', //支付类型，
       userinfo: [],
       seleteindex: -1, //选中赠送列表下标
-      gitmoney: '0' };
+      gitmoney: '0',
+      ispay: 0 };
 
   },
   components: { uniPopup: uniPopup },
@@ -364,24 +365,51 @@ __webpack_require__.r(__webpack_exports__);
 
 
     //支付
-    dopay: function () {var _dopay = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee5(openid, total_fee, gifnum) {var _this = this;var info;return _regenerator.default.wrap(function _callee5$(_context5) {while (1) {switch (_context5.prev = _context5.next) {case 0:
+    dopay: function () {var _dopay = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee5(openid, total_fee, gifnum) {var _this = this;var info, t;return _regenerator.default.wrap(function _callee5$(_context5) {while (1) {switch (_context5.prev = _context5.next) {case 0:
                 console.log('openid=' + openid + 'totalfee=' + total_fee + 'gifnum=' + gifnum, '提交的数据');_context5.next = 3;return (
                   this.$apis.dowxpay({ openid: openid, total_fee: total_fee, gifnum: gifnum }));case 3:info = _context5.sent;
                 uni.showLoading({
                   title: '支付中...' });
 
+                t = this;
                 if (info.code == 1) {
-                  uni.hideLoading();
-                  uni.showToast({
-                    title: '支付成功' });
-
                   setTimeout(function () {
-                    uni.redirectTo({
-                      url: '../../personcenter/paysuccess/paysuccess?amount=' + _this.inputAmount });
+                    _this.checkorderstate(openid, info.data);
+                    console.log(t.ispay, '是否支付');
+                    if (t.ispay == "1") {
+                      console.log(t.ispay, '走支付成功');
+                      uni.hideLoading();
+                      uni.showToast({
+                        title: '支付成功' });
 
-                  }, 300);
-                }case 6:case "end":return _context5.stop();}}}, _callee5, this);}));function dopay(_x2, _x3, _x4) {return _dopay.apply(this, arguments);}return dopay;}(),
+                      uni.redirectTo({
+                        url: '../../personcenter/paysuccess/paysuccess?amount=' + _this.inputAmount });
 
+                    } else {
+                      console.log('走支付失败');
+                      uni.hideLoading();
+                      uni.showToast({ title: '支付异常，请检查微信余额是否充足', duration: 1500, icon: 'none' });
+                    }
+                  }, 2500);
+
+                } else {
+                  console.log('走支付流程失败');
+                  uni.hideLoading();
+                  uni.showToast({ title: info.msg, duration: 1500, icon: 'none' });
+                }case 7:case "end":return _context5.stop();}}}, _callee5, this);}));function dopay(_x2, _x3, _x4) {return _dopay.apply(this, arguments);}return dopay;}(),
+
+
+    //根据订单号查询是否真的支付成功
+    checkorderstate: function () {var _checkorderstate = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee6(openid, out_trade_no) {var info, t;return _regenerator.default.wrap(function _callee6$(_context6) {while (1) {switch (_context6.prev = _context6.next) {case 0:_context6.next = 2;return (
+                  this.$apis.checkorderstate({ openid: openid, out_trade_no: out_trade_no }));case 2:info = _context6.sent;
+                t = this;
+                console.log(info.data, '检查支付返回');
+                if (info.data == '1') {
+                  t.ispay = '1';
+                } else {
+                  t.ispay = "0";
+                }
+                console.log(t.ispay, 't.ispay');case 7:case "end":return _context6.stop();}}}, _callee6, this);}));function checkorderstate(_x5, _x6) {return _checkorderstate.apply(this, arguments);}return checkorderstate;}(),
 
     select: function select(amount, index) {
       this.inputAmount = amount;

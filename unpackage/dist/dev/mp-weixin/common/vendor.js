@@ -2232,7 +2232,7 @@ uni$1;exports.default = _default;
 
 /***/ }),
 
-/***/ 108:
+/***/ 116:
 /*!*************************************************************************************************!*\
   !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/components/u-parse/libs/html2json.js ***!
   \*************************************************************************************************/
@@ -2254,8 +2254,8 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
-var _wxDiscode = _interopRequireDefault(__webpack_require__(/*! ./wxDiscode */ 109));
-var _htmlparser = _interopRequireDefault(__webpack_require__(/*! ./htmlparser */ 110));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} /**
+var _wxDiscode = _interopRequireDefault(__webpack_require__(/*! ./wxDiscode */ 117));
+var _htmlparser = _interopRequireDefault(__webpack_require__(/*! ./htmlparser */ 118));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} /**
                                                                                                                                                                  * html2Json 改造来自: https://github.com/Jxck/html2json
                                                                                                                                                                  *
                                                                                                                                                                  *
@@ -2504,7 +2504,7 @@ html2json;exports.default = _default;
 
 /***/ }),
 
-/***/ 109:
+/***/ 117:
 /*!*************************************************************************************************!*\
   !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/components/u-parse/libs/wxDiscode.js ***!
   \*************************************************************************************************/
@@ -2709,7 +2709,7 @@ function urlToHttpUrl(url, domain) {
 
 /***/ }),
 
-/***/ 110:
+/***/ 118:
 /*!**************************************************************************************************!*\
   !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/components/u-parse/libs/htmlparser.js ***!
   \**************************************************************************************************/
@@ -2991,7 +2991,7 @@ function normalizeComponent (
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.dowxpay = exports.getaddmoneyact = exports.regphone = exports.sendsms = exports.xieyi = exports.getadv = exports.bannerlist = exports.savesingres = exports.ismmsign = exports.getsingparm = exports.savephone = exports.getphone = exports.openidtogetinfo = exports.savainfo = exports.chencklogin = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! ./http.js */ 15));
+Object.defineProperty(exports, "__esModule", { value: true });exports.checkorderstate = exports.dowxpay = exports.getaddmoneyact = exports.regphone = exports.sendsms = exports.xieyi = exports.getadv = exports.bannerlist = exports.savesingres = exports.ismmsign = exports.getsingparm = exports.savephone = exports.getphone = exports.openidtogetinfo = exports.savainfo = exports.chencklogin = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! ./http.js */ 15));
 var _indexConfig = _interopRequireDefault(__webpack_require__(/*! @/config/index.config.js */ 16));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 // 获取用户资料
@@ -3023,7 +3023,9 @@ exports.sendsms = sendsms;var regphone = function regphone(data) {return _http.d
 //获取充值活动数据
 exports.regphone = regphone;var getaddmoneyact = function getaddmoneyact(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/getaddmoneyact"), data);};
 //微信免密扣款
-exports.getaddmoneyact = getaddmoneyact;var dowxpay = function dowxpay(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/dowxpay"), data);};exports.dowxpay = dowxpay;
+exports.getaddmoneyact = getaddmoneyact;var dowxpay = function dowxpay(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/dowxpay"), data);};
+//查询订单是否支付
+exports.dowxpay = dowxpay;var checkorderstate = function checkorderstate(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/checkorderstate"), data);};exports.checkorderstate = checkorderstate;
 
 /***/ }),
 
@@ -9349,6 +9351,23 @@ module.exports = __webpack_require__(/*! regenerator-runtime */ 9);
 var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
 var _paysuccess = _interopRequireDefault(__webpack_require__(/*! ./pages/personcenter/paysuccess/paysuccess.vue */ 82));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 createPage(_paysuccess.default);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
+
+/***/ }),
+
+/***/ 89:
+/*!**********************************************************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fcoupon%2Fcoupon"} ***!
+  \**********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
+
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
+var _coupon = _interopRequireDefault(__webpack_require__(/*! ./pages/personcenter/coupon/coupon.vue */ 90));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+createPage(_coupon.default);
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
 
 /***/ }),

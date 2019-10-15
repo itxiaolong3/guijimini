@@ -8,7 +8,8 @@
     "pages/advdetail/advdetail",
     "pages/xieyi/xieyi",
     "pages/personcenter/deposit/deposit",
-    "pages/personcenter/paysuccess/paysuccess"
+    "pages/personcenter/paysuccess/paysuccess",
+    "pages/personcenter/coupon/coupon"
   ],
   "subPackages": [],
   "window": {

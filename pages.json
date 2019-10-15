@@ -36,7 +36,11 @@
         }
         ,{
             "path" : "pages/personcenter/paysuccess/paysuccess",
-            "style" : {}
+            "style" : {"navigationBarTitleText": "支付成功"}
+        }
+        ,{
+            "path" : "pages/personcenter/coupon/coupon",
+            "style" : {"navigationBarTitleText": "优惠卡券"}
         }
     ],
 	"permission": {

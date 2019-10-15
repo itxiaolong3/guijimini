@@ -119,7 +119,8 @@
 				paytype:'alipay',//支付类型，
 				userinfo:[],
 				seleteindex:-1,//选中赠送列表下标
-				gitmoney:'0'
+				gitmoney:'0',
+				ispay:0
 			};
 		},
 		components: {uniPopup},
@@ -245,18 +246,45 @@
 				uni.showLoading({
 					title:'支付中...'
 				});
+				let t=this;
 				if(info.code==1){
-					uni.hideLoading();
-					uni.showToast({
-						title:'支付成功'
-					});
 					setTimeout(()=>{
-						uni.redirectTo({
-							url:'../../personcenter/paysuccess/paysuccess?amount='+this.inputAmount
-						});
-					},300);
+						this.checkorderstate(openid,info.data);
+						console.log(t.ispay,'是否支付')
+						if(t.ispay=="1"){
+							console.log(t.ispay,'走支付成功')
+								uni.hideLoading();
+							uni.showToast({
+								title:'支付成功'
+							});
+							uni.redirectTo({
+								url:'../../personcenter/paysuccess/paysuccess?amount='+this.inputAmount
+							});
+						}else{
+							console.log('走支付失败')
+							uni.hideLoading();
+							uni.showToast({title:'支付异常，请检查微信余额是否充足',duration:1500,icon:'none'});
+						}
+					},2500);
+					
+				}else{
+					console.log('走支付流程失败')
+					uni.hideLoading();
+					uni.showToast({title:info.msg,duration:1500,icon:'none'});
 				}
 				
+			},
+			//根据订单号查询是否真的支付成功
+			async checkorderstate(openid,out_trade_no){
+				let info= await this.$apis.checkorderstate({openid:openid,out_trade_no:out_trade_no});
+				let t=this;
+				console.log(info.data,'检查支付返回')
+				if(info.data=='1'){
+					t.ispay='1';
+				}else{
+					t.ispay="0";
+				}
+				console.log(t.ispay,'t.ispay')
 			},
 			select(amount,index){
 				this.inputAmount = amount;
