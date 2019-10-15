@@ -245,7 +245,10 @@ __webpack_require__.r(__webpack_exports__);
       userinfo: [],
       seleteindex: -1, //选中赠送列表下标
       gitmoney: '0',
-      ispay: 0 };
+      ispay: 0,
+      waitpayTime: 7,
+      btstatus: false,
+      timerId: null };
 
   },
   components: { uniPopup: uniPopup },
@@ -327,11 +330,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
     //是否签约
-    ismmsign: function () {var _ismmsign = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4() {var getopenid, info, t;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:
+    ismmsign: function () {var _ismmsign = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4() {var getopenid, info, t, aa, getindex;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:
                 getopenid = uni.getStorageSync('openid');_context4.next = 3;return (
                   this.$apis.ismmsign({ openid: getopenid }));case 3:info = _context4.sent;
                 t = this;if (!
-                info.data) {_context4.next = 17;break;}if (!(
+                info.data) {_context4.next = 21;break;}if (!(
                 parseFloat(this.inputAmount).toString() == "NaN")) {_context4.next = 9;break;}
                 uni.showToast({ title: '请输入正确金额', icon: 'none' });return _context4.abrupt("return");case 9:
 
@@ -348,7 +351,22 @@ __webpack_require__.r(__webpack_exports__);
                   this.gitmoney = parseFloat(this.giftamountList[this.seleteindex]).toString();
                   console.log(this.gitmoney, '有优惠券金额');
                 }
-                this.$refs.popup.open();_context4.next = 18;break;case 17:
+                //找到指定元素在数组中的位置
+                Array.prototype.indexVf = function (arr) {
+                  for (var i = 0; i < this.length; i++) {
+                    if (this[i] == arr) {
+                      return i;
+                    }
+
+                  }
+                };
+
+                aa = this.amountList;
+                getindex = aa.indexVf(this.inputAmount); //得到1在aa中的下标0
+                if (this.giftamountList.length > 0) {
+                  this.gitmoney = this.giftamountList[getindex];
+                }
+                this.$refs.popup.open();_context4.next = 22;break;case 21:
 
 
                 //还没签约
@@ -360,7 +378,7 @@ __webpack_require__.r(__webpack_exports__);
                     if (res.confirm) {
                       t.getsingparm();
                     }
-                  } });case 18:case "end":return _context4.stop();}}}, _callee4, this);}));function ismmsign() {return _ismmsign.apply(this, arguments);}return ismmsign;}(),
+                  } });case 22:case "end":return _context4.stop();}}}, _callee4, this);}));function ismmsign() {return _ismmsign.apply(this, arguments);}return ismmsign;}(),
 
 
 
@@ -373,27 +391,39 @@ __webpack_require__.r(__webpack_exports__);
 
                 t = this;
                 if (info.code == 1) {
-                  setTimeout(function () {
-                    _this.checkorderstate(openid, info.data);
-                    console.log(t.ispay, '是否支付');
-                    if (t.ispay == "1") {
-                      console.log(t.ispay, '走支付成功');
-                      uni.hideLoading();
-                      uni.showToast({
-                        title: '支付成功' });
+                  console.log(t.ispay, '是否支付');
+                  this.timerId = setInterval(function () {
+                    t.checkorderstate(openid, info.data);
+                    setTimeout(function () {
+                      if (t.ispay == 1) {
+                        clearInterval(t.timerId);
+                        console.log(t.ispay, '走支付成功');
+                        uni.showToast({
+                          title: '支付成功' });
 
-                      uni.redirectTo({
-                        url: '../../personcenter/paysuccess/paysuccess?amount=' + _this.inputAmount });
+                        uni.hideLoading();
+                        uni.redirectTo({
+                          url: '../../personcenter/paysuccess/paysuccess?amount=' + _this.inputAmount });
 
-                    } else {
-                      console.log('走支付失败');
+
+                      }
+                    }, 200);
+                    var watitime = _this.waitpayTime;
+                    watitime--;
+                    _this.waitpayTime = watitime;
+                    if (watitime < 1) {
+                      clearInterval(_this.timerId);
+                      t.waitpayTime = 7;
                       uni.hideLoading();
                       uni.showToast({ title: '支付异常，请检查微信余额是否充足', duration: 1500, icon: 'none' });
+                      t.btstatu = false;
                     }
-                  }, 2500);
+                    console.log('请求支付结果' + watitime);
+                  }, 400);
 
                 } else {
                   console.log('走支付流程失败');
+                  t.btstatu = false;
                   uni.hideLoading();
                   uni.showToast({ title: info.msg, duration: 1500, icon: 'none' });
                 }case 7:case "end":return _context5.stop();}}}, _callee5, this);}));function dopay(_x2, _x3, _x4) {return _dopay.apply(this, arguments);}return dopay;}(),
@@ -404,10 +434,10 @@ __webpack_require__.r(__webpack_exports__);
                   this.$apis.checkorderstate({ openid: openid, out_trade_no: out_trade_no }));case 2:info = _context6.sent;
                 t = this;
                 console.log(info.data, '检查支付返回');
-                if (info.data == '1') {
-                  t.ispay = '1';
+                if (info.data == 1) {
+                  t.ispay = 1;
                 } else {
-                  t.ispay = "0";
+                  t.ispay = 0;
                 }
                 console.log(t.ispay, 't.ispay');case 7:case "end":return _context6.stop();}}}, _callee6, this);}));function checkorderstate(_x5, _x6) {return _checkorderstate.apply(this, arguments);}return checkorderstate;}(),
 
@@ -422,26 +452,16 @@ __webpack_require__.r(__webpack_exports__);
       this.ismmsign();
     },
     doclose: function doclose() {
+      this.btstatus = false;
       this.$refs.popup.close();
     },
     doaddmoney: function doaddmoney() {
-      //找到指定元素在数组中的位置
-      Array.prototype.indexVf = function (arr) {
-        for (var i = 0; i < this.length; i++) {
-          if (this[i] == arr) {
-            return i;
-          }
-
-        }
-      };
-
-      var aa = this.amountList;
-      var getindex = aa.indexVf(this.inputAmount); //得到1在aa中的下标0
+      if (this.btstatus == true) {
+        return false;
+      }
+      this.btstatus = true;
       var getmoney = this.inputAmount;
       var getgifmoney = this.gitmoney;
-      if (this.giftamountList.length > 0) {
-        getgifmoney = this.giftamountList[getindex];
-      }
       var openid = uni.getStorageSync('openid');
       //调起微信/支付宝
       this.dopay(openid, getmoney, getgifmoney);
