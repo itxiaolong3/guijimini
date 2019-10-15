@@ -2991,7 +2991,7 @@ function normalizeComponent (
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.dowxpay = exports.getaddmoneyact = exports.regphone = exports.sendsms = exports.xieyi = exports.getadv = exports.bannerlist = exports.savesingres = exports.ismmsign = exports.getsingparm = exports.savephone = exports.getphone = exports.openidtogetinfo = exports.savainfo = exports.chencklogin = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! ./http.js */ 15));
+Object.defineProperty(exports, "__esModule", { value: true });exports.getcoupon = exports.mycouponlist = exports.couponlist = exports.dowxpay = exports.getaddmoneyact = exports.regphone = exports.sendsms = exports.xieyi = exports.getadv = exports.bannerlist = exports.savesingres = exports.ismmsign = exports.getsingparm = exports.savephone = exports.getphone = exports.openidtogetinfo = exports.savainfo = exports.chencklogin = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! ./http.js */ 15));
 var _indexConfig = _interopRequireDefault(__webpack_require__(/*! @/config/index.config.js */ 16));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 // 获取用户资料
@@ -3023,7 +3023,13 @@ exports.sendsms = sendsms;var regphone = function regphone(data) {return _http.d
 //获取充值活动数据
 exports.regphone = regphone;var getaddmoneyact = function getaddmoneyact(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/getaddmoneyact"), data);};
 //微信免密扣款
-exports.getaddmoneyact = getaddmoneyact;var dowxpay = function dowxpay(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/dowxpay"), data);};exports.dowxpay = dowxpay;
+exports.getaddmoneyact = getaddmoneyact;var dowxpay = function dowxpay(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/dowxpay"), data);};
+//获取优惠券接口
+exports.dowxpay = dowxpay;var couponlist = function couponlist(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/couponlist"), data);};
+//获取我的优惠券列表
+exports.couponlist = couponlist;var mycouponlist = function mycouponlist(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/mycouponlist"), data);};
+//领取优惠券
+exports.mycouponlist = mycouponlist;var getcoupon = function getcoupon(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/getcoupon"), data);};exports.getcoupon = getcoupon;
 
 /***/ }),
 
@@ -3209,6 +3215,23 @@ CONFIG["development"];exports.default = _default;
 var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
 var _index = _interopRequireDefault(__webpack_require__(/*! ./pages/index/index.vue */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 createPage(_index.default);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
+
+/***/ }),
+
+/***/ 198:
+/*!*****************************************************************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fcoupon%2Fcoupon"} ***!
+  \*****************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
+
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
+var _coupon = _interopRequireDefault(__webpack_require__(/*! ./pages/personcenter/coupon/coupon.vue */ 199));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+createPage(_coupon.default);
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
 
 /***/ }),

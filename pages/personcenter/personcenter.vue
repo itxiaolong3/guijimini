@@ -27,7 +27,7 @@
 					<view class="num">{{user.integral}}</view>
 					<view class="text">积分</view>
 				</view> -->
-				<view class="box">
+				<view class="box" @click="tocoupon">
 					<view class="num">{{user.envelope}}</view>
 					<view class="text">优惠券</view>
 				</view>
@@ -171,6 +171,10 @@
 				uni.showToast({title: this.severList[list_i][li_i].name});
 			}
 			,
+			//点击优惠券
+			tocoupon(){
+				uni.navigateTo({url:'./coupon/coupon?phone='+this.userinfo.phone}) 
+			},
 			toDeposit(){
 				uni.navigateTo({
 					url:'./deposit/deposit'

@@ -380,6 +380,9 @@ __webpack_require__.r(__webpack_exports__);
                       url: '../../personcenter/paysuccess/paysuccess?amount=' + _this.inputAmount });
 
                   }, 300);
+                } else {
+                  uni.hideLoading();
+                  uni.showToast({ title: '支付失败:' + info.msg, duration: 1500, icon: 'none' });
                 }case 6:case "end":return _context5.stop();}}}, _callee5, this);}));function dopay(_x2, _x3, _x4) {return _dopay.apply(this, arguments);}return dopay;}(),
 
 

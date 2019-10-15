@@ -255,6 +255,9 @@
 							url:'../../personcenter/paysuccess/paysuccess?amount='+this.inputAmount
 						});
 					},300);
+				}else{
+					uni.hideLoading();
+					uni.showToast({title:'支付失败:'+info.msg,duration:1500,icon:'none'});
 				}
 				
 			},

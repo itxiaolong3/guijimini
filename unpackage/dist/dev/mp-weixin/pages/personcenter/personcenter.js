@@ -278,6 +278,10 @@ var _default =
       uni.showToast({ title: this.severList[list_i][li_i].name });
     },
 
+    //点击优惠券
+    tocoupon: function tocoupon() {
+      uni.navigateTo({ url: './coupon/coupon?phone=' + this.userinfo.phone });
+    },
     toDeposit: function toDeposit() {
       uni.navigateTo({
         url: './deposit/deposit' });
