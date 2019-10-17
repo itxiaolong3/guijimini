@@ -98,8 +98,12 @@
 		<view class="pay">
 			<view class="btn" @tap="doDeposit">立即充值</view>
 			<view class="tis">
-				点击立即充值，即代表您同意<view class="terms">
-					《条款协议》
+				点击立即充值，即代表您同意
+				<view class="terms">
+					<navigator url="../../../pages/xieyi/xieyi?type=1">
+						《条款协议》
+					</navigator>
+					
 				</view>
 			</view>
 		</view>

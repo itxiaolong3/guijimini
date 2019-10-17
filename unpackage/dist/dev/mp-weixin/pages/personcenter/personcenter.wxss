@@ -273,7 +273,7 @@ page {
 }
 .balance-info .left .box {
       width: 50%;
-      font-size: 28rpx;
+      font-size: 35rpx;
 }
 .balance-info .left .box .num {
         width: 100%;

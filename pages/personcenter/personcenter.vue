@@ -28,11 +28,13 @@
 					<view class="text">积分</view>
 				</view> -->
 				<view class="box" @click="tocoupon">
-					<view class="num">{{user.envelope}}</view>
+					<view class="num">
+						<view class="icon"><image src="../../static/img/coupon.png"></image></view>
+					</view>
 					<view class="text">优惠券</view>
 				</view>
 				<view class="box">
-					<view class="num">{{user.balance}}</view>
+					<view class="num">{{userinfo.money}}</view>
 					<view class="text">余额</view>
 				</view>
 			</view>
@@ -77,10 +79,10 @@
 				//#endif
 				orderTypeLise:[
 					//name-标题 icon-图标 badge-角标
-					{name:'全部订单',icon:'l4.png',badge:19},
-					{name:'待付款',icon:'l1.png',badge:1},
-					{name:'待发货',icon:'l2.png',badge:2},
-					{name:'待收货',icon:'l3.png',badge:6},
+					{name:'全部订单',icon:'l4.png',badge:0},
+					{name:'待付款',icon:'l1.png',badge:0},
+					{name:'待发货',icon:'l2.png',badge:0},
+					{name:'待收货',icon:'l3.png',badge:0},
 					{name:'售后订单',icon:'l5.png',badge:0}
 				],
 				severList:[
@@ -254,7 +256,7 @@ page{background-color:#fff}
 				display: flex;
 				.box{
 					width: 50%;
-					font-size: 28upx;
+					font-size: 35upx;
 					
 					.num{
 						width: 100%;

@@ -162,6 +162,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 var _default =
 {
   data: function data() {
@@ -184,10 +186,10 @@ var _default =
 
       orderTypeLise: [
       //name-标题 icon-图标 badge-角标
-      { name: '全部订单', icon: 'l4.png', badge: 19 },
-      { name: '待付款', icon: 'l1.png', badge: 1 },
-      { name: '待发货', icon: 'l2.png', badge: 2 },
-      { name: '待收货', icon: 'l3.png', badge: 6 },
+      { name: '全部订单', icon: 'l4.png', badge: 0 },
+      { name: '待付款', icon: 'l1.png', badge: 0 },
+      { name: '待发货', icon: 'l2.png', badge: 0 },
+      { name: '待收货', icon: 'l3.png', badge: 0 },
       { name: '售后订单', icon: 'l5.png', badge: 0 }],
 
       severList: [
