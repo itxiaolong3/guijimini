@@ -121,6 +121,18 @@
 				let info= await this.$apis.openidtogetinfo({openid:openid});
 				this.userinfo=info.data;
 			},
+			//开柜
+			async opendoor(openid,sn){
+				let info= await this.$apis.opendoor({openid:openid,sn:sn});
+				console.log(info.data,'开柜返回')
+				if(info.code){
+					//uni.setStorageSync('ordernum',info.data.ordernum)
+					uni.setStorageSync('sn',sn)
+					uni.reLaunch({
+						url:"../../pages/goodlist/goodlist?productNumber="+sn
+					})
+				}
+			},
 			async savaphone(openid,phone){
 				this.$apis.savephone({openid:openid,phone:phone});
 				this.openidtogetinfo(openid)
@@ -179,27 +191,36 @@
 				console.log(info,'是否签约')
 				if(info.data){
 					
-					uni.showModal({
-					    title: '温馨提示',
-					    content: '测试模式跳过真正扫柜开柜',
-						confirmText:'知道了',
-					    success: function (res) {
-					        if (res.confirm) {
-					          uni.navigateTo(
-					          {url:"../../pages/goodlist/goodlist?productNumber="+0}
-					          )  
-					        } else if (res.cancel) {
-					            console.log('用户点击取消');
-					        }
-					    }
-					});
-					// uni.scanCode({
-					// 	success:function(e){
-					// 		console.log(e,'扫码成功返回')
-					// 	},fail:function(e){
-					// 		console.log(e,'扫码失败返回')
-					// 	}
-					// })
+					// uni.showModal({
+					//     title: '温馨提示',
+					//     content: '测试模式跳过真正扫柜开柜',
+					// 	confirmText:'知道了',
+					//     success: function (res) {
+					//         if (res.confirm) {
+					//           uni.navigateTo(
+					//           {url:"../../pages/goodlist/goodlist?productNumber="+0}
+					//           )  
+					//         } else if (res.cancel) {
+					//             console.log('用户点击取消');
+					//         }
+					//     }
+					// });
+					uni.scanCode({
+						success:function(e){
+							var getpath=e.path;
+							var arr=getpath.split('=');
+							t.opendoor(getopenid,arr[1])
+							console.log(e,'扫码成功返回')
+							
+						},fail:function(e){
+							console.log(e,'扫码失败返回')
+							uni.showToast({
+								title:'扫码失败',icon:"none"
+							})
+						},complete:function(){
+							
+						}
+					})
 				}else{
 					//还没签约
 					uni.showModal({

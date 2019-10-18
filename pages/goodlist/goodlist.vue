@@ -1,18 +1,29 @@
 <template>
     <view class="uni-product-list">
-        <view class="uni-product" v-for="(product,index) in productList" :key="index" @click="showmode">
+        <view class="uni-product" v-for="(product,index) in myproductList" :key="index" @click="showmode">
             <view class="image-view">
-                <image v-if="renderImage" class="uni-product-image" :src="product.image"></image>
+                <image v-if="renderImage" class="uni-product-image" :src="product.productImg"></image>
             </view>
-            <view class="uni-product-title">{{product.title}}</view>
+            <view class="uni-product-title">{{product.productName}}</view>
             <view class="uni-product-price">
                 <text>单价</text>
-                <text class="uni-product-price-original">￥{{product.favourPrice}}</text>
+                <text class="uni-product-price-original">￥{{product.productPrice}}</text>
                 <!-- <text class="uni-product-tip">{{product.tip}}</text> -->
             </view>
         </view>
+		<view class="list">
+			<view class="onorder" v-if="myproductList.length==0">
+				<image src="../../static/img/noorder.png"></image>
+				<view class="text">
+					该柜机没商品
+				</view>
+				<view class="back">
+					<view class="btn" @tap="toIndex">返回首页</view>
+				</view>
+			</view>
+		</view>
 		<uni-popup ref="popup" type="bottom" :maskClick="maskclose">
-			<view class="tip">您已选购商品如下：一共消费：100元</view>
+			<view class="tip">您已选购商品如下：一共：{{allmoney}}元</view>
 			<view class="choosegood">
 				<view class="choosegoodimg">
 					<image  class="uni-product-image" src="../../static/img/goods/p3.jpg"></image>
@@ -45,7 +56,10 @@
 				maskclose:false,
                 title: 'product-list',
                 productList: [],
-                renderImage: false
+                myproductList: [],
+                userproductList: [],
+                renderImage: false,
+				allmoney:0
             };
         },
 		components: {uniPopup},
@@ -98,29 +112,70 @@
             },
 			showmode(){
 				this.$refs.popup.open()
+			},
+			//获取柜机商品
+			async getallgood(sn){
+				let info= await this.$apis.getallgood({sn:sn});
+				console.log(info.data,'返回商品')
+				this.myproductList=info.data;
+			},
+			//用户所拿商品
+			async getgood(orderId){
+				let info= await this.$apis.getgood({orderId:orderId});
+				console.log(info.data,'返回用户商品')
+				if(info.data.data.products.length>0){
+					this.$refs.popup.open()
+				}
+				this.userproductList=info.data.data.products;
+				this.totalmoney(info.data.data.products)
+			},
+			toIndex() {
+				uni.reLaunch({
+					url:'../../pages/index/index'
+				})
+			},
+			//计算价格
+			totalmoney(data){
+				var selectArr = data;   //已选择的商品
+				    var totalPrice = 0;
+				    if(selectArr.length){  //如果存在商品就计算价格
+				      for(var i=0;i<selectArr.length;i++){
+				        totalPrice += selectArr[i].number * selectArr[i].price;
+				      }
+				      totalPrice = totalPrice.toFixed(2);  //乘法有点问题, 需要保留一下小数
+				      console.log("计算价格:",totalPrice)
+				      this.allmoney=totalPrice;
+				    } else{  //不存在商品就把总价格置为 0
+				      this.allmoney=0;
+				    }
 			}
         },
         onLoad(option) {
 			console.log(option.productNumber,'传过来')
-            this.loadData();
+			this.getallgood(option.productNumber)
+            //this.loadData();
             setTimeout(() => {
                 this.renderImage = true;
             }, 300);
+			let orderId=uni.getStorageSync('ordernum');
+			this.getgood(orderId);
+			
         },
-        onPullDownRefresh() {
-            this.loadData('refresh');
-            // 实际开发中通常是网络请求，加载完数据后就停止。这里仅做演示，加延迟为了体现出效果。
-            setTimeout(() => {
-                uni.stopPullDownRefresh();
-            }, 2000);
-        },
-        onReachBottom() {
-            this.loadData();
-        }
+		
+        // onPullDownRefresh() {
+        //     this.loadData('refresh');
+        //     // 实际开发中通常是网络请求，加载完数据后就停止。这里仅做演示，加延迟为了体现出效果。
+        //     setTimeout(() => {
+        //         uni.stopPullDownRefresh();
+        //     }, 2000);
+        // },
+        // onReachBottom() {
+        //     this.loadData();
+        // }
     };
 </script>
 
-<style>
+<style lang="scss">
     /* product */
     page {
         background: #F8F8F8;
@@ -210,5 +265,46 @@
 	.choosegoodimg image{
 		width: 140rpx;
 		height: 160rpx;
+	}
+	.list{
+		width: 90%;
+		margin: 0 auto;
+		.onorder{
+			width: 100%;
+			height: 50vw;
+			display: flex;
+			justify-content: center;
+			align-content: center;
+			flex-wrap: wrap;
+			image{
+				width: 20vw;
+				height: 20vw;
+				border-radius: 100%;
+			}
+			.text{
+				width: 100%;
+				height: 60upx;
+				font-size: 28upx;
+				color: #444;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+		}
+	}
+	.back{
+		width: 50%;
+		margin:0 auto;
+		.btn{
+			padding: 0 50upx;
+			height: 70upx;
+			display: flex;
+			justify-content: center;
+			border: solid 2upx #f06c7a;
+			color: #f06c7a;
+			align-items: center;
+			border-radius: 10upx;
+			font-size: 34upx;
+		}
 	}
 </style>

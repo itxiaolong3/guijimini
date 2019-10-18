@@ -39,3 +39,10 @@ export const couponlist = (data) => http.POST(`${config.baseUrl}/minapi/couponli
 export const mycouponlist = (data) => http.POST(`${config.baseUrl}/minapi/mycouponlist`, data);
 //领取优惠券
 export const getcoupon = (data) => http.POST(`${config.baseUrl}/minapi/getcoupon`, data);
+//开柜
+export const opendoor = (data) => http.POST(`${config.baseUrl}/minapi/opendoor`, data);
+//获取柜机所有商品
+export const getallgood = (data) => http.POST(`${config.baseUrl}/minapi/getallgood`, data);
+//获取用户所拿商品
+export const getgood = (data) => http.POST(`${config.baseUrl}/minapi/getgood`, data);
+
