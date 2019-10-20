@@ -152,8 +152,9 @@ __webpack_require__.r(__webpack_exports__);
                   this.$apis.opendoor({ openid: openid, sn: sn }));case 2:info = _context3.sent;
                 console.log(info.data, '开柜返回');
                 if (info.code) {
-                  //uni.setStorageSync('ordernum',info.data.ordernum)
+                  uni.setStorageSync('ordernum', info.data.ordernum);
                   uni.setStorageSync('sn', sn);
+                  console.log('已开');
                   uni.reLaunch({
                     url: "../../pages/goodlist/goodlist?productNumber=" + sn });
 
@@ -216,6 +217,8 @@ __webpack_require__.r(__webpack_exports__);
                 t = this;
                 console.log(info, '是否签约');
                 if (info.data) {
+                  uni.showLoading({
+                    title: '操作中...' });
 
                   // uni.showModal({
                   //     title: '温馨提示',
@@ -240,9 +243,10 @@ __webpack_require__.r(__webpack_exports__);
 
                     }, fail: function fail(e) {
                       console.log(e, '扫码失败返回');
-                      uni.showToast({
-                        title: '扫码失败', icon: "none" });
-
+                      uni.hideLoading();
+                      // uni.showToast({
+                      // 	title:'扫码失败',icon:"none"
+                      // })
                     }, complete: function complete() {
 
                     } });

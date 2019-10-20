@@ -1,6 +1,6 @@
 <template>
     <view class="uni-product-list">
-        <view class="uni-product" v-for="(product,index) in myproductList" :key="index" @click="showmode">
+        <view class="uni-product" v-for="(product,index) in myproductList" :key="index">
             <view class="image-view">
                 <image v-if="renderImage" class="uni-product-image" :src="product.productImg"></image>
             </view>
@@ -24,17 +24,17 @@
 		</view>
 		<uni-popup ref="popup" type="bottom" :maskClick="maskclose">
 			<view class="tip">您已选购商品如下：一共：{{allmoney}}元</view>
-			<view class="choosegood">
+			<view class="choosegood" v-for="(product,index) in userproductList" :key="index">
 				<view class="choosegoodimg">
-					<image  class="uni-product-image" src="../../static/img/goods/p3.jpg"></image>
+					<image  class="uni-product-image" :src="product.image"></image>
 				</view>
 				<view class="desc">
-					<view>商品名称</view>
-					<view class="price">零售价：10元/斤</view>
+					<view>{{product.name}}</view>
+					<view class="price">零售价：{{product.price}}元</view>
 				</view>
-				<view>数量：x1</view>
+				<view>数量：x{{product.number}}</view>
 			</view>
-			<view class="choosegood">
+			<!-- <view class="choosegood">
 				<view class="choosegoodimg">
 					<image  class="uni-product-image" src="../../static/img/goods/p4.jpg"></image>
 				</view>
@@ -43,7 +43,7 @@
 					<view class="price">零售价：12元/斤</view>
 				</view>
 				<view>数量：x1</view>
-			</view>
+			</view> -->
 		</uni-popup>
     </view>
 </template>
@@ -59,7 +59,9 @@
                 myproductList: [],
                 userproductList: [],
                 renderImage: false,
-				allmoney:0
+				allmoney:0,
+				timerId: null,
+				reqTime:3600
             };
         },
 		components: {uniPopup},
@@ -113,6 +115,9 @@
 			showmode(){
 				this.$refs.popup.open()
 			},
+			hiddenmode(){
+				this.$refs.popup.close()
+			},
 			//获取柜机商品
 			async getallgood(sn){
 				let info= await this.$apis.getallgood({sn:sn});
@@ -124,7 +129,14 @@
 				let info= await this.$apis.getgood({orderId:orderId});
 				console.log(info.data,'返回用户商品')
 				if(info.data.data.products.length>0){
-					this.$refs.popup.open()
+					this.showmode()
+				}
+				if(info.data.data.close){
+					this.hiddenmode()
+					uni.showToast({
+						title:'已关门'
+					})
+					clearInterval(this.timerId);
 				}
 				this.userproductList=info.data.data.products;
 				this.totalmoney(info.data.data.products)
@@ -158,7 +170,21 @@
                 this.renderImage = true;
             }, 300);
 			let orderId=uni.getStorageSync('ordernum');
-			this.getgood(orderId);
+			this.timerId = setInterval(() => {
+					var reqTime = this.reqTime;
+					reqTime--;
+					this.reqTime = reqTime;
+					if (reqTime < 1) {
+						clearInterval(this.timerId);
+						uni.reLaunch({
+							url:'../../../pages/index/index'
+						})
+						//30分种后不关就报估计异常
+					}
+					this.getgood(orderId);
+				},
+				500);
+			
 			
         },
 		

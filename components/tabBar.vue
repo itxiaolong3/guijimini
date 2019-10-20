@@ -126,8 +126,9 @@
 				let info= await this.$apis.opendoor({openid:openid,sn:sn});
 				console.log(info.data,'开柜返回')
 				if(info.code){
-					//uni.setStorageSync('ordernum',info.data.ordernum)
+					uni.setStorageSync('ordernum',info.data.ordernum)
 					uni.setStorageSync('sn',sn)
+					console.log('已开')
 					uni.reLaunch({
 						url:"../../pages/goodlist/goodlist?productNumber="+sn
 					})
@@ -190,7 +191,9 @@
 				let t=this;
 				console.log(info,'是否签约')
 				if(info.data){
-					
+					uni.showLoading({
+						title:'操作中...'
+					})
 					// uni.showModal({
 					//     title: '温馨提示',
 					//     content: '测试模式跳过真正扫柜开柜',
@@ -214,9 +217,10 @@
 							
 						},fail:function(e){
 							console.log(e,'扫码失败返回')
-							uni.showToast({
-								title:'扫码失败',icon:"none"
-							})
+							uni.hideLoading()
+							// uni.showToast({
+							// 	title:'扫码失败',icon:"none"
+							// })
 						},complete:function(){
 							
 						}

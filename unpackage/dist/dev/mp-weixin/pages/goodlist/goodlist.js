@@ -166,7 +166,9 @@ __webpack_require__.r(__webpack_exports__);
       myproductList: [],
       userproductList: [],
       renderImage: false,
-      allmoney: 0 };
+      allmoney: 0,
+      timerId: null,
+      reqTime: 3600 };
 
   },
   components: { uniPopup: uniPopup },
@@ -220,6 +222,9 @@ __webpack_require__.r(__webpack_exports__);
     showmode: function showmode() {
       this.$refs.popup.open();
     },
+    hiddenmode: function hiddenmode() {
+      this.$refs.popup.close();
+    },
     //获取柜机商品
     getallgood: function () {var _getallgood = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(sn) {var info;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
                   this.$apis.getallgood({ sn: sn }));case 2:info = _context.sent;
@@ -231,10 +236,17 @@ __webpack_require__.r(__webpack_exports__);
                   this.$apis.getgood({ orderId: orderId }));case 2:info = _context2.sent;
                 console.log(info.data, '返回用户商品');
                 if (info.data.data.products.length > 0) {
-                  this.$refs.popup.open();
+                  this.showmode();
+                }
+                if (info.data.data.close) {
+                  this.hiddenmode();
+                  uni.showToast({
+                    title: '已关门' });
+
+                  clearInterval(this.timerId);
                 }
                 this.userproductList = info.data.data.products;
-                this.totalmoney(info.data.data.products);case 7:case "end":return _context2.stop();}}}, _callee2, this);}));function getgood(_x2) {return _getgood.apply(this, arguments);}return getgood;}(),
+                this.totalmoney(info.data.data.products);case 8:case "end":return _context2.stop();}}}, _callee2, this);}));function getgood(_x2) {return _getgood.apply(this, arguments);}return getgood;}(),
 
     toIndex: function toIndex() {
       uni.reLaunch({
@@ -265,7 +277,21 @@ __webpack_require__.r(__webpack_exports__);
       _this2.renderImage = true;
     }, 300);
     var orderId = uni.getStorageSync('ordernum');
-    this.getgood(orderId);
+    this.timerId = setInterval(function () {
+      var reqTime = _this2.reqTime;
+      reqTime--;
+      _this2.reqTime = reqTime;
+      if (reqTime < 1) {
+        clearInterval(_this2.timerId);
+        uni.reLaunch({
+          url: '../../../pages/index/index' });
+
+        //30分种后不关就报估计异常
+      }
+      _this2.getgood(orderId);
+    },
+    500);
+
 
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
