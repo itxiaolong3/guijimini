@@ -1,7 +1,7 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-			"path": "pages/index/index",
+			"path": "pages/goodlist/goodlist",
 			"style": {
 				"navigationBarTitleText": "首页"
 			}
@@ -19,7 +19,7 @@
             "style" : {"navigationBarTitleText": "订单列表"}
         }
         ,{
-            "path" : "pages/goodlist/goodlist",
+            "path" : "pages/index/index",
             "style" : {"navigationBarTitleText": "已开锁"}
         }
         ,{

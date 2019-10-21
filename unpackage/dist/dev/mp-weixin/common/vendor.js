@@ -3211,9 +3211,9 @@ CONFIG["development"];exports.default = _default;
 /***/ }),
 
 /***/ 17:
-/*!*****************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Findex%2Findex"} ***!
-  \*****************************************************************************************************/
+/*!***********************************************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fgoodlist%2Fgoodlist"} ***!
+  \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3221,8 +3221,8 @@ CONFIG["development"];exports.default = _default;
 /* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
 
 var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _index = _interopRequireDefault(__webpack_require__(/*! ./pages/index/index.vue */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-createPage(_index.default);
+var _goodlist = _interopRequireDefault(__webpack_require__(/*! ./pages/goodlist/goodlist.vue */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+createPage(_goodlist.default);
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
 
 /***/ }),
@@ -9271,9 +9271,9 @@ createPage(_orderlist.default);
 /***/ }),
 
 /***/ 49:
-/*!***********************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fgoodlist%2Fgoodlist"} ***!
-  \***********************************************************************************************************/
+/*!*****************************************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Findex%2Findex"} ***!
+  \*****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9281,8 +9281,8 @@ createPage(_orderlist.default);
 /* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
 
 var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _goodlist = _interopRequireDefault(__webpack_require__(/*! ./pages/goodlist/goodlist.vue */ 50));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-createPage(_goodlist.default);
+var _index = _interopRequireDefault(__webpack_require__(/*! ./pages/index/index.vue */ 50));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+createPage(_index.default);
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
 
 /***/ }),

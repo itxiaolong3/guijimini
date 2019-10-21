@@ -1,10 +1,10 @@
 {
   "pages": [
-    "pages/index/index",
+    "pages/goodlist/goodlist",
     "pages/personcenter/personcenter",
     "pages/auth/auth",
     "pages/personcenter/orderlist/orderlist",
-    "pages/goodlist/goodlist",
+    "pages/index/index",
     "pages/advdetail/advdetail",
     "pages/xieyi/xieyi",
     "pages/personcenter/deposit/deposit",

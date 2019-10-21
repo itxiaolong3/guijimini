@@ -45,6 +45,19 @@
 				<view>数量：x1</view>
 			</view> -->
 		</uni-popup>
+		<uni-popup ref="popups" type="bottom" :maskClick="couponmask">
+			<view class="tip">请选中其中一张优惠卡<view class="dosure" @click="postcoupon">确定</view></view>
+			
+			<view class="coupon-item" v-for="(item,index) in list" :key="index">
+				<view class="coupon-money">
+					<view class="nick">{{item.title}}</view>
+					<view class="layof" :style="{color:theme}">{{item.ticket}}</view>
+					<view class="end_time">{{item.termEnd}}前使用</view>
+				</view>
+				<view class="get-btn" v-if="item.state" :style="{color:color.default, borderColor:color.default, background:solid.default}" @click="docheck(index)">已选</view>
+				<view class="get-btn" v-if="!item.state" :style="{color:color, borderColor:color, background:solid}" @click="docheck(index)">选择使用</view>
+			</view>
+		</uni-popup>
     </view>
 </template>
 
@@ -54,6 +67,7 @@
         data() {
             return {
 				maskclose:false,
+				couponmask:false,
                 title: 'product-list',
                 productList: [],
                 myproductList: [],
@@ -61,11 +75,62 @@
                 renderImage: false,
 				allmoney:0,
 				timerId: null,
-				reqTime:3600
+				reqTime:3600,
+				types:{
+					type: String,
+					default: ''
+				},
+				color:{
+					type: String,
+					default: '#878ea3'
+				},
+				list: [
+					{id:1,title:"日常用品立减10元",termStart:"2019-04-01",termEnd:"2019-05-30",ticket:"10",criteria:"满50使用",state:0},
+					]
             };
         },
 		components: {uniPopup},
         methods: {
+			//获取我的优惠券
+			async mycouponlist(){
+				let getopenid=uni.getStorageSync('openid');
+				let info= await this.$apis.mycouponlist({openId:getopenid});
+				this.list=info.data.couponList;
+			},
+			docheck(id){
+				console.log(id,'22')
+				this.list[id].state=!this.list[id].state;
+				for(var i=0;i<this.list.length;i++){
+					if(i!=id){
+							this.list[i].state=0;
+					}
+				}
+			},
+			postcoupon(){
+				let getcoupon=[];
+				for(var i=0;i<this.list.length;i++){
+					if(this.list[i].state){
+							getcoupon.push(this.list[i])
+					}
+				}
+				if(getcoupon.length==0){
+					uni.showModal({
+					    title: '温馨提示',
+					    content: '确定不使用任何优惠卡券吗？',
+						confirmText:'不稀罕',
+					    success: function (res) {
+					        if (res.confirm) {
+					           console.log('用户点击确定');
+					        } else if (res.cancel) {
+					            console.log('用户点击取消');
+					        }
+					    }
+					});
+				}else{
+					console.log(getcoupon,'选中的优惠券')
+				}
+				
+			},
             loadData(action = 'add') {
                 const data = [{
                         image: '../../static/img/goods/p1.jpg',
@@ -164,26 +229,28 @@
         },
         onLoad(option) {
 			console.log(option.productNumber,'传过来')
+			this.$refs.popups.open()
+			this.mycouponlist()
 			this.getallgood(option.productNumber)
             //this.loadData();
             setTimeout(() => {
                 this.renderImage = true;
             }, 300);
 			let orderId=uni.getStorageSync('ordernum');
-			this.timerId = setInterval(() => {
-					var reqTime = this.reqTime;
-					reqTime--;
-					this.reqTime = reqTime;
-					if (reqTime < 1) {
-						clearInterval(this.timerId);
-						uni.reLaunch({
-							url:'../../../pages/index/index'
-						})
-						//30分种后不关就报估计异常
-					}
-					this.getgood(orderId);
-				},
-				500);
+			// this.timerId = setInterval(() => {
+			// 		var reqTime = this.reqTime;
+			// 		reqTime--;
+			// 		this.reqTime = reqTime;
+			// 		if (reqTime < 1) {
+			// 			clearInterval(this.timerId);
+			// 			uni.reLaunch({
+			// 				url:'../../pages/index/index'
+			// 			})
+			// 			//30分种后不关就报估计异常
+			// 		}
+			// 		this.getgood(orderId);
+			// 	},
+			// 	500);
 			
 			
         },
@@ -333,4 +400,26 @@
 			font-size: 34upx;
 		}
 	}
+	.dosure{
+		position: absolute;
+		right: 25upx;
+		top: 20upx;
+	}
+	.coupon-item {
+		width:100%; height:auto; display:table; border-radius:10upx; padding:0 20upx; margin-top:22upx; border:1px solid #eeeeee; position:relative;
+		.coupon-money {
+			width:465upx; height:auto; display:table; float:left; padding:26upx 0; border-style:none dotted none none; border-color:#eeeeee;
+			
+			.nick { width:100%; height:50upx; line-height:30upx; font-size:24upx; color:#999999; }
+			.tit { width:100%; height:50upx; line-height:50upx; font-size:24upx; color:#999999; }
+			.demand { width:100%; height:30upx; line-height:30upx; font-size:24upx; color:#999999; }
+			
+			.layof { width:100%; height:48upx; line-height:30upx; font-size:44upx; color:#ff9000; font-weight:bold; }
+			.end_time { width:100%; height:30upx; line-height:30upx; font-size:24upx; color:#999999; }
+		}
+		.get-btn { width:146upx; height:52upx; line-height:50upx; position:absolute; top:50%; right:26upx; margin-top:-26upx; text-align:center; border-radius:60upx; color:#ff9000; border:1px solid #ff9000; font-size:24upx; float:right; }
+	}
+	.coupon-item:after { width:40upx; height:20upx; position:absolute; left:460upx; top:-1px; border-radius:0 0 40upx 40upx; content:""; display:block; background:#ffffff; border:1px solid #eeeeee; border-top:0px; }
+	.coupon-item:before { width:40upx; height:20upx; position:absolute; left:460upx; bottom:-1px; border-radius:40upx 40upx 0 0; content:""; display:block; background:#ffffff; border:1px solid #eeeeee; border-bottom:0px; }
+	
 </style>
