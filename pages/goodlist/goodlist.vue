@@ -74,6 +74,8 @@
                 userproductList: [],
                 renderImage: false,
 				allmoney:0,
+				getticket:'',
+				getcoupontype:'',
 				timerId: null,
 				reqTime:3600,
 				types:{
@@ -85,7 +87,7 @@
 					default: '#878ea3'
 				},
 				list: [
-					{id:1,title:"日常用品立减10元",termStart:"2019-04-01",termEnd:"2019-05-30",ticket:"10",criteria:"满50使用",state:0},
+					{id:1,title:"日常用品立减10元",termStart:"2019-04-01",termEnd:"2019-05-30",ticket:"10",criteria:"满50使用",state:0,type:0},
 					]
             };
         },
@@ -96,6 +98,11 @@
 				let getopenid=uni.getStorageSync('openid');
 				let info= await this.$apis.mycouponlist({openId:getopenid});
 				this.list=info.data.couponList;
+				if(info.data.couponList.length>0){
+					this.$refs.popups.open()
+				}else{
+					//没优惠券，直接提交订单
+				}
 			},
 			docheck(id){
 				console.log(id,'22')
@@ -107,6 +114,7 @@
 				}
 			},
 			postcoupon(){
+				let t=this;
 				let getcoupon=[];
 				for(var i=0;i<this.list.length;i++){
 					if(this.list[i].state){
@@ -121,62 +129,20 @@
 					    success: function (res) {
 					        if (res.confirm) {
 					           console.log('用户点击确定');
+							  //没选择优惠券，直接提交
 					        } else if (res.cancel) {
 					            console.log('用户点击取消');
 					        }
 					    }
 					});
 				}else{
+					t.getticket=getcoupon[0].ticket;
+					t.getcoupontype=getcoupon[0].type;
+					//有选择优惠券，提交订单
 					console.log(getcoupon,'选中的优惠券')
 				}
 				
 			},
-            loadData(action = 'add') {
-                const data = [{
-                        image: '../../static/img/goods/p1.jpg',
-                        title: 'Apple iPhone X 256GB 深空灰色 移动联通电信4G手机',
-                        originalPrice: 9999,
-                        favourPrice: 8888,
-                        tip: '自营'
-                    },
-                    {
-                        image: '../../static/img/goods/p2.jpg',
-                        title: 'Apple iPad 平板电脑 2018年新款9.7英寸',
-                        originalPrice: 3499,
-                        favourPrice: 3399,
-                        tip: '优惠'
-                    },
-                    {
-                        image: '../../static/img/goods/p3.jpg',
-                        title: 'Apple MacBook Pro 13.3英寸笔记本电脑（2017款Core i5处理器/8GB内存/256GB硬盘 MupxT2CH/A）',
-                        originalPrice: 12999,
-                        favourPrice: 10688,
-                        tip: '秒杀'
-                    },
-                    {
-                        image: '../../static/img/goods/p4.jpg',
-                        title: 'Kindle Paperwhite电纸书阅读器 电子书墨水屏 6英寸wifi 黑色',
-                        originalPrice: 999,
-                        favourPrice: 958,
-                        tip: '秒杀'
-                    },
-                    {
-                        image: '../../static/img/goods/p5.jpg',
-                        title: '微软（Microsoft）新Surface Pro 二合一平板电脑笔记本 12.3英寸（i5 8G内存 256G存储）',
-                        originalPrice: 8888,
-                        favourPrice: 8288,
-                        tip: '优惠'
-                    }
-                ];
-
-                if (action === 'refresh') {
-                    this.productList = [];
-                }
-
-                data.forEach(item => {
-                    this.productList.push(item);
-                });
-            },
 			showmode(){
 				this.$refs.popup.open()
 			},
@@ -197,16 +163,20 @@
 					this.showmode()
 				}
 				if(info.data.data.close){
-					this.hiddenmode()
+					clearInterval(this.timerId);
+					this.hiddenmode();
+					//检查是否有优惠券
+					this.mycouponlist()
 					uni.showToast({
 						title:'已关门'
 					})
-					clearInterval(this.timerId);
+					
 				}
 				this.userproductList=info.data.data.products;
 				this.totalmoney(info.data.data.products)
 			},
 			toIndex() {
+				clearInterval(this.timerId);
 				uni.reLaunch({
 					url:'../../pages/index/index'
 				})
@@ -229,42 +199,30 @@
         },
         onLoad(option) {
 			console.log(option.productNumber,'传过来')
-			this.$refs.popups.open()
-			this.mycouponlist()
+			//this.$refs.popups.open()
+			//this.mycouponlist()
 			this.getallgood(option.productNumber)
-            //this.loadData();
             setTimeout(() => {
                 this.renderImage = true;
             }, 300);
 			let orderId=uni.getStorageSync('ordernum');
-			// this.timerId = setInterval(() => {
-			// 		var reqTime = this.reqTime;
-			// 		reqTime--;
-			// 		this.reqTime = reqTime;
-			// 		if (reqTime < 1) {
-			// 			clearInterval(this.timerId);
-			// 			uni.reLaunch({
-			// 				url:'../../pages/index/index'
-			// 			})
-			// 			//30分种后不关就报估计异常
-			// 		}
-			// 		this.getgood(orderId);
-			// 	},
-			// 	500);
+			this.timerId = setInterval(() => {
+					var reqTime = this.reqTime;
+					reqTime--;
+					this.reqTime = reqTime;
+					if (reqTime < 1) {
+						clearInterval(this.timerId);
+						uni.reLaunch({
+							url:'../../pages/index/index'
+						})
+						//30分种后不关就报估计异常
+					}
+					this.getgood(orderId);
+				},
+				500);
 			
 			
-        },
-		
-        // onPullDownRefresh() {
-        //     this.loadData('refresh');
-        //     // 实际开发中通常是网络请求，加载完数据后就停止。这里仅做演示，加延迟为了体现出效果。
-        //     setTimeout(() => {
-        //         uni.stopPullDownRefresh();
-        //     }, 2000);
-        // },
-        // onReachBottom() {
-        //     this.loadData();
-        // }
+        }
     };
 </script>
 
