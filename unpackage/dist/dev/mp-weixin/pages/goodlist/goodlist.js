@@ -183,6 +183,7 @@ __webpack_require__.r(__webpack_exports__);
       allmoney: 0,
       getticket: '',
       getcoupontype: '',
+      couponid: 0,
       timerId: null,
       reqTime: 3600,
       types: {
@@ -209,6 +210,8 @@ __webpack_require__.r(__webpack_exports__);
                   this.$refs.popups.open();
                 } else {
                   //没优惠券，直接提交订单
+                  console.log(this.userproductList, '提交的商品');
+
                 }case 6:case "end":return _context.stop();}}}, _callee, this);}));function mycouponlist() {return _mycouponlist.apply(this, arguments);}return mycouponlist;}(),
 
     docheck: function docheck(id) {
@@ -236,6 +239,7 @@ __webpack_require__.r(__webpack_exports__);
           success: function success(res) {
             if (res.confirm) {
               console.log('用户点击确定');
+              console.log(this.userproductList, '提交的商品');
               //没选择优惠券，直接提交
             } else if (res.cancel) {
               console.log('用户点击取消');
@@ -245,6 +249,11 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         t.getticket = getcoupon[0].ticket;
         t.getcoupontype = getcoupon[0].type;
+        t.couponid = getcoupon[0].id;
+        console.log(this.userproductList, '提交的商品');
+        console.log(getcoupon[0].ticket, '优惠金额');
+        console.log(getcoupon[0].type, '优惠类型');
+        console.log(getcoupon[0].id, '优惠id');
         //有选择优惠券，提交订单
         console.log(getcoupon, '选中的优惠券');
       }

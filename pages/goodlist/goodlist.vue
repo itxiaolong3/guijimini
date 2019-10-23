@@ -76,6 +76,7 @@
 				allmoney:0,
 				getticket:'',
 				getcoupontype:'',
+				couponid:0,
 				timerId: null,
 				reqTime:3600,
 				types:{
@@ -102,6 +103,8 @@
 					this.$refs.popups.open()
 				}else{
 					//没优惠券，直接提交订单
+					console.log(this.userproductList,'提交的商品')
+					
 				}
 			},
 			docheck(id){
@@ -129,6 +132,7 @@
 					    success: function (res) {
 					        if (res.confirm) {
 					           console.log('用户点击确定');
+							   console.log(this.userproductList,'提交的商品')
 							  //没选择优惠券，直接提交
 					        } else if (res.cancel) {
 					            console.log('用户点击取消');
@@ -138,6 +142,11 @@
 				}else{
 					t.getticket=getcoupon[0].ticket;
 					t.getcoupontype=getcoupon[0].type;
+					t.couponid=getcoupon[0].id
+					console.log(this.userproductList,'提交的商品')
+					console.log(getcoupon[0].ticket,'优惠金额')
+					console.log(getcoupon[0].type,'优惠类型')
+					console.log(getcoupon[0].id,'优惠id')
 					//有选择优惠券，提交订单
 					console.log(getcoupon,'选中的优惠券')
 				}

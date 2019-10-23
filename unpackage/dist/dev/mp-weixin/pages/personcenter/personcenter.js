@@ -224,6 +224,14 @@ var _default =
       } });
 
   },
+  onShow: function onShow() {
+    var t = this;
+    uni.login({
+      success: function success(e) {
+        t.getapiinfo(e.code);
+      } });
+
+  },
   methods: (_methods = {
     getapiinfo: function () {var _getapiinfo = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(code) {var info, t;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
                   this.$apis.chencklogin({ code: code }));case 2:info = _context.sent;

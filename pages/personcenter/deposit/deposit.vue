@@ -125,7 +125,7 @@
 				seleteindex:-1,//选中赠送列表下标
 				gitmoney:'0',
 				ispay:0,
-				waitpayTime: 7,
+				waitpayTime: 25,
 				btstatus:false,
 				timerId: null,
 			};
@@ -292,7 +292,7 @@
 								this.waitpayTime=watitime;
 								if (watitime < 1) {
 									clearInterval(this.timerId);
-									t.waitpayTime=7;
+									t.waitpayTime=25;
 									uni.hideLoading();
 									uni.showToast({title:'支付异常，请检查微信余额是否充足',duration:1500,icon:'none'});
 									t.btstatu=false;
