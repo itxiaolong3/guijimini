@@ -68,6 +68,7 @@
             return {
 				maskclose:false,
 				couponmask:false,
+				showcan:false,
                 title: 'product-list',
                 productList: [],
                 myproductList: [],
@@ -100,10 +101,55 @@
 				let info= await this.$apis.mycouponlist({openId:getopenid});
 				this.list=info.data.couponList;
 				if(info.data.couponList.length>0){
-					this.$refs.popups.open()
+					if(this.allmoney>0){
+						this.$refs.popups.open()
+					}else{
+						//结速购买，返回首页
+						uni.showModal({
+						    title: '完成提示',
+						    content: '欢迎再次光临！',
+							showCancel:this.showcan,
+						    success: function (res) {
+						        if (res.confirm) {
+						            uni.reLaunch({
+						            	url:'../../pages/index/index'
+						            })
+						        } else if (res.cancel) {
+						            console.log('用户点击取消');
+						        }
+						    }
+						});
+					}
 				}else{
 					//没优惠券，直接提交订单
-					console.log(this.userproductList,'提交的商品')
+					if(this.allmoney>0){
+						let goodtitle='';
+						let goodimg='';
+						for(var i=0;i<this.userproductList.length;i++){
+							goodtitle+=this.userproductList[i].name;
+						}
+						goodimg=this.userproductList[0].image;
+						console.log(this.userproductList,'提交的商品')
+						console.log(goodtitle,'提交的商品名称')
+						console.log(goodimg,'提交的商品图片')
+					}else{
+						//结速购买，返回首页
+						uni.showModal({
+						    title: '完成提示',
+						    content: '欢迎再次光临！',
+							showCancel:this.showcan,
+						    success: function (res) {
+						        if (res.confirm) {
+						            uni.reLaunch({
+						            	url:'../../pages/index/index'
+						            })
+						        } else if (res.cancel) {
+						            console.log('用户点击取消');
+						        }
+						    }
+						});
+					}
+					
 					
 				}
 			},
@@ -132,7 +178,15 @@
 					    success: function (res) {
 					        if (res.confirm) {
 					           console.log('用户点击确定');
-							   console.log(this.userproductList,'提交的商品')
+							   let goodtitle='';
+							   let goodimg='';
+							   for(var i=0;i<t.userproductList.length;i++){
+							   	goodtitle +=t.userproductList[i].name;
+							   }
+							   goodimg=t.userproductList[0].image;
+							   console.log(goodtitle,'提交的商品名称')
+							   console.log(goodimg,'提交的商品图片')
+							   console.log(t.userproductList,'提交的商品')
 							  //没选择优惠券，直接提交
 					        } else if (res.cancel) {
 					            console.log('用户点击取消');
@@ -142,7 +196,15 @@
 				}else{
 					t.getticket=getcoupon[0].ticket;
 					t.getcoupontype=getcoupon[0].type;
-					t.couponid=getcoupon[0].id
+					t.couponid=getcoupon[0].id;
+					let goodtitle='';
+					let goodimg='';
+					for(var i=0;i<t.userproductList.length;i++){
+						goodtitle+=t.userproductList[i].name;
+					}
+					goodimg=t.userproductList[0].image;
+					console.log(goodtitle,'提交的商品名称')
+					console.log(goodimg,'提交的商品图片')
 					console.log(this.userproductList,'提交的商品')
 					console.log(getcoupon[0].ticket,'优惠金额')
 					console.log(getcoupon[0].type,'优惠类型')
