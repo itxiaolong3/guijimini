@@ -117,6 +117,14 @@
 					}
 				})
 		},
+		onShow(){
+			let t=this;
+			uni.login({
+				success:function(e){
+					t.getapiinfo(e.code)
+				}
+			})
+		},
 		methods: {
 			async getapiinfo(code){
 				let info= await this.$apis.chencklogin({code:code});
