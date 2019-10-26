@@ -51,7 +51,8 @@
 			<view class="coupon-item" v-for="(item,index) in list" :key="index">
 				<view class="coupon-money">
 					<view class="nick">{{item.title}}</view>
-					<view class="layof" :style="{color:theme}">{{item.ticket}}</view>
+					<view class="layof" :style="{color:theme}" v-if="item.type==1">{{item.ticket}}</view>
+					<view class="layof" :style="{color:theme}" v-if="item.type==2">{{item.ticket*100}}%</view>
 					<view class="end_time">{{item.termEnd}}前使用</view>
 				</view>
 				<view class="get-btn" v-if="item.state" :style="{color:color.default, borderColor:color.default, background:solid.default}" @click="docheck(index)">已选</view>
