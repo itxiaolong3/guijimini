@@ -131,6 +131,7 @@
 						goodimg=this.userproductList[0].image;
 						console.log(this.userproductList,'提交的商品')
 						console.log(goodtitle,'提交的商品名称')
+						console.log(this.allmoney,'商品总额')
 						console.log(goodimg,'提交的商品图片')
 					}else{
 						//结速购买，返回首页
@@ -186,6 +187,7 @@
 							   goodimg=t.userproductList[0].image;
 							   console.log(goodtitle,'提交的商品名称')
 							   console.log(goodimg,'提交的商品图片')
+							   console.log(this.allmoney,'商品总额')
 							   console.log(t.userproductList,'提交的商品')
 							  //没选择优惠券，直接提交
 					        } else if (res.cancel) {
@@ -205,6 +207,7 @@
 					goodimg=t.userproductList[0].image;
 					console.log(goodtitle,'提交的商品名称')
 					console.log(goodimg,'提交的商品图片')
+					console.log(this.allmoney,'商品总额')
 					console.log(this.userproductList,'提交的商品')
 					console.log(getcoupon[0].ticket,'优惠金额')
 					console.log(getcoupon[0].type,'优惠类型')
