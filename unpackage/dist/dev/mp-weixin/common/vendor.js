@@ -2991,7 +2991,7 @@ function normalizeComponent (
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.getgood = exports.getallgood = exports.opendoor = exports.getcoupon = exports.mycouponlist = exports.couponlist = exports.checkorderstate = exports.dowxpay = exports.getaddmoneyact = exports.regphone = exports.sendsms = exports.xieyi = exports.getadv = exports.bannerlist = exports.savesingres = exports.ismmsign = exports.getsingparm = exports.savephone = exports.getphone = exports.openidtogetinfo = exports.savainfo = exports.chencklogin = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! ./http.js */ 15));
+Object.defineProperty(exports, "__esModule", { value: true });exports.checkgoodorder = exports.accountorder = exports.getgood = exports.getallgood = exports.opendoor = exports.getcoupon = exports.mycouponlist = exports.couponlist = exports.checkorderstate = exports.dowxpay = exports.getaddmoneyact = exports.regphone = exports.sendsms = exports.xieyi = exports.getadv = exports.bannerlist = exports.savesingres = exports.ismmsign = exports.getsingparm = exports.savephone = exports.getphone = exports.openidtogetinfo = exports.savainfo = exports.chencklogin = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! ./http.js */ 15));
 var _indexConfig = _interopRequireDefault(__webpack_require__(/*! @/config/index.config.js */ 16));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 // 获取用户资料
@@ -3037,7 +3037,11 @@ exports.getcoupon = getcoupon;var opendoor = function opendoor(data) {return _ht
 //获取柜机所有商品
 exports.opendoor = opendoor;var getallgood = function getallgood(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/getallgood"), data);};
 //获取用户所拿商品
-exports.getallgood = getallgood;var getgood = function getgood(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/getgood"), data);};exports.getgood = getgood;
+exports.getallgood = getallgood;var getgood = function getgood(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/getgood"), data);};
+//提交订单进行支付
+exports.getgood = getgood;var accountorder = function accountorder(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/accountorder"), data);};
+//检查商品订单
+exports.accountorder = accountorder;var checkgoodorder = function checkgoodorder(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/checkgoodorder"), data);};exports.checkgoodorder = checkgoodorder;
 
 /***/ }),
 

@@ -45,4 +45,7 @@ export const opendoor = (data) => http.POST(`${config.baseUrl}/minapi/opendoor`,
 export const getallgood = (data) => http.POST(`${config.baseUrl}/minapi/getallgood`, data);
 //获取用户所拿商品
 export const getgood = (data) => http.POST(`${config.baseUrl}/minapi/getgood`, data);
-
+//提交订单进行支付
+export const accountorder = (data) => http.POST(`${config.baseUrl}/minapi/accountorder`, data);
+//检查商品订单
+export const checkgoodorder = (data) => http.POST(`${config.baseUrl}/minapi/checkgoodorder`, data);

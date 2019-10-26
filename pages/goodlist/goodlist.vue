@@ -90,11 +90,104 @@
 				},
 				list: [
 					{id:1,title:"日常用品立减10元",termStart:"2019-04-01",termEnd:"2019-05-30",ticket:"10",criteria:"满50使用",state:0,type:0},
-					]
+					],
+				ispay:0,
+				waitpayTime: 30,
+				timerIdforgood: null,
             };
         },
 		components: {uniPopup},
         methods: {
+			//支付
+			async postpay(openid,ordernum,allmoney,getcoupontype,getticket,body,goodimg,couponid,goodinfo){
+				let info= await this.$apis.accountorder({openid:openid,ordernum:ordernum,allmoney:allmoney,getcoupontype:getcoupontype,
+				getticket:getticket,body:body,goodimg:goodimg,couponid:couponid,goodinfo:JSON.stringify(goodinfo)});
+				uni.showLoading({
+					title:'支付中...'
+				});
+				let t=this;
+				if(info.code==1){
+						console.log(t.ispay,'是否支付')
+						this.timerIdforgood = setInterval(() => {
+							t.checkgoodorder(openid,ordernum);
+							setTimeout(()=>{
+								if(t.ispay==1){
+									clearInterval(t.timerIdforgood);
+									console.log(t.ispay,'走支付成功')
+									uni.hideLoading();
+									uni.showModal({
+									    title: '购买完成提示',
+									    content: '欢迎再次光临！',
+										showCancel:this.showcan,
+									    success: function (res) {
+									        if (res.confirm) {
+									            uni.reLaunch({
+									            	url:'../../pages/index/index'
+									            })
+									        } else if (res.cancel) {
+									            console.log('用户点击取消');
+									        }
+									    }
+									});
+									
+								}
+							},200);
+								var watitime = this.waitpayTime;
+								watitime--;
+								this.waitpayTime=watitime;
+								if (watitime < 1) {
+									clearInterval(this.timerIdforgood);
+									t.waitpayTime=30;
+									uni.hideLoading();
+									uni.showModal({
+									    title: '购买异常提示',
+									    content: '请检查微信余额支付是否足以支付此次购买金额，或者网络是否正常，欢迎再次购买！',
+										showCancel:this.showcan,
+									    success: function (res) {
+									        if (res.confirm) {
+									            uni.reLaunch({
+									            	url:'../../pages/index/index'
+									            })
+									        }
+									    }
+									});
+									
+								}
+								console.log('请求支付结果'+watitime)
+							},400);
+					
+				}else{
+					console.log('走支付流程失败')
+					
+					uni.hideLoading();
+					//uni.showToast({title:info.msg,duration:1500,icon:'none'});
+					uni.showModal({
+					    title: '购买异常提示',
+					    content: '异常信息：'+info.msg,
+						showCancel:this.showcan,
+					    success: function (res) {
+					        if (res.confirm) {
+					            uni.reLaunch({
+					            	url:'../../pages/index/index'
+					            })
+					        }
+					    }
+					});
+				}
+				
+			},
+			//根据订单号查询是否真的支付成功
+			async checkgoodorder(openid,out_trade_no){
+				let info= await this.$apis.checkgoodorder({openid:openid,out_trade_no:out_trade_no});
+				let t=this;
+				console.log(info.data,'检查支付返回')
+				if(info.data==1){
+					t.ispay=1;
+				}else{
+					t.ispay=0;
+				}
+				console.log(t.ispay,'t.ispay')
+			},
 			//获取我的优惠券
 			async mycouponlist(){
 				let getopenid=uni.getStorageSync('openid');
@@ -133,6 +226,9 @@
 						console.log(goodtitle,'提交的商品名称')
 						console.log(this.allmoney,'商品总额')
 						console.log(goodimg,'提交的商品图片')
+						//openid,ordernum,allmoney,getcoupontype,getticket,body,goodimg,couponid,goodinfo
+						let orderId=uni.getStorageSync('ordernum');
+						this.postpay(getopenid,orderId,this.allmoney,0,0,goodtitle,goodimg,0,this.userproductList);
 					}else{
 						//结速购买，返回首页
 						uni.showModal({
@@ -190,6 +286,10 @@
 							   console.log(this.allmoney,'商品总额')
 							   console.log(t.userproductList,'提交的商品')
 							  //没选择优惠券，直接提交
+							  //openid,ordernum,allmoney,getcoupontype,getticket,body,goodimg,couponid,goodinfo
+							  let orderId=uni.getStorageSync('ordernum');
+							  let openid=uni.getStorageSync('openid');
+							  t.postpay(openid,orderId,t.allmoney,0,0,goodtitle,goodimg,0,t.userproductList);
 					        } else if (res.cancel) {
 					            console.log('用户点击取消');
 					        }
@@ -214,6 +314,10 @@
 					console.log(getcoupon[0].id,'优惠id')
 					//有选择优惠券，提交订单
 					console.log(getcoupon,'选中的优惠券')
+					//openid,ordernum,allmoney,getcoupontype,getticket,body,goodimg,couponid,goodinfo
+					let orderId=uni.getStorageSync('ordernum');
+					let openid=uni.getStorageSync('openid');
+					this.postpay(openid,orderId,t.allmoney,getcoupon[0].type,getcoupon[0].ticket,goodtitle,goodimg,getcoupon[0].id,t.userproductList);
 				}
 				
 			},
