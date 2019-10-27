@@ -90,18 +90,8 @@
 	export default {
 		data() {
 			return {
-				couponValidList:[
-					{id:1,title:"购物代金券立减10元",termStart:"2019-04-01",termEnd:"2019-05-30",ticket:"10",criteria:"无门槛",type:1},
-					{id:2,title:"全柜折扣券0.3%",termStart:"2019-04-01",termEnd:"2019-05-30",ticket:"0.3%",criteria:"无门槛",type:2},
-					{id:3,title:"全场立减10元",termStart:"2019-04-01",termEnd:"2019-05-30",ticket:"10",criteria:"无门槛",type:1},
-					{id:4,title:"全场立减50元",termStart:"2019-04-01",termEnd:"2019-05-30",ticket:"50",criteria:"满1000使用",type:1}
-				],
-				mycouponvalidList:[
-					{id:1,title:"日常用品立减10元",termStart:"2019-04-01",termEnd:"2019-05-30",ticket:"10",criteria:"满50使用"},
-					{id:2,title:"家用电器立减100元",termStart:"2019-04-01",termEnd:"2019-05-30",ticket:"100",criteria:"满500使用"},
-					{id:3,title:"全场立减10元",termStart:"2019-04-01",termEnd:"2019-05-30",ticket:"10",criteria:"无门槛"},
-					{id:4,title:"全场立减50元",termStart:"2019-04-01",termEnd:"2019-05-30",ticket:"50",criteria:"满1000使用"}
-				],
+				couponValidList:[],
+				mycouponvalidList:[],
 				headerTop:0,
 				//控制滑动效果
 				typeClass:'valid',

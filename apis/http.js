@@ -11,10 +11,10 @@ function HTTP(obj, config) {
 
 
 	// 如果需要显示loading,mask防止点击穿透
-	config.loading && uni.showLoading({
-		title: '加载中',
-		mask: true
-	});
+	// config.loading && uni.showLoading({
+	// 	title: '加载中哦',
+	// 	mask: true
+	// });
 
 	return new Promise((resolve, reject) => {
 
@@ -29,14 +29,14 @@ function HTTP(obj, config) {
 			},
 			success: (res) => {
 				//console.log("HTTP请求结果：",res)
-				uni.hideLoading();
+				//uni.hideLoading();
 				// 状态码为200
 				if (res.statusCode == 200) {
 					let data = res.data;
 
 					//自动校验用户是否登录过期
 					if (data.code ==0) {
-						uni.showToast({title:data.msg,duration:1500,icon:'none'});
+						//uni.showToast({title:data.msg,duration:1500,icon:'none'});
 					}
 
 					//返回 { code:10000,msg:"消息",data:[] }
@@ -62,7 +62,7 @@ function HTTP(obj, config) {
 				}
 			},
 			fail: (err) => {
-				uni.hideLoading();
+				//uni.hideLoading();
 				uni.showToast({
 					title: "网络异常，请稍后再试!",
 					icon: "none",

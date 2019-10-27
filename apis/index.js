@@ -49,3 +49,11 @@ export const getgood = (data) => http.POST(`${config.baseUrl}/minapi/getgood`, d
 export const accountorder = (data) => http.POST(`${config.baseUrl}/minapi/accountorder`, data);
 //检查商品订单
 export const checkgoodorder = (data) => http.POST(`${config.baseUrl}/minapi/checkgoodorder`, data);
+//订单列表
+export const orderlist = (data) => http.POST(`${config.baseUrl}/minapi/orderlist`, data);
+//检查是否有未支付订单
+export const checknopayorder = (data) => http.POST(`${config.baseUrl}/minapi/checknopayorder`, data);
+//订单二次付款
+export const wxpaytwo = (data) => http.POST(`${config.baseUrl}/minapi/wxpaytwo`, data);
+//混合支付模式下,用户余额不足免密扣款,而导致系统余额减少,需要调用后台检查余额恢复接口
+export const backyue = (data) => http.POST(`${config.baseUrl}/minapi/backyue`, data);

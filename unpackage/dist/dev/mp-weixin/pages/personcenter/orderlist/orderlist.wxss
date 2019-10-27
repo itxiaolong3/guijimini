@@ -278,4 +278,39 @@ page {
           border: solid 1rpx #ec652f;
           color: #ec652f;
 }
+.tip {
+  color: #008001;
+  margin-bottom: 15rpx;
+}
+.choosegood {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 20rpx 1px;
+}
+.desc {
+  margin-left: -100rpx;
+}
+.price, .nums {
+  color: #848484;
+  padding-top: 20rpx;
+}
+.choosegoodimg image {
+  width: 140rpx;
+  height: 160rpx;
+}
+.dosure {
+  position: absolute;
+  right: 25rpx;
+  top: 20rpx;
+}
 

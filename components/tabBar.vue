@@ -89,7 +89,8 @@
 					}
 				],
 				userinfo:[],
-				extra_data:{}
+				extra_data:{},
+				nopaymsg:''
 			}
 		},
 		onReady() {
@@ -103,6 +104,39 @@
 		},
 		components: {uniPopup},
 		methods: {
+			//检查是否有未支付订单
+			async checknopayorder(openid){
+				let info= await this.$apis.checknopayorder({openid:openid});
+				let t=this;
+				if(info.code){
+					uni.hideLoading();
+					uni.showModal({
+					    title: '温馨提示',
+					    content: info.msg,
+						showCancel:t.senderro,
+					    success: function (res) {
+					        if (res.confirm) {
+					            uni.navigateTo({url:'../../pages/personcenter/orderlist/orderlist?tbIndex=1'})
+					        } else if (res.cancel) {
+					            console.log('用户点击取消');
+					        }
+					    }
+					});
+				}else{
+					uni.scanCode({
+						success:function(e){
+							var getpath=e.path;
+							var arr=getpath.split('=');
+							t.opendoor(openid,arr[1])
+							console.log(e,'扫码成功返回')
+							
+						},fail:function(e){
+							console.log(e,'扫码失败返回')
+							uni.hideLoading()
+						}
+					})
+				}
+			},
 			async getapiinfo(code){
 				let info= await this.$apis.chencklogin({code:code});
 				let t=this;
@@ -194,37 +228,9 @@
 					uni.showLoading({
 						title:'操作中...'
 					})
-					// uni.showModal({
-					//     title: '温馨提示',
-					//     content: '测试模式跳过真正扫柜开柜',
-					// 	confirmText:'知道了',
-					//     success: function (res) {
-					//         if (res.confirm) {
-					//           uni.navigateTo(
-					//           {url:"../../pages/goodlist/goodlist?productNumber="+0}
-					//           )  
-					//         } else if (res.cancel) {
-					//             console.log('用户点击取消');
-					//         }
-					//     }
-					// });
-					uni.scanCode({
-						success:function(e){
-							var getpath=e.path;
-							var arr=getpath.split('=');
-							t.opendoor(getopenid,arr[1])
-							console.log(e,'扫码成功返回')
-							
-						},fail:function(e){
-							console.log(e,'扫码失败返回')
-							uni.hideLoading()
-							// uni.showToast({
-							// 	title:'扫码失败',icon:"none"
-							// })
-						},complete:function(){
-							
-						}
-					})
+					//判断是否有未支付订单,把扫码放里面
+					t.checknopayorder(getopenid);
+					
 				}else{
 					//还没签约
 					uni.showModal({

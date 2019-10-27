@@ -80,7 +80,7 @@
 				getcoupontype:'',
 				couponid:0,
 				timerId: null,
-				reqTime:3600,
+				reqTime:2400,
 				types:{
 					type: String,
 					default: ''
@@ -138,6 +138,8 @@
 								this.waitpayTime=watitime;
 								if (watitime < 1) {
 									clearInterval(this.timerIdforgood);
+									//后台检查订单状态是否真的未支付，恢复所扣余额
+									t.backyue(openid,ordernum);
 									t.waitpayTime=30;
 									uni.hideLoading();
 									uni.showModal({
@@ -189,6 +191,10 @@
 				}
 				console.log(t.ispay,'t.ispay')
 			},
+			//后台检查余额恢复
+			async backyue(openid,out_trade_no){
+				let info= await this.$apis.backyue({openid:openid,out_trade_no:out_trade_no});
+			},
 			//获取我的优惠券
 			async mycouponlist(){
 				let getopenid=uni.getStorageSync('openid');
@@ -220,7 +226,7 @@
 						let goodtitle='';
 						let goodimg='';
 						for(var i=0;i<this.userproductList.length;i++){
-							goodtitle+=this.userproductList[i].name;
+							goodtitle+=this.userproductList[i].name+",";
 						}
 						goodimg=this.userproductList[0].image;
 						console.log(this.userproductList,'提交的商品')
@@ -346,9 +352,9 @@
 					this.hiddenmode();
 					//检查是否有优惠券
 					this.mycouponlist()
-					uni.showToast({
-						title:'已关门'
-					})
+					// uni.showToast({
+					// 	title:'已关门'
+					// })
 					
 				}
 				this.userproductList=info.data.data.products;
@@ -396,6 +402,7 @@
 						})
 						//30分种后不关就报估计异常
 					}
+					console.log(reqTime,'请求时间')
 					this.getgood(orderId);
 				},
 				500);

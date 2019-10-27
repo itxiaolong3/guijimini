@@ -81,14 +81,13 @@
 					//name-标题 icon-图标 badge-角标
 					{name:'全部订单',icon:'l4.png',badge:0},
 					{name:'待付款',icon:'l1.png',badge:0},
-					{name:'待发货',icon:'l2.png',badge:0},
-					{name:'待收货',icon:'l3.png',badge:0},
+					{name:'已付款',icon:'l2.png',badge:0},
 					{name:'售后订单',icon:'l5.png',badge:0}
 				],
 				severList:[
 					[
 						// {name:'我要充值',icon:'skv.png'},
-						{name:'售后申请',icon:'sellafter.png'},
+						// {name:'售后申请',icon:'sellafter.png'},
 						{name:'我要上货',icon:'upgood.png'},
 						{name:'反馈意见',icon:'comment.png'}
 					],
@@ -183,11 +182,6 @@
 			//点击优惠券
 			tocoupon(){
 				uni.navigateTo({url:'./coupon/coupon?phone='+this.userinfo.phone}) 
-			}
-			,
-			//点击优惠券
-			tocoupon(){
-				uni.navigateTo({url:'./coupon/coupon?phone='+this.userinfo.phone}) 
 			},
 			toDeposit(){
 				uni.navigateTo({
@@ -221,7 +215,7 @@ page{background-color:#fff}
 }
 .hover{background-color:#eee}
 .orders{
-	background-color:#7db8ec;width:92%;height:11vw;padding:0 4%;margin-bottom:calc(11vw + 40upx);display:flex;align-items:flex-start;border-radius:0 0 100% 100%;margin-top: -1upx;
+	background-color:#7db8ec;width:94%;height:11vw;padding:0 4%;margin-bottom:calc(11vw + 40upx);display:flex;align-items:flex-start;border-radius:0 0 100% 100%;margin-top: -1upx;
 	.box{
 		width:98%;padding:0 1%;height:22vw;background-color:#fefefe;border-radius:24upx;box-shadow:0 0 20upx rgba(0,0,0,0.15);margin-bottom:40upx;display:flex;align-items:center;justify-content:center;
 		.label{

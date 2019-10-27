@@ -16,78 +16,70 @@
 					</view>
 				</view>
 				<view class="row" v-for="(row,index) in list" :key="index">
-					<view class="type">{{typeText[row.type]}}</view>
+					<view class="type">{{typeText[row.state]}}</view>
 					<view class="order-info">
 						<view class="left">
-							<image :src="row.img"></image>
+							<image :src="row.goodimg"></image>
 						</view>
 						<view class="right">
 							<view class="name">
-								{{row.name}}
+								{{row.goodtitle}}
 							</view>
-							<view class="spec">{{row.spec}}</view>
-							<view class="price-number">
-								￥<view class="price">{{row.price}}</view>
-								x<view class="number">{{row.numner}}</view>
-							</view>
+							<view class="spec" v-if="row.paytype==0">免密支付</view>
+							<view class="spec" v-if="row.paytype==1">余额支付</view>
+							<!-- <view class="price-number">
+								￥<view class="price">{{row.ordermoney}}</view>
+								x<view class="number">{{row.allnum}}</view>
+							</view> -->
 						</view>
 						
 					</view>
 					<view class="detail">
-						<view class="number">共{{row.numner}}件商品</view><view class="sum">合计￥<view class="price">{{row.payment}}</view></view><view class="nominal">(含运费 ￥{{row.freight}})</view>
+						<view class="number">共{{row.allnum}}件商品</view><view class="sum">合计￥<view class="price">{{row.ordermoney}}</view></view><view class="nominal">(优惠金额 ￥{{row.giftnum?row.giftnum:0}})</view>
 					</view>
 					<view class="btns">
-						<block v-if="row.type=='unpaid'"><view class="default">取消订单</view><view class="pay" @tap="toPayment(row)">付款</view></block>
-						<block v-if="row.type=='back'"><view class="default">提醒发货</view></block>
-						<block v-if="row.type=='unreceived'"><view class="default">查看物流</view><view class="pay">确认收货</view><view class="pay">我要退货</view></block>
-						<block v-if="row.type=='received'"><view class="default">评价</view><view class="default">再次购买</view></block>
-						<block v-if="row.type=='completed'"><view class="default">再次购买</view></block>
-						<block v-if="row.type=='refunds'"><view class="default">查看进度</view></block>
-						<block v-if="row.type=='cancelled'"><view class="default">已取消</view></block>
+						<block v-if="row.state==0"><view class="default" v-if="row.allnum>1" @click="showdetail(row.products)">查看更多</view><view class="pay" @tap="toPayment(row.id,row.ordermoney)">去付款</view></block>
+						<block v-if="row.state==1"><view class="default" v-if="row.allnum>1" @click="showdetail(row.products)">查看更多</view><view class="default">申请售后</view></block>
+						<block v-if="row.state==2"><view class="default" v-if="row.allnum>1" @click="showdetail(row.products)">查看更多</view><view class="default">查看进度</view></block>
 					</view>
 				</view>
 			</view>
 		</view>
+		<uni-popup ref="popup" type="bottom" :maskClick="maskclose">
+			<view class="dosure" @click="closeit">关闭</view>
+			<view class="choosegood" v-for="(product,index) in detailgoodlist" :key="index">
+				<view class="choosegoodimg">
+					<image  class="uni-product-image" :src="product.image"></image>
+				</view>
+				<view class="desc">
+					<view>{{product.name}}</view>
+					<view class="price">零售价：{{product.price}}元</view>
+				</view>
+				<view class="nums">数量：x{{product.number}}</view>
+			</view>
+		</uni-popup>
 	</view>
 </template>
 <script>
+	import uniPopup from "@/components/uni-popup/uni-popup.vue"
 	export default {
 		data() {
 			return {
+				maskclose:true,
 				headerPosition:"fixed",
 				headerTop:"0px",
-				typeText:{
-					unpaid:'等待付款',
-					back:'等待商家发货',
-					unreceived:'商家已发货',
-					received:'等待用户评价',
-					completed:'交易已完成',
-					refunds:'商品退货处理中',
-					cancelled:'订单已取消'
-				},
-				orderType: ['全部','待付款','待发货','待收货','待评价','退换货'],
+				typeText:[
+					'等待付款',
+					'已付款',
+					'售后订单'
+				],
+				orderType: ['全部','待付款','已付款','售后订单'],
 				//订单列表 演示数据
 				orderList:[
-					[
-						{ type:"unpaid",ordersn:0,goods_id: 0, img: '/static/img/goods/p1.jpg', name: '商品名称商品名称商品名称商品名称商品名称', price: '168.00',payment:168.00,freight:12.00,spec:'规格:S码',numner:1 },
-						{ type:"unpaid",ordersn:1,goods_id: 1, img: '/static/img/goods/p2.jpg', name: '商品名称商品名称商品名称商品名称商品名称', price: '168.00',payment:168.00,freight:12.00,spec:'规格:S码',numner:1 },
-						{ type:"back",ordersn:1,goods_id: 1, img: '/static/img/goods/p3.jpg', name: '商品名称商品名称商品名称商品名称商品名称', price: '168.00',payment:168.00,freight:12.00,spec:'规格:S码',numner:1 },
-						{ type:"unreceived",ordersn:1,goods_id: 1, img: '/static/img/goods/p4.jpg', name: '商品名称商品名称商品名称商品名称商品名称', price: '168.00',payment:168.00,freight:12.00,spec:'规格:S码',numner:1 },
-						{ type:"received",ordersn:1,goods_id: 1, img: '/static/img/goods/p5.jpg', name: '商品名称商品名称商品名称商品名称商品名称', price: '168.00',payment:168.00,freight:12.00,spec:'规格:S码',numner:1 },
-						{ type:"completed",ordersn:1,goods_id: 1, img: '/static/img/goods/p6.jpg', name: '商品名称商品名称商品名称商品名称商品名称', price: '168.00',payment:168.00,freight:12.00,spec:'规格:S码',numner:1 },
-						{ type:"refunds",ordersn:1,goods_id: 1, img: '/static/img/goods/p5.jpg', name: '商品名称商品名称商品名称商品名称商品名称', price: '￥168',payment:168.00,freight:12.00,spec:'规格:S码',numner:1 },
-						{ type:"cancelled",ordersn:1,goods_id: 1, img: '/static/img/goods/p5.jpg', name: '商品名称商品名称商品名称商品名称商品名称', price: '￥168',payment:168.00,freight:12.00,spec:'规格:S码',numner:1 }
-					],
-					[
-						{ type:"unpaid",ordersn:0,goods_id: 0, img: '/static/img/goods/p1.jpg', name: '商品名称商品名称商品名称商品名称商品名称', price: '￥168',payment:168.00,freight:12.00,spec:'规格:S码',numner:1 },
-						{ type:"unpaid",ordersn:1,goods_id: 1, img: '/static/img/goods/p2.jpg', name: '商品名称商品名称商品名称商品名称商品名称', price: '￥168',payment:168.00,freight:12.00,spec:'规格:S码',numner:1 }
-					],
-					[
-						//无
-					],
-					[
-						{ type:"unreceived",ordersn:1,goods_id: 1, img: '/static/img/goods/p4.jpg', name: '商品名称商品名称商品名称商品名称商品名称', price: '￥168',payment:168.00,freight:12.00,spec:'规格:S码',numner:1 }
-					],
+					[],
+					[],
+					[],
+					[],
 					[
 						{ type:"received",ordersn:1,goods_id: 1, img: '/static/img/goods/p5.jpg', name: '商品名称商品名称商品名称商品名称商品名称', price: '￥168',payment:168.00,freight:12.00,spec:'规格:S码',numner:1 }
 					],
@@ -97,14 +89,20 @@
 					
 				],
 				list:[],
-				tabbarIndex:0
+				tabbarIndex:0,
+				detailgoodlist:[],
+				ispay:0,
+				waitpayTime: 25,
+				timerIdforgood: null,
+				showcan:false,
+				
 			};
 		},
 		onLoad(option) {
 			//option为object类型，会序列化上个页面传递的参数
 			console.log("option: " + JSON.stringify(option));
 			let tbIndex = parseInt(option.tbIndex);
-			this.list = this.orderList[tbIndex];
+			//this.list = this.orderList[tbIndex];
 			this.tabbarIndex = tbIndex;
 			//兼容H5下排序栏位置
 			// #ifdef H5
@@ -122,30 +120,156 @@
 			//兼容iOS端下拉时顶部漂移
 			this.headerPosition = e.scrollTop>=0?"fixed":"absolute";
 		},
+		onShow(){
+			let getopenid=uni.getStorageSync('openid');
+			this.orderlist(getopenid);
+			
+		},
+		components: {uniPopup},
 		methods: {
+			//根据订单号查询是否真的支付成功
+			async checkgoodorder(oid){
+				let info= await this.$apis.checkgoodorder({oid:oid});
+				let t=this;
+				console.log(info.data,'检查支付返回')
+				if(info.data==1){
+					t.ispay=1;
+				}else{
+					t.ispay=0;
+				}
+				console.log(t.ispay,'t.ispay')
+			},
+			//后台检查余额恢复接口
+			async backyue(oid){
+				let info= await this.$apis.backyue({oid:oid});
+			},
+			async orderlist(openid){
+				uni.showLoading({
+					title:'加载中...'
+				})
+				let info= await this.$apis.orderlist({openid:openid});
+				if(info.code==1){
+					uni.hideLoading();
+				}else{
+					setTimeout(function(){
+							uni.hideLoading()
+					},3000)
+				}
+				this.orderList[0]=info.data.all;
+				this.orderList[1]=info.data.wait;
+				this.orderList[2]=info.data.ispay;
+				this.orderList[3]=info.data.back;
+				this.list = this.orderList[this.tabbarIndex];
+				console.log(this.orderList[this.tabbarIndex])
+				
+			},
+			async wxpaytwo(oid){
+				let info= await this.$apis.wxpaytwo({oid:oid});
+				uni.showLoading({
+					title:'支付中...'
+				});
+				let t=this;
+				if(info.code==1){
+						console.log(t.ispay,'是否支付')
+						this.timerIdforgood = setInterval(() => {
+							t.checkgoodorder(oid);
+							setTimeout(()=>{
+								if(t.ispay==1){
+									clearInterval(t.timerIdforgood);
+									console.log(t.ispay,'走支付成功')
+									uni.hideLoading();
+									console.log('已隐藏1'+oid)
+									uni.showModal({
+									    title: '购买完成提示',
+									    content: '欢迎再次光临！',
+										showCancel:this.showcan,
+									    success: function (res) {
+									        if (res.confirm) {
+									            uni.reLaunch({
+									            	url:'../../../pages/index/index'
+									            })
+									        } else if (res.cancel) {
+									            console.log('用户点击取消');
+									        }
+									    }
+									});
+									
+								}
+							},200);
+								var watitime = this.waitpayTime;
+								watitime--;
+								this.waitpayTime=watitime;
+								if (watitime < 1) {
+									clearInterval(this.timerIdforgood);
+									//后台检查订单状态是否真的未支付，恢复所扣余额
+									t.backyue(oid);
+									t.waitpayTime=25;
+									uni.hideLoading();
+									console.log('已隐藏2'+oid)
+									uni.showModal({
+									    title: '购买异常提示',
+									    content: '请检查微信余额支付是否足以支付此次购买金额，或者网络是否正常，欢迎再次购买！',
+										showCancel:this.showcan,
+									    success: function (res) {
+									        if (res.confirm) {
+									            uni.reLaunch({
+									            	url:'../../../pages/index/index'
+									            })
+									        }
+									    }
+									});
+									
+								}
+								console.log('请求支付结果'+watitime)
+							},400);
+					
+				}else{
+					console.log('走支付流程失败')
+					uni.hideLoading();
+					uni.showModal({
+					    title: '购买异常提示',
+					    content: '异常信息：'+info.msg,
+						showCancel:this.showcan,
+					    success: function (res) {
+					        if (res.confirm) {
+					            uni.reLaunch({
+					            	url:'../../../pages/index/index'
+					            })
+					        }
+					    }
+					});
+				}
+			},
 			showType(tbIndex){
 				this.tabbarIndex = tbIndex;
 				this.list = this.orderList[tbIndex];
 			},
-			toPayment(row){
+			showdetail(info){
+				this.detailgoodlist=info;
+				if(this.detailgoodlist.length>0){
+					this.$refs.popup.open()
+				}
+				
+			},
+			closeit(){
+				this.$refs.popup.close()
+			},
+			
+			toPayment(id,allmoney){
 				//本地模拟订单提交UI效果
-				uni.showLoading({
-					title:'正在获取订单...'
-				})
-				let paymentOrder = [];
-				paymentOrder.push(row);
-				setTimeout(()=>{
-					uni.setStorage({
-						key:'paymentOrder',
-						data:paymentOrder,
-						success: () => {
-							uni.hideLoading();
-							uni.navigateTo({
-								url:'../../pay/payment/payment?amount='+row.payment
-							})
-						}
-					})
-				},500)
+				let t=this;
+				uni.showModal({
+				    title: '温馨提示',
+				    content: '即将支付金额为：'+allmoney+'元，是否确定完成支付？',
+				    success: function (res) {
+				        if (res.confirm) {
+				          t.wxpaytwo(id)
+				        } else if (res.cancel) {
+				            console.log('用户点击取消');
+				        }
+				    }
+				});
+				
 			}
 		}
 	}
@@ -318,4 +442,30 @@ page{
 		}
 	}
 }
+.tip{
+		color: #008001;
+		margin-bottom: 15rpx;
+	}
+	.choosegood{
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin: 20rpx 1px;
+	}
+	.desc{
+		margin-left: -100rpx;
+	}
+	.price,.nums{
+		color: #848484;
+		padding-top: 20rpx;
+	}
+	.choosegoodimg image{
+		width: 140rpx;
+		height: 160rpx;
+	}
+.dosure{
+		position: absolute;
+		right: 25upx;
+		top: 20upx;
+	}
 </style>
