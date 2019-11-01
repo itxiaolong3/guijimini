@@ -105,7 +105,7 @@ export default {
 	}
 	.imageContainer {
 		width: 100%;
-		height: 850rpx;
+		height: 870rpx;
 		
 	}
 	
@@ -160,10 +160,10 @@ export default {
 		position: absolute;
 		width: 95%;
 		/* height: 380rpx; */
-		height: 850rpx;
+		height: 870rpx;
 		border-radius: 15rpx;
 		z-index: 1;
-		opacity: 0.7;
+		// opacity: 0.7;
 		top: 5%;
 		box-shadow:0px 4upx 15upx 0px rgba(153,153,153,0.24);
 	}
