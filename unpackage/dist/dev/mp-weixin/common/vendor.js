@@ -1,9 +1,9 @@
 (global["webpackJsonp"] = global["webpackJsonp"] || []).push([["common/vendor"],{
 
 /***/ 0:
-/*!********************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js ***!
-  \********************************************************************/
+/*!***************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/main.js ***!
+  \***************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2233,9 +2233,9 @@ uni$1;exports.default = _default;
 /***/ }),
 
 /***/ 116:
-/*!*************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/components/u-parse/libs/html2json.js ***!
-  \*************************************************************************************************/
+/*!********************************************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/components/u-parse/libs/html2json.js ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2505,9 +2505,9 @@ html2json;exports.default = _default;
 /***/ }),
 
 /***/ 117:
-/*!*************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/components/u-parse/libs/wxDiscode.js ***!
-  \*************************************************************************************************/
+/*!********************************************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/components/u-parse/libs/wxDiscode.js ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2710,9 +2710,9 @@ function urlToHttpUrl(url, domain) {
 /***/ }),
 
 /***/ 118:
-/*!**************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/components/u-parse/libs/htmlparser.js ***!
-  \**************************************************************************************************/
+/*!*********************************************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/components/u-parse/libs/htmlparser.js ***!
+  \*********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2984,9 +2984,9 @@ function normalizeComponent (
 /***/ }),
 
 /***/ 14:
-/*!**************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/apis/index.js ***!
-  \**************************************************************************/
+/*!*********************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/apis/index.js ***!
+  \*********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3054,9 +3054,9 @@ exports.wxpaytwo = wxpaytwo;var backyue = function backyue(data) {return _http.d
 /***/ }),
 
 /***/ 15:
-/*!*************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/apis/http.js ***!
-  \*************************************************************************/
+/*!********************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/apis/http.js ***!
+  \********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3185,9 +3185,9 @@ exports.wxpaytwo = wxpaytwo;var backyue = function backyue(data) {return _http.d
 /***/ }),
 
 /***/ 16:
-/*!***********************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/config/index.config.js ***!
-  \***********************************************************************************/
+/*!******************************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/config/index.config.js ***!
+  \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3223,9 +3223,9 @@ CONFIG["development"];exports.default = _default;
 /***/ }),
 
 /***/ 17:
-/*!*****************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Findex%2Findex"} ***!
-  \*****************************************************************************************************/
+/*!************************************************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Findex%2Findex"} ***!
+  \************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9189,9 +9189,9 @@ internalMixin(Vue);
 /***/ }),
 
 /***/ 25:
-/*!*******************************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fpersoncenter"} ***!
-  \*******************************************************************************************************************/
+/*!**************************************************************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fpersoncenter"} ***!
+  \**************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9237,9 +9237,9 @@ module.exports = g;
 /***/ }),
 
 /***/ 33:
-/*!***************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fauth%2Fauth"} ***!
-  \***************************************************************************************************/
+/*!**********************************************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Fauth%2Fauth"} ***!
+  \**********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9254,9 +9254,9 @@ createPage(_auth.default);
 /***/ }),
 
 /***/ 4:
-/*!***********************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/pages.json ***!
-  \***********************************************************************/
+/*!******************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/pages.json ***!
+  \******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9266,9 +9266,9 @@ createPage(_auth.default);
 /***/ }),
 
 /***/ 41:
-/*!****************************************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Forderlist%2Forderlist"} ***!
-  \****************************************************************************************************************************/
+/*!***********************************************************************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Forderlist%2Forderlist"} ***!
+  \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9283,9 +9283,9 @@ createPage(_orderlist.default);
 /***/ }),
 
 /***/ 49:
-/*!***********************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fgoodlist%2Fgoodlist"} ***!
-  \***********************************************************************************************************/
+/*!******************************************************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Fgoodlist%2Fgoodlist"} ***!
+  \******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9300,9 +9300,9 @@ createPage(_goodlist.default);
 /***/ }),
 
 /***/ 57:
-/*!*************************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fadvdetail%2Fadvdetail"} ***!
-  \*************************************************************************************************************/
+/*!********************************************************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Fadvdetail%2Fadvdetail"} ***!
+  \********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9317,9 +9317,9 @@ createPage(_advdetail.default);
 /***/ }),
 
 /***/ 65:
-/*!*****************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fxieyi%2Fxieyi"} ***!
-  \*****************************************************************************************************/
+/*!************************************************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Fxieyi%2Fxieyi"} ***!
+  \************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9334,9 +9334,9 @@ createPage(_xieyi.default);
 /***/ }),
 
 /***/ 73:
-/*!************************************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fdeposit%2Fdeposit"} ***!
-  \************************************************************************************************************************/
+/*!*******************************************************************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fdeposit%2Fdeposit"} ***!
+  \*******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9363,9 +9363,9 @@ module.exports = __webpack_require__(/*! regenerator-runtime */ 9);
 /***/ }),
 
 /***/ 81:
-/*!******************************************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fpaysuccess%2Fpaysuccess"} ***!
-  \******************************************************************************************************************************/
+/*!*************************************************************************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fpaysuccess%2Fpaysuccess"} ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9380,9 +9380,9 @@ createPage(_paysuccess.default);
 /***/ }),
 
 /***/ 89:
-/*!**********************************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fcoupon%2Fcoupon"} ***!
-  \**********************************************************************************************************************/
+/*!*****************************************************************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fcoupon%2Fcoupon"} ***!
+  \*****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
