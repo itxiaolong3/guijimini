@@ -1,5 +1,5 @@
 <template>
-	<view class="zdTabBar">
+	<view class="zdTabBar page">
 		<view class="ul">
 			<view :class="['li',current == index?'cur' :'']" v-for="(item,index) in taBbarList" :key="index" @click="goto(item.url)">
 				<view class="img" v-if="item.type == 0">

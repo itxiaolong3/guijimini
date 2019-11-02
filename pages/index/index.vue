@@ -1,5 +1,5 @@
 <template>
-    <view class="content">
+    <view class="content page">
 		<!-- 3D轮播 -->
 		<view class="">
 			<view class="page-section-spacing">
@@ -114,12 +114,12 @@ export default {
 <style lang="scss">
 	
 	.swiper{
-		height: 850upx;
+		height: 900upx;
 	}
 	// swiper-item 里面的图片高度
 	swiper-item image{
 		width: 100%;
-		height: 850upx;
+		height: 900upx;
 	}
 	// 3D轮播样式开始
 	// .imageContainer {
@@ -205,7 +205,7 @@ export default {
 	// }
 	// 轮播图样式结束
 	.gzmain{
-		background-color:#008eee;
+		background-color:#3F536E;
 		border-radius:20upx;
 		width:90%;
 		margin:0 auto;
