@@ -23,8 +23,8 @@
 			</view>
 		</view>
 		<uni-popup ref="popup" type="bottom" :maskClick="maskclose">
-			<view class="tip">您已选购商品如下：一共：{{allmoney}}元</view>
-			<view class="choosegood" v-for="(product,index) in userproductList" :key="index">
+			<view class="tip" v-if="allmoney>0">您已选购商品如下：一共：{{allmoney}}元</view>
+			<view class="choosegood" v-for="(product,index) in userproductList" :key="index" v-if="product.number>0">
 				<view class="choosegoodimg">
 					<image  class="uni-product-image" :src="product.image"></image>
 				</view>

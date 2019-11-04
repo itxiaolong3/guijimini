@@ -188,9 +188,11 @@
 				let info= await this.$apis.chencklogin({code:code});
 				let t=this;
 				if(info.code==0){
-					uni.reLaunch(
-					{url:"../../pages/auth/auth"}
-					)
+					uni.hideLoading()
+					uni.navigateTo({url:'../../../pages/auth/auth'})
+					// uni.reLaunch(
+					// {url:"../../pages/auth/auth"}
+					// )
 				}else{
 					this.userinfo=info.data;
 					uni.setStorageSync('openid',info.data.openid)
@@ -328,7 +330,13 @@
 				console.log(val.target.value,'输入')
 			},
 			doDeposit(){
-				this.ismmsign();
+				let openid=uni.getStorageSync('openid');
+				if(openid==''||openid==null){
+					uni.navigateTo({url:'../../../pages/auth/auth'})
+				}else{
+					this.ismmsign();
+				}
+				
 			},
 			doclose(){
 				this.btstatus=false;

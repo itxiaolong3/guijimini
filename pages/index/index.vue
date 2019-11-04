@@ -73,6 +73,8 @@ export default {
 			'../../static/img/goods/p3.jpg',
 			'../../static/img/goods/p4.jpg',
 			'../../static/img/goods/p5.jpg'],
+			userinfo:[],
+			showcan:false
         }
     },
 	onLoad() {
@@ -96,11 +98,28 @@ export default {
 		async openidtogetinfoforindex(openid){
 			let info= await this.$apis.openidtogetinfo({openid:openid});
 			this.userinfo=info.data;
+			if(info.data.status==2){
+				uni.showModal({
+				    title: '异常提示',
+				    content: '非常遗憾通知您，您的账号被禁用，请联系客服处理！',
+					showCancel:this.showcan,
+				    success: function (res) {
+				        if (res.confirm) {
+				            uni.navigateTo({
+				            	url:'../../pages/personcenter/personcenter'
+				            })
+				        } else if (res.cancel) {
+				            console.log('用户点击取消');
+				        }
+				    }
+				});
+			}
 			uni.setStorageSync('phone',info.data.phone)
 			console.log(this.userinfo,'首页得到用户信息')
 		},
     },
 	onShow(res) {
+		console.log('首页显示')
 		let getopenid=uni.getStorageSync('openid');
 		if(getopenid!=''&&getopenid!=null){
 			console.log('有openid')    
@@ -112,7 +131,11 @@ export default {
 </script>
 
 <style lang="scss">
-	
+	.content{
+		width: 100%;
+		height: 100%;
+		background-color: #2C405A;
+	}
 	.swiper{
 		height: 900upx;
 	}
@@ -207,9 +230,9 @@ export default {
 	.gzmain{
 		background-color:#3F536E;
 		border-radius:20upx;
-		width:90%;
+		// width:90%;
 		margin:0 auto;
-		margin-top:10upx;
+		margin-top:-10upx;
 		.gongzh{
 			display: flex;
 			padding: 20upx 5upx;

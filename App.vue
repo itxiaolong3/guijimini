@@ -55,7 +55,7 @@
 <style lang="less">
 @import 'style/base.less';
 .page{
-	// color: #FFFFFF;
-	// background-color: #333333;
+	color: #FFFFFF;
+	background-color: #333333;
 }
 </style>

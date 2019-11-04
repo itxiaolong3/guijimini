@@ -27,6 +27,17 @@
 page {
   background-color: #fff;
 }
+.kfbt {
+  width: 100%;
+  text-align: left;
+  background-color: #ffffff;
+}
+.kfbt button::after {
+    border: none;
+}
+button::after {
+  border: none;
+}
 .header {
   background-color: #7db8ec;
   width: 92%;

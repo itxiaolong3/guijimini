@@ -9,6 +9,12 @@
 				<view class="p">{{item.name}}</view>
 			</view>
 		</view>
+		<uni-popup ref="popupcoupon" type="center" :maskClick="!maskclose" :custom="maskclose" style="padding: 0;margin: 0;border-radius: 30rpx;">
+			<view style="width: 550rpx;height: 600rpx;padding: 0;margin: 0;">
+				<image :src="tipimg" style="width: 100%;height: 100%;"/>
+				<image src="../static/img/close.png" class="closeimg" @click="closeimg"/>
+			</view>
+		</uni-popup>
 		<uni-popup ref="popup" type="center" :maskClick="maskclose">
 			<view class="s-page-wrapper is-100vh">
 				<view class="is-33vh has-mgt-10">
@@ -90,11 +96,13 @@
 				],
 				userinfo:[],
 				extra_data:{},
-				nopaymsg:''
+				nopaymsg:'',
+				tipimg:''	
 			}
 		},
 		onReady() {
 				let t=this;
+				
 				uni.login({
 					success:function(e){
 						console.log(e.code,'code')
@@ -104,6 +112,24 @@
 		},
 		components: {uniPopup},
 		methods: {
+			//优惠券提示
+			async coupontip(openid){
+				let info= await this.$apis.coupontip({openid:openid});
+				let t=this;
+				if(info.data.ids){
+					console.log(info,'返回')
+					this.tipimg=info.data.img;
+					setTimeout(function(){
+						t.$refs.popupcoupon.open()
+					},500)
+					
+				}
+				console.log(info,'返回2')
+			},
+			closeimg(){
+				let t=this;
+				t.$refs.popupcoupon.close()
+			},
 			//检查是否有未支付订单
 			async checknopayorder(openid){
 				let info= await this.$apis.checknopayorder({openid:openid});
@@ -141,12 +167,13 @@
 				let info= await this.$apis.chencklogin({code:code});
 				let t=this;
 				if(info.code==0){
-					uni.reLaunch(
-					{url:"../../pages/auth/auth"}
-					)
+					// uni.reLaunch(
+					// {url:"../../pages/auth/auth"}
+					// )
 				}else{
 					this.userinfo=info.data;
 					uni.setStorageSync('openid',info.data.openid)
+					t.coupontip(info.data.openid)
 					console.log(this.userinfo,'已登录')
 				}
 			},
@@ -166,6 +193,9 @@
 					uni.reLaunch({
 						url:"../../pages/goodlist/goodlist?productNumber="+sn
 					})
+				}else{
+					uni.showToast({title: '开柜失败,原因：'+info.msg,duration: 3000,icon:'none'});
+					
 				}
 			},
 			async savaphone(openid,phone){
@@ -251,42 +281,50 @@
 				console.log(e,'选中')
 				let getphone=uni.getStorageSync('phone')
 				if(e==1){
-					if(this.userinfo.phone==null||this.userinfo.phone==''){
-						if(getphone==null||getphone==''){
-							this.$refs.popup.open()
-						}else{
-							uni.navigateTo({url:'../../pages/personcenter/orderlist/orderlist?tbIndex=0'})
-						}
-						
-					}else{
-						uni.navigateTo({url:'../../pages/personcenter/orderlist/orderlist?tbIndex=0'})
-					}
+					uni.navigateTo({url:'../../pages/personcenter/orderlist/orderlist?tbIndex=0'})
+					// if(this.userinfo.phone==null||this.userinfo.phone==''){
+					// 	if(getphone==null||getphone==''){
+					// 		this.$refs.popup.open()
+					// 	}else{
+					// 		uni.navigateTo({url:'../../pages/personcenter/orderlist/orderlist?tbIndex=0'})
+					// 	}
+					// 	
+					// }else{
+					// 	uni.navigateTo({url:'../../pages/personcenter/orderlist/orderlist?tbIndex=0'})
+					// }
 					
 				}else if(e==2){
 					//先判断是否手机号注册
 					console.log(getphone,'getphone')
-					if(this.userinfo.phone==null||this.userinfo.phone==''){
-						if(getphone==null||getphone==''){
-							this.$refs.popup.open()
+					let getopenid=uni.getStorageSync('openid');
+					if(getopenid==''||getopenid==null){
+						uni.navigateTo({url:'../../pages/auth/auth'})
+					}else{
+						if(this.userinfo.phone==null||this.userinfo.phone==''){
+							if(getphone==null||getphone==''){
+								this.$refs.popup.open()
+							}else{
+								this.ismmsign()
+							}
+							
 						}else{
 							this.ismmsign()
 						}
-						
-					}else{
-						this.ismmsign()
 					}
 					
+					
 				}else if(e==3){
-					if(this.userinfo.phone==null||this.userinfo.phone==''){
-						if(getphone==null||getphone==''){
-							this.$refs.popup.open()
-						}else{
-							uni.navigateTo({url:'../../pages/personcenter/personcenter'})
-						}
-						
-					}else{
-						uni.navigateTo({url:'../../pages/personcenter/personcenter'})
-					}
+					uni.navigateTo({url:'../../pages/personcenter/personcenter'})
+					// if(this.userinfo.phone==null||this.userinfo.phone==''){
+					// 	if(getphone==null||getphone==''){
+					// 		this.$refs.popup.open()
+					// 	}else{
+					// 		uni.navigateTo({url:'../../pages/personcenter/personcenter'})
+					// 	}
+					// 	
+					// }else{
+					// 	uni.navigateTo({url:'../../pages/personcenter/personcenter'})
+					// }
 					
 				}
 			},
@@ -389,7 +427,14 @@
 		border-radius: 50%;
 		margin: 0 auto;
 	}
-
+.closeimg{
+	position: absolute;
+	left:45%;
+	top:97%;
+	width: 70rpx;
+	height: 70rpx;
+	z-index: 3;
+}
 	.is-input1 {
 		height: 88rpx;
 		width: 100%;

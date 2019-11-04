@@ -57,3 +57,11 @@ export const checknopayorder = (data) => http.POST(`${config.baseUrl}/minapi/che
 export const wxpaytwo = (data) => http.POST(`${config.baseUrl}/minapi/wxpaytwo`, data);
 //混合支付模式下,用户余额不足免密扣款,而导致系统余额减少,需要调用后台检查余额恢复接口
 export const backyue = (data) => http.POST(`${config.baseUrl}/minapi/backyue`, data);
+//上货开柜接口
+export const shopen = (data) => http.POST(`${config.baseUrl}/minapi/shopen`, data);
+//手动关柜
+export const shclose = (data) => http.POST(`${config.baseUrl}/minapi/shclose`, data);
+//上下货记录
+export const updowngood = (data) => http.POST(`${config.baseUrl}/minapi/updowngood`, data);
+//检查优惠券更新提示
+export const coupontip = (data) => http.POST(`${config.baseUrl}/minapi/coupontip`, data);

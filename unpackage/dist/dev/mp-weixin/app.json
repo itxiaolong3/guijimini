@@ -9,7 +9,10 @@
     "pages/xieyi/xieyi",
     "pages/personcenter/deposit/deposit",
     "pages/personcenter/paysuccess/paysuccess",
-    "pages/personcenter/coupon/coupon"
+    "pages/personcenter/coupon/coupon",
+    "pages/personcenter/upgood/upgood",
+    "pages/personcenter/downgood/downgood",
+    "pages/personcenter/checkuptype/checkuptype"
   ],
   "subPackages": [],
   "window": {

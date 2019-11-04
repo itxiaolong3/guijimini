@@ -48,9 +48,10 @@
 			</view>
 		</view>
 		<view class="list" v-for="(list,list_i) in severList" :key="list_i">
-			<view class="li" v-for="(li,li_i) in list" @tap="toPage(list_i,li_i)" v-bind:class="{'noborder':li_i==list.length-1}"  hover-class="hover" :key="li.name" >
-				<view class="icon"><image :src="'../../static/HM-PersonalCenter/sever/'+li.icon"></image></view>
-				<view class="text">{{li.name}}</view>
+			<view class="li" v-for="(li,li_i) in list" @tap="toPage(list_i,li_i)" v-bind:class="{'noborder':li_i==list.length-1}"  hover-class="hover" :key="li.name" v-if="li.isshow==true">
+				<view  class="icon"><image :src="'../../static/HM-PersonalCenter/sever/'+li.icon"></image></view>
+				<view class="text" v-if="!li.isbt">{{li.name}}</view>
+				<view v-if="li.isbt" class="text"><button class="text kfbt" open-type="contact" >{{li.name}}</button></view>
 				<image class="to" src="../../static/HM-PersonalCenter/to.png"></image>
 			</view>
 		</view>
@@ -85,18 +86,19 @@
 					{name:'售后订单',icon:'l5.png',badge:0}
 				],
 				severList:[
-					[
-						// {name:'我要充值',icon:'skv.png'},
-						// {name:'售后申请',icon:'sellafter.png'},
-						{name:'我要上货',icon:'upgood.png'},
-						{name:'反馈意见',icon:'comment.png'}
-					],
-					[
-						// {name:'历史记录',icon:'history.png'},
-						{name:'联系客服',icon:'kefu.png'},
-						{name:'关于平台',icon:'about.png'}
-					]
-				]
+					// [
+					// 	// {name:'我要充值',icon:'skv.png'},
+					// 	// {name:'售后申请',icon:'sellafter.png'},
+					// 	{name:'我要上货',icon:'upgood.png',isshow:true},
+					// 	{name:'反馈意见',icon:'comment.png',isshow:true}
+					// ],
+					// [
+					// 	// {name:'历史记录',icon:'history.png'},
+					// 	{name:'联系客服',icon:'kefu.png',isshow:true},
+					// 	{name:'关于平台',icon:'about.png',isshow:true}
+					// ]
+				],
+				isshowitem:false
 				
 			}
 		},
@@ -106,10 +108,6 @@
 		},
 		onReady() {
 				let t=this;
-				uni.showLoading({
-					title: '加载中...',
-					mask: true
-				});
 				uni.login({
 					success:function(e){
 						t.getapiinfo(e.code)
@@ -125,17 +123,55 @@
 			})
 		},
 		methods: {
+			async shopen(sn){
+				let info= await this.$apis.shopen({sn:sn});
+				if(info.code==1){
+					uni.navigateTo({url:'./checkuptype/checkuptype?sn='+sn}) 
+				}else{
+					uni.showToast({title: '开柜失败:'+info.msg,duration: 3000,icon:'none'});
+				}
+			},
 			async getapiinfo(code){
 				let info= await this.$apis.chencklogin({code:code});
 				let t=this;
+				
 				if(info.code==0){
-					uni.reLaunch(
-					{url:"../../pages/auth/auth"}
-					)
+					// uni.reLaunch(
+					// {url:"../../pages/auth/auth"}
+					// )
 				}else{
-					uni.hideLoading();
+					
 					this.userinfo=info.data;
 					uni.setStorageSync('openid',info.data.openid)
+					if(info.data.auth_type==1){
+						this.severList=[
+							[
+								// {name:'我要充值',icon:'skv.png'},
+								// {name:'售后申请',icon:'sellafter.png'},
+								{name:'我要上货',icon:'upgood.png',isshow:true,isbt:false},
+								{name:'反馈意见',icon:'comment.png',isshow:true,isbt:false}
+							],
+							[
+								// {name:'历史记录',icon:'history.png'},
+								{name:'联系客服',icon:'kefu.png',isshow:true,isbt:true},
+								{name:'关于平台',icon:'about.png',isshow:true,isbt:false}
+							]
+						];
+					}else{
+						this.severList=[
+							[
+								// {name:'我要充值',icon:'skv.png'},
+								// {name:'售后申请',icon:'sellafter.png'},
+								{name:'我要上货',icon:'upgood.png',isshow:false,isbt:false},
+								{name:'反馈意见',icon:'comment.png',isshow:true,isbt:false}
+							],
+							[
+								// {name:'历史记录',icon:'history.png'},
+								{name:'联系客服',icon:'kefu.png',isshow:true,isbt:false},
+								{name:'关于平台',icon:'about.png',isshow:true,isbt:false}
+							]
+						];
+					}
 					console.log(this.userinfo,'已登录')
 				}
 			},
@@ -177,7 +213,31 @@
 			},
 			//用户点击列表项
 			toPage(list_i,li_i){
-				uni.showToast({title: this.severList[list_i][li_i].name});
+				if(this.severList[list_i][li_i].name=="我要上货"){
+					let getopenid=uni.getStorageSync('openid');
+					uni.showLoading({
+						title:'开柜中...'
+					})
+					let t=this;
+					uni.scanCode({
+						success:function(e){
+							var getpath=e.path;
+							var arr=getpath.split('=');
+							t.shopen(arr[1])
+							//t.opendoor(getopenid,arr[1])
+							console.log(arr[1],'扫码成功返回')
+							
+						},fail:function(e){
+							console.log(e,'扫码失败返回')
+							uni.hideLoading()
+							uni.showToast({title: '开柜失败',duration: 3000,icon:'none'});
+						}
+					})
+					
+				}else{
+					//uni.showToast({title: this.severList[list_i][li_i].name});
+				}
+				
 			},
 			//点击优惠券
 			tocoupon(){
@@ -194,6 +254,15 @@
 
 <style lang="scss">
 page{background-color:#fff}
+.kfbt{
+	width: 100%;
+	text-align: left;
+	background-color: #ffffff;
+	button::after{ border: none; } 
+}
+button::after{
+border:none;
+}
 .header{
 	&.status{padding-top:var(--status-bar-height);}
 	background-color:#7db8ec;width:92%;height:30vw;padding:0 4%;display:flex;align-items:center;
