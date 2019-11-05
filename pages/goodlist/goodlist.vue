@@ -24,7 +24,7 @@
 		</view>
 		<uni-popup ref="popup" type="bottom" :maskClick="maskclose">
 			<view class="tip" v-if="allmoney>0">您已选购商品如下：一共：{{allmoney}}元</view>
-			<view class="choosegood" v-for="(product,index) in userproductList" :key="index" v-if="product.number>0">
+			<view class="choosegood" v-for="(product,index) in userproductList" :key="index" v-if="allmoney>0">
 				<view class="choosegoodimg">
 					<image  class="uni-product-image" :src="product.image"></image>
 				</view>
@@ -195,6 +195,10 @@
 			async backyue(openid,out_trade_no){
 				let info= await this.$apis.backyue({openid:openid,out_trade_no:out_trade_no});
 			},
+			//关门上传商品数据
+			async updatecloseorder(allmoney,ordernum,goodinfo,goodtitle,goodimg){
+				let info= await this.$apis.updatecloseorder({allmoney:allmoney,ordernum:ordernum,goodinfo:JSON.stringify(goodinfo),goodtitle:goodtitle,goodimg:goodimg});
+			},
 			//获取我的优惠券
 			async mycouponlist(){
 				let getopenid=uni.getStorageSync('openid');
@@ -202,6 +206,16 @@
 				this.list=info.data.couponList;
 				if(info.data.couponList.length>0){
 					if(this.allmoney>0){
+						//不选优惠券一样要上传商品和总价格。防止什么都不选直接关闭逃单
+						let goodtitle='';
+						let goodimg='';
+						for(var i=0;i<this.userproductList.length;i++){
+							goodtitle+=this.userproductList[i].name+",";
+						}
+						goodimg=this.userproductList[0].image;
+						//updatecloseorder(allmoney,ordernum,goodinfo,goodtitle,goodimg)
+						let orderId=uni.getStorageSync('ordernum');
+						this.updatecloseorder(this.allmoney,orderId,this.userproductList,goodtitle,goodimg);
 						this.$refs.popups.open()
 					}else{
 						//结速购买，返回首页
@@ -290,7 +304,7 @@
 							   goodimg=t.userproductList[0].image;
 							   console.log(goodtitle,'提交的商品名称')
 							   console.log(goodimg,'提交的商品图片')
-							   console.log(this.allmoney,'商品总额')
+							   console.log(t.allmoney,'商品总额')
 							   console.log(t.userproductList,'提交的商品')
 							  //没选择优惠券，直接提交
 							  //openid,ordernum,allmoney,getcoupontype,getticket,body,goodimg,couponid,goodinfo

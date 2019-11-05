@@ -3008,7 +3008,7 @@ HTMLParser;exports.default = _default;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.coupontip = exports.updowngood = exports.shclose = exports.shopen = exports.backyue = exports.wxpaytwo = exports.checknopayorder = exports.orderlist = exports.checkgoodorder = exports.accountorder = exports.getgood = exports.getallgood = exports.opendoor = exports.getcoupon = exports.mycouponlist = exports.couponlist = exports.checkorderstate = exports.dowxpay = exports.getaddmoneyact = exports.regphone = exports.sendsms = exports.xieyi = exports.getadv = exports.bannerlist = exports.savesingres = exports.ismmsign = exports.getsingparm = exports.savephone = exports.getphone = exports.openidtogetinfo = exports.savainfo = exports.chencklogin = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! ./http.js */ 15));
+Object.defineProperty(exports, "__esModule", { value: true });exports.updatecloseorder = exports.coupontip = exports.updowngood = exports.shclose = exports.shopen = exports.backyue = exports.wxpaytwo = exports.checknopayorder = exports.orderlist = exports.checkgoodorder = exports.accountorder = exports.getgood = exports.getallgood = exports.opendoor = exports.getcoupon = exports.mycouponlist = exports.couponlist = exports.checkorderstate = exports.dowxpay = exports.getaddmoneyact = exports.regphone = exports.sendsms = exports.xieyi = exports.getadv = exports.bannerlist = exports.savesingres = exports.ismmsign = exports.getsingparm = exports.savephone = exports.getphone = exports.openidtogetinfo = exports.savainfo = exports.chencklogin = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! ./http.js */ 15));
 var _indexConfig = _interopRequireDefault(__webpack_require__(/*! @/config/index.config.js */ 16));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 // 获取用户资料
@@ -3074,7 +3074,9 @@ exports.shopen = shopen;var shclose = function shclose(data) {return _http.defau
 //上下货记录
 exports.shclose = shclose;var updowngood = function updowngood(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/updowngood"), data);};
 //检查优惠券更新提示
-exports.updowngood = updowngood;var coupontip = function coupontip(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/coupontip"), data);};exports.coupontip = coupontip;
+exports.updowngood = updowngood;var coupontip = function coupontip(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/coupontip"), data);};
+//补接口,关门立即发送保存商品和价格数据到后台
+exports.coupontip = coupontip;var updatecloseorder = function updatecloseorder(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/updatecloseorder"), data);};exports.updatecloseorder = updatecloseorder;
 
 /***/ }),
 

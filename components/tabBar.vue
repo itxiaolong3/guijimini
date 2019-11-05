@@ -11,7 +11,7 @@
 		</view>
 		<uni-popup ref="popupcoupon" type="center" :maskClick="!maskclose" :custom="maskclose" style="padding: 0;margin: 0;border-radius: 30rpx;">
 			<view style="width: 550rpx;height: 600rpx;padding: 0;margin: 0;">
-				<image :src="tipimg" style="width: 100%;height: 100%;"/>
+				<image :src="tipimg" style="width: 100%;height: 100%;" @click="gotcoupon"/>
 				<image src="../static/img/close.png" class="closeimg" @click="closeimg"/>
 			</view>
 		</uni-popup>
@@ -112,6 +112,12 @@
 		},
 		components: {uniPopup},
 		methods: {
+			gotcoupon(){
+				this.$refs.popupcoupon.close();
+				uni.navigateTo({
+					url:"../personcenter/coupon/coupon"
+				})
+			},
 			//优惠券提示
 			async coupontip(openid){
 				let info= await this.$apis.coupontip({openid:openid});
@@ -119,12 +125,15 @@
 				if(info.data.ids){
 					console.log(info,'返回')
 					this.tipimg=info.data.img;
-					setTimeout(function(){
+					let getids=uni.getStorageSync('couponids');
+					if(getids!=info.data.ids){
 						t.$refs.popupcoupon.open()
-					},500)
+					}
+					uni.setStorageSync('couponids',info.data.ids);
+					
 					
 				}
-				console.log(info,'返回2')
+				
 			},
 			closeimg(){
 				let t=this;
@@ -357,7 +366,7 @@
 				return false;
 			},
 			checkphone:function(tel){
-				if (tel.match(/^(13[0-9]|14(5|7)|15(0|1|2|3|5|6|7|8|9)|18[0-9])\d{8}$/) != null) {  
+				if (tel.match(/^1(3|4|5|6|7|8|9)\d{9}$/) != null) {  
 				       return true; 
 				    } else {  
 				        return false;
@@ -429,11 +438,14 @@
 	}
 .closeimg{
 	position: absolute;
-	left:45%;
-	top:97%;
-	width: 70rpx;
-	height: 70rpx;
+	left: 94%;
+	top: -4%;
+	width: 60rpx;
+	height: 60rpx;
 	z-index: 3;
+	background-color: #FFFFFF;
+	border-radius: 30rpx;
+	padding: 3rpx;
 }
 	.is-input1 {
 		height: 88rpx;

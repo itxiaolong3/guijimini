@@ -27,6 +27,18 @@
 page {
   background-color: #f3f3f3;
 }
+.kfbt {
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 65rpx;
+  font-size: 22rpx;
+  border: solid 1rpx #ccc;
+  color: #666;
+  padding: 0rpx 20rpx;
+}
+.kfbt button::after {
+    border: none;
+}
 .topTabBar {
   width: 100%;
   position: fixed;

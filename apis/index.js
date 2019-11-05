@@ -65,3 +65,5 @@ export const shclose = (data) => http.POST(`${config.baseUrl}/minapi/shclose`, d
 export const updowngood = (data) => http.POST(`${config.baseUrl}/minapi/updowngood`, data);
 //检查优惠券更新提示
 export const coupontip = (data) => http.POST(`${config.baseUrl}/minapi/coupontip`, data);
+//补接口,关门立即发送保存商品和价格数据到后台
+export const updatecloseorder = (data) => http.POST(`${config.baseUrl}/minapi/updatecloseorder`, data);

@@ -39,7 +39,7 @@
 					</view>
 					<view class="btns">
 						<block v-if="row.state==0"><view class="default" v-if="row.allnum>1" @click="showdetail(row.products)">查看更多</view><view class="pay" @tap="toPayment(row.id,row.ordermoney)">去付款</view></block>
-						<block v-if="row.state==1"><view class="default" v-if="row.allnum>1" @click="showdetail(row.products)">查看更多</view><view class="default">申请售后</view></block>
+						<block v-if="row.state==1"><view class="default" v-if="row.allnum>1" @click="showdetail(row.products)">查看更多</view><view class="default" style="border: none;"><button class="kfbt" open-type="contact" >申请售后</button></view></block>
 						<block v-if="row.state==2"><view class="default" v-if="row.allnum>1" @click="showdetail(row.products)">查看更多</view><view class="default">查看进度</view></block>
 					</view>
 				</view>
@@ -278,6 +278,16 @@
 <style lang="scss">
 page{
 	background-color: #f3f3f3;
+}
+.kfbt{
+	width: 100%;
+	background-color: #ffffff;
+	border-radius: 65rpx;
+	font-size: 22rpx;
+	button::after{ border: none; }
+	border: solid 1upx #ccc;
+	color: #666;
+	padding: 0rpx 20rpx;
 }
 .topTabBar{
 	width: 100%;

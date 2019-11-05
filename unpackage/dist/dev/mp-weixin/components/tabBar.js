@@ -219,19 +219,28 @@ __webpack_require__.r(__webpack_exports__);
   },
   components: { uniPopup: uniPopup },
   methods: {
+    gotcoupon: function gotcoupon() {
+      this.$refs.popupcoupon.close();
+      uni.navigateTo({
+        url: "../personcenter/coupon/coupon" });
+
+    },
     //优惠券提示
-    coupontip: function () {var _coupontip = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(openid) {var info, t;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
+    coupontip: function () {var _coupontip = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(openid) {var info, t, getids;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
                   this.$apis.coupontip({ openid: openid }));case 2:info = _context.sent;
                 t = this;
                 if (info.data.ids) {
                   console.log(info, '返回');
                   this.tipimg = info.data.img;
-                  setTimeout(function () {
+                  getids = uni.getStorageSync('couponids');
+                  if (getids != info.data.ids) {
                     t.$refs.popupcoupon.open();
-                  }, 500);
+                  }
+                  uni.setStorageSync('couponids', info.data.ids);
 
-                }
-                console.log(info, '返回2');case 6:case "end":return _context.stop();}}}, _callee, this);}));function coupontip(_x) {return _coupontip.apply(this, arguments);}return coupontip;}(),
+
+                }case 5:case "end":return _context.stop();}}}, _callee, this);}));function coupontip(_x) {return _coupontip.apply(this, arguments);}return coupontip;}(),
+
 
     closeimg: function closeimg() {
       var t = this;
@@ -464,7 +473,7 @@ __webpack_require__.r(__webpack_exports__);
       return false;
     },
     checkphone: function checkphone(tel) {
-      if (tel.match(/^(13[0-9]|14(5|7)|15(0|1|2|3|5|6|7|8|9)|18[0-9])\d{8}$/) != null) {
+      if (tel.match(/^1(3|4|5|6|7|8|9)\d{9}$/) != null) {
         return true;
       } else {
         return false;
