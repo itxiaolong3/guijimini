@@ -234,7 +234,7 @@
 		onLoad(option) {
 			console.log(option.sn,'传过来')
 			//this.getallgood(option.sn)
-			this.getallgood('002001318804b222722d')
+			this.getallgood(option.sn)
 		}
 	}
 </script>
