@@ -67,3 +67,9 @@ export const updowngood = (data) => http.POST(`${config.baseUrl}/minapi/updowngo
 export const coupontip = (data) => http.POST(`${config.baseUrl}/minapi/coupontip`, data);
 //补接口,关门立即发送保存商品和价格数据到后台
 export const updatecloseorder = (data) => http.POST(`${config.baseUrl}/minapi/updatecloseorder`, data);
+//反馈意见
+export const feelback = (data) => http.POST(`${config.baseUrl}/minapi/feelback`, data);
+//提现申请
+export const withdrawreply = (data) => http.POST(`${config.baseUrl}/minapi/withdrawreply`, data);
+//提现列表
+export const withdrawlist = (data) => http.POST(`${config.baseUrl}/minapi/withdrawlist`, data);

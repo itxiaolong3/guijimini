@@ -54,6 +54,18 @@
             "path" : "pages/personcenter/checkuptype/checkuptype",
             "style" : {"navigationBarTitleText": "选中类型"}
         }
+        ,{
+            "path" : "pages/personcenter/feelback/feelback",
+            "style" : {"navigationBarTitleText": "提交反馈"}
+        }
+        ,{
+            "path" : "pages/aboutme/aboutme",
+            "style" : {"navigationBarTitleText": "关于平台"}
+        }
+        ,{
+            "path" : "pages/personcenter/tixian/tixian",
+            "style" : {"navigationBarTitleText": "申请提现"}
+        }
     ],
 	"permission": {
 		"scope.userLocation": {

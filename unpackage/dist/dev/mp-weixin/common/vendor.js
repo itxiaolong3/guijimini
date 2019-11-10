@@ -1,9 +1,9 @@
 (global["webpackJsonp"] = global["webpackJsonp"] || []).push([["common/vendor"],{
 
 /***/ 0:
-/*!***************************************************!*\
-  !*** D:/chenjinlong/githuademo/guijimini/main.js ***!
-  \***************************************************/
+/*!********************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js ***!
+  \********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -755,7 +755,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -2233,9 +2233,9 @@ uni$1;exports.default = _default;
 /***/ }),
 
 /***/ 104:
-/*!*****************************************************************************************************!*\
-  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fupgood%2Fupgood"} ***!
-  \*****************************************************************************************************/
+/*!**********************************************************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fupgood%2Fupgood"} ***!
+  \**********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2279,6 +2279,23 @@ createPage(_downgood.default);
 var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
 var _checkuptype = _interopRequireDefault(__webpack_require__(/*! ./pages/personcenter/checkuptype/checkuptype.vue */ 121));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 createPage(_checkuptype.default);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
+
+/***/ }),
+
+/***/ 128:
+/*!**************************************************************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Ffeelback%2Ffeelback"} ***!
+  \**************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
+
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
+var _feelback = _interopRequireDefault(__webpack_require__(/*! ./pages/personcenter/feelback/feelback.vue */ 129));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+createPage(_feelback.default);
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
 
 /***/ }),
@@ -2390,6 +2407,23 @@ function normalizeComponent (
 
 /***/ }),
 
+/***/ 136:
+/*!*********************************************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Faboutme%2Faboutme"} ***!
+  \*********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
+
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
+var _aboutme = _interopRequireDefault(__webpack_require__(/*! ./pages/aboutme/aboutme.vue */ 137));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+createPage(_aboutme.default);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
+
+/***/ }),
+
 /***/ 14:
 /*!**************************************************************************!*\
   !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/apis/index.js ***!
@@ -2398,7 +2432,7 @@ function normalizeComponent (
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.updatecloseorder = exports.coupontip = exports.updowngood = exports.shclose = exports.shopen = exports.backyue = exports.wxpaytwo = exports.checknopayorder = exports.orderlist = exports.checkgoodorder = exports.accountorder = exports.getgood = exports.getallgood = exports.opendoor = exports.getcoupon = exports.mycouponlist = exports.couponlist = exports.checkorderstate = exports.dowxpay = exports.getaddmoneyact = exports.regphone = exports.sendsms = exports.xieyi = exports.getadv = exports.bannerlist = exports.savesingres = exports.ismmsign = exports.getsingparm = exports.savephone = exports.getphone = exports.openidtogetinfo = exports.savainfo = exports.chencklogin = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! ./http.js */ 15));
+Object.defineProperty(exports, "__esModule", { value: true });exports.withdrawlist = exports.withdrawreply = exports.feelback = exports.updatecloseorder = exports.coupontip = exports.updowngood = exports.shclose = exports.shopen = exports.backyue = exports.wxpaytwo = exports.checknopayorder = exports.orderlist = exports.checkgoodorder = exports.accountorder = exports.getgood = exports.getallgood = exports.opendoor = exports.getcoupon = exports.mycouponlist = exports.couponlist = exports.checkorderstate = exports.dowxpay = exports.getaddmoneyact = exports.regphone = exports.sendsms = exports.xieyi = exports.getadv = exports.bannerlist = exports.savesingres = exports.ismmsign = exports.getsingparm = exports.savephone = exports.getphone = exports.openidtogetinfo = exports.savainfo = exports.chencklogin = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! ./http.js */ 15));
 var _indexConfig = _interopRequireDefault(__webpack_require__(/*! @/config/index.config.js */ 16));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 // 获取用户资料
@@ -2466,11 +2500,186 @@ exports.shclose = shclose;var updowngood = function updowngood(data) {return _ht
 //检查优惠券更新提示
 exports.updowngood = updowngood;var coupontip = function coupontip(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/coupontip"), data);};
 //补接口,关门立即发送保存商品和价格数据到后台
-exports.coupontip = coupontip;var updatecloseorder = function updatecloseorder(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/updatecloseorder"), data);};exports.updatecloseorder = updatecloseorder;
+exports.coupontip = coupontip;var updatecloseorder = function updatecloseorder(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/updatecloseorder"), data);};
+//反馈意见
+exports.updatecloseorder = updatecloseorder;var feelback = function feelback(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/feelback"), data);};
+//提现申请
+exports.feelback = feelback;var withdrawreply = function withdrawreply(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/withdrawreply"), data);};
+//提现列表
+exports.withdrawreply = withdrawreply;var withdrawlist = function withdrawlist(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/withdrawlist"), data);};exports.withdrawlist = withdrawlist;
 
 /***/ }),
 
-/***/ 147:
+/***/ 15:
+/*!*************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/apis/http.js ***!
+  \*************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function HTTP(obj, config) {
+
+  var defaultConfig = {
+    isRes: false,
+    loading: false };
+
+
+  config = _objectSpread({}, defaultConfig,
+  config);
+
+
+
+  // 如果需要显示loading,mask防止点击穿透
+  // config.loading && uni.showLoading({
+  // 	title: '加载中哦',
+  // 	mask: true
+  // });
+
+  return new Promise(function (resolve, reject) {
+
+    var options = {
+      url: "",
+      method: "GET",
+      data: {},
+      dataType: "json",
+      header: {
+        "content-type": "application/x-www-form-urlencoded",
+        "X-requested-With": "XMLHttpRequest" },
+
+      success: function success(res) {
+        //console.log("HTTP请求结果：",res)
+        //uni.hideLoading();
+        // 状态码为200
+        if (res.statusCode == 200) {
+          var data = res.data;
+
+          //自动校验用户是否登录过期
+          if (data.code == 0) {
+
+          } //uni.showToast({title:data.msg,duration:1500,icon:'none'});
+
+          //返回 { code:10000,msg:"消息",data:[] }
+          if (config.isRes) {
+            resolve(data);
+          }
+          // 返回 data:[]
+          else {
+              resolve(data || true);
+              // if (data.code == "00") {
+              // 	resolve(data.data || true)
+              // } else {
+              // 	wx.showToast({
+              // 		title: data.msg,
+              // 		icon: "none",
+              // 		duration: 2000
+              // 	})
+              // 	reject(data.msg);
+              // }
+            }
+        } else {
+          reject("HTTP:状态码异常！");
+        }
+      },
+      fail: function fail(err) {
+        //uni.hideLoading();
+        uni.showToast({
+          title: "网络异常，请稍后再试!",
+          icon: "none" });
+
+        reject("网络异常，请稍后再试!");
+      },
+      complete: function complete() {} };
+
+
+    options = _objectSpread({}, options,
+    obj);
+
+
+    var OPENID = uni.getStorageSync("openId");
+    if (OPENID) options["header"]["openId"] = OPENID;
+
+    if (options.url && options.method) {
+      wx.request(options);
+    } else {
+      wx.showToast({
+        title: 'HTTP：缺失参数',
+        icon: "none",
+        duration: 2000 });
+
+    }
+  });
+
+}var _default =
+
+
+
+{
+  GET: function GET(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var config = arguments.length > 2 ? arguments[2] : undefined;
+    return HTTP({
+      url: url,
+      data: data,
+      method: "GET" },
+    config);
+  },
+  POST: function POST(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var config = arguments.length > 2 ? arguments[2] : undefined;
+    return HTTP({
+      url: url,
+      data: data,
+      method: "POST" },
+    config);
+  },
+
+  POSTformdata: function POSTformdata(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var config = arguments.length > 2 ? arguments[2] : undefined;
+    return HTTP({
+      url: url,
+      data: data,
+      method: "POST" },
+    config);
+  } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 16:
+/*!***********************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/config/index.config.js ***!
+  \***********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var CONFIG = {
+  //开发环境配置
+  development: {
+    loginTitleTxt: "it小龙", // 登录页标题
+    copyrightTxt: "柜机1.0", // 版本信息
+    assetsPath: "https://xiguoxiansheng.com/img", // 静态资源路径
+    baseUrl: "https://xiguoxiansheng.com/api",
+    tokenKey: "WECHAT_TRADE", // 登录标识
+    testOpenId: "oEjRxwy7jL9PgG0kWeb4VcDTZEas", // 小程序测试openId
+    forcedLogin: false, // touristMode游客模式下APP是否强制用户登录 场景：当用户进入登录页面后无法后退。
+    touristMode: true // APP是否开启游客模式， 游客模式true开启：APP打开后可以进入首页和无权限的页面，游客模式false关闭：APP打开后首先需要登录才能进入， 此时forcedLogin配置项失效。
+  },
+
+  //生产环境配置
+  production: {
+    loginTitleTxt: "it小龙", // 登录页标题
+    copyrightTxt: "柜机1.0", // 版本信息
+    assetsPath: "/static/img", // 静态资源路径
+    baseUrl: "https://xiguoxiansheng.com/api",
+    tokenKey: "WECHAT_TRADE", // 登录标识
+    testOpenId: "oEjRxwy7jL9PgG0kWeb4VcDTZEas", // 小程序测试openId
+    forcedLogin: false, // touristMode游客模式下APP是否强制用户登录 场景：当用户进入登录页面后无法后退。
+    touristMode: true // APP是否开启游客模式， 游客模式true开启：APP打开后可以进入首页和无权限的页面，游客模式false关闭：APP打开后首先需要登录才能进入， 此时forcedLogin配置项失效。
+  } };var _default =
+
+
+CONFIG["development"];exports.default = _default;
+
+/***/ }),
+
+/***/ 163:
 /*!*************************************************************************************************!*\
   !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/components/u-parse/libs/html2json.js ***!
   \*************************************************************************************************/
@@ -2492,8 +2701,8 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
-var _wxDiscode = _interopRequireDefault(__webpack_require__(/*! ./wxDiscode */ 148));
-var _htmlparser = _interopRequireDefault(__webpack_require__(/*! ./htmlparser */ 149));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} /**
+var _wxDiscode = _interopRequireDefault(__webpack_require__(/*! ./wxDiscode */ 164));
+var _htmlparser = _interopRequireDefault(__webpack_require__(/*! ./htmlparser */ 165));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} /**
                                                                                                                                                                  * html2Json 改造来自: https://github.com/Jxck/html2json
                                                                                                                                                                  *
                                                                                                                                                                  *
@@ -2742,7 +2951,7 @@ html2json;exports.default = _default;
 
 /***/ }),
 
-/***/ 148:
+/***/ 164:
 /*!*************************************************************************************************!*\
   !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/components/u-parse/libs/wxDiscode.js ***!
   \*************************************************************************************************/
@@ -2947,7 +3156,7 @@ function urlToHttpUrl(url, domain) {
 
 /***/ }),
 
-/***/ 149:
+/***/ 165:
 /*!**************************************************************************************************!*\
   !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/components/u-parse/libs/htmlparser.js ***!
   \**************************************************************************************************/
@@ -3114,179 +3323,10 @@ HTMLParser;exports.default = _default;
 
 /***/ }),
 
-/***/ 15:
-/*!********************************************************!*\
-  !*** D:/chenjinlong/githuademo/guijimini/apis/http.js ***!
-  \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function HTTP(obj, config) {
-
-  var defaultConfig = {
-    isRes: false,
-    loading: false };
-
-
-  config = _objectSpread({}, defaultConfig,
-  config);
-
-
-
-  // 如果需要显示loading,mask防止点击穿透
-  // config.loading && uni.showLoading({
-  // 	title: '加载中哦',
-  // 	mask: true
-  // });
-
-  return new Promise(function (resolve, reject) {
-
-    var options = {
-      url: "",
-      method: "GET",
-      data: {},
-      dataType: "json",
-      header: {
-        "content-type": "application/x-www-form-urlencoded",
-        "X-requested-With": "XMLHttpRequest" },
-
-      success: function success(res) {
-        //console.log("HTTP请求结果：",res)
-        //uni.hideLoading();
-        // 状态码为200
-        if (res.statusCode == 200) {
-          var data = res.data;
-
-          //自动校验用户是否登录过期
-          if (data.code == 0) {
-
-          } //uni.showToast({title:data.msg,duration:1500,icon:'none'});
-
-          //返回 { code:10000,msg:"消息",data:[] }
-          if (config.isRes) {
-            resolve(data);
-          }
-          // 返回 data:[]
-          else {
-              resolve(data || true);
-              // if (data.code == "00") {
-              // 	resolve(data.data || true)
-              // } else {
-              // 	wx.showToast({
-              // 		title: data.msg,
-              // 		icon: "none",
-              // 		duration: 2000
-              // 	})
-              // 	reject(data.msg);
-              // }
-            }
-        } else {
-          reject("HTTP:状态码异常！");
-        }
-      },
-      fail: function fail(err) {
-        //uni.hideLoading();
-        uni.showToast({
-          title: "网络异常，请稍后再试!",
-          icon: "none" });
-
-        reject("网络异常，请稍后再试!");
-      },
-      complete: function complete() {} };
-
-
-    options = _objectSpread({}, options,
-    obj);
-
-
-    var OPENID = uni.getStorageSync("openId");
-    if (OPENID) options["header"]["openId"] = OPENID;
-
-    if (options.url && options.method) {
-      wx.request(options);
-    } else {
-      wx.showToast({
-        title: 'HTTP：缺失参数',
-        icon: "none",
-        duration: 2000 });
-
-    }
-  });
-
-}var _default =
-
-
-
-{
-  GET: function GET(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var config = arguments.length > 2 ? arguments[2] : undefined;
-    return HTTP({
-      url: url,
-      data: data,
-      method: "GET" },
-    config);
-  },
-  POST: function POST(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var config = arguments.length > 2 ? arguments[2] : undefined;
-    return HTTP({
-      url: url,
-      data: data,
-      method: "POST" },
-    config);
-  },
-
-  POSTformdata: function POSTformdata(url) {var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var config = arguments.length > 2 ? arguments[2] : undefined;
-    return HTTP({
-      url: url,
-      data: data,
-      method: "POST" },
-    config);
-  } };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
-
-/***/ }),
-
-/***/ 16:
-/*!******************************************************************!*\
-  !*** D:/chenjinlong/githuademo/guijimini/config/index.config.js ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var CONFIG = {
-  //开发环境配置
-  development: {
-    loginTitleTxt: "it小龙", // 登录页标题
-    copyrightTxt: "柜机1.0", // 版本信息
-    assetsPath: "https://xiguoxiansheng.com/img", // 静态资源路径
-    baseUrl: "https://xiguoxiansheng.com/api",
-    tokenKey: "WECHAT_TRADE", // 登录标识
-    testOpenId: "oEjRxwy7jL9PgG0kWeb4VcDTZEas", // 小程序测试openId
-    forcedLogin: false, // touristMode游客模式下APP是否强制用户登录 场景：当用户进入登录页面后无法后退。
-    touristMode: true // APP是否开启游客模式， 游客模式true开启：APP打开后可以进入首页和无权限的页面，游客模式false关闭：APP打开后首先需要登录才能进入， 此时forcedLogin配置项失效。
-  },
-
-  //生产环境配置
-  production: {
-    loginTitleTxt: "it小龙", // 登录页标题
-    copyrightTxt: "柜机1.0", // 版本信息
-    assetsPath: "/static/img", // 静态资源路径
-    baseUrl: "https://xiguoxiansheng.com/api",
-    tokenKey: "WECHAT_TRADE", // 登录标识
-    testOpenId: "oEjRxwy7jL9PgG0kWeb4VcDTZEas", // 小程序测试openId
-    forcedLogin: false, // touristMode游客模式下APP是否强制用户登录 场景：当用户进入登录页面后无法后退。
-    touristMode: true // APP是否开启游客模式， 游客模式true开启：APP打开后可以进入首页和无权限的页面，游客模式false关闭：APP打开后首先需要登录才能进入， 此时forcedLogin配置项失效。
-  } };var _default =
-
-
-CONFIG["development"];exports.default = _default;
-
-/***/ }),
-
 /***/ 17:
-/*!************************************************************************************!*\
-  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Findex%2Findex"} ***!
-  \************************************************************************************/
+/*!*****************************************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Findex%2Findex"} ***!
+  \*****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8768,7 +8808,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -8789,14 +8829,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -8872,7 +8912,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -9249,6 +9289,23 @@ internalMixin(Vue);
 
 /***/ }),
 
+/***/ 260:
+/*!**********************************************************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Ftixian%2Ftixian"} ***!
+  \**********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
+
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
+var _tixian = _interopRequireDefault(__webpack_require__(/*! ./pages/personcenter/tixian/tixian.vue */ 261));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+createPage(_tixian.default);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
+
+/***/ }),
+
 /***/ 3:
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
@@ -9281,9 +9338,9 @@ module.exports = g;
 /***/ }),
 
 /***/ 32:
-/*!**************************************************************************************************!*\
-  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fpersoncenter"} ***!
-  \**************************************************************************************************/
+/*!*******************************************************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fpersoncenter"} ***!
+  \*******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9298,9 +9355,9 @@ createPage(_personcenter.default);
 /***/ }),
 
 /***/ 4:
-/*!******************************************************!*\
-  !*** D:/chenjinlong/githuademo/guijimini/pages.json ***!
-  \******************************************************/
+/*!***********************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/pages.json ***!
+  \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9310,9 +9367,9 @@ createPage(_personcenter.default);
 /***/ }),
 
 /***/ 40:
-/*!**********************************************************************************!*\
-  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Fauth%2Fauth"} ***!
-  \**********************************************************************************/
+/*!***************************************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fauth%2Fauth"} ***!
+  \***************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9327,9 +9384,9 @@ createPage(_auth.default);
 /***/ }),
 
 /***/ 48:
-/*!***********************************************************************************************************!*\
-  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Forderlist%2Forderlist"} ***!
-  \***********************************************************************************************************/
+/*!****************************************************************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Forderlist%2Forderlist"} ***!
+  \****************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9344,9 +9401,9 @@ createPage(_orderlist.default);
 /***/ }),
 
 /***/ 56:
-/*!******************************************************************************************!*\
-  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Fgoodlist%2Fgoodlist"} ***!
-  \******************************************************************************************/
+/*!***********************************************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fgoodlist%2Fgoodlist"} ***!
+  \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9361,9 +9418,9 @@ createPage(_goodlist.default);
 /***/ }),
 
 /***/ 64:
-/*!********************************************************************************************!*\
-  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Fadvdetail%2Fadvdetail"} ***!
-  \********************************************************************************************/
+/*!*************************************************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fadvdetail%2Fadvdetail"} ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9378,9 +9435,9 @@ createPage(_advdetail.default);
 /***/ }),
 
 /***/ 72:
-/*!************************************************************************************!*\
-  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Fxieyi%2Fxieyi"} ***!
-  \************************************************************************************/
+/*!*****************************************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fxieyi%2Fxieyi"} ***!
+  \*****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9407,9 +9464,9 @@ module.exports = __webpack_require__(/*! regenerator-runtime */ 9);
 /***/ }),
 
 /***/ 80:
-/*!*******************************************************************************************************!*\
-  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fdeposit%2Fdeposit"} ***!
-  \*******************************************************************************************************/
+/*!************************************************************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fdeposit%2Fdeposit"} ***!
+  \************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9424,9 +9481,9 @@ createPage(_deposit.default);
 /***/ }),
 
 /***/ 88:
-/*!*************************************************************************************************************!*\
-  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fpaysuccess%2Fpaysuccess"} ***!
-  \*************************************************************************************************************/
+/*!******************************************************************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fpaysuccess%2Fpaysuccess"} ***!
+  \******************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9489,9 +9546,9 @@ if (hadRuntime) {
 /***/ }),
 
 /***/ 96:
-/*!*****************************************************************************************************!*\
-  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fcoupon%2Fcoupon"} ***!
-  \*****************************************************************************************************/
+/*!**********************************************************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fcoupon%2Fcoupon"} ***!
+  \**********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 

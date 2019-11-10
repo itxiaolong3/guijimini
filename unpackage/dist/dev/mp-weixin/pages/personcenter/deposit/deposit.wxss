@@ -46,6 +46,15 @@
     font-size: 30rpx;
     border-bottom: solid 1rpx #eee;
 }
+.block .content .tx {
+    padding: 15rpx 35rpx;
+    background-color: #00B7B8;
+    color: #FFFFFF;
+    float: right;
+    position: absolute;
+    right: 20rpx;
+    top: 45rpx;
+}
 .block .content .amount {
     width: 100%;
 }

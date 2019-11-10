@@ -234,6 +234,10 @@
 						}
 					})
 					
+				}else if(this.severList[list_i][li_i].name=="反馈意见"){
+					uni.navigateTo({url:'./feelback/feelback'}) 
+				}else if(this.severList[list_i][li_i].name=="关于平台"){
+					uni.navigateTo({url:'../aboutme/aboutme'}) 
 				}else{
 					//uni.showToast({title: this.severList[list_i][li_i].name});
 				}

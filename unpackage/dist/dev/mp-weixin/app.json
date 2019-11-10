@@ -12,7 +12,10 @@
     "pages/personcenter/coupon/coupon",
     "pages/personcenter/upgood/upgood",
     "pages/personcenter/downgood/downgood",
-    "pages/personcenter/checkuptype/checkuptype"
+    "pages/personcenter/checkuptype/checkuptype",
+    "pages/personcenter/feelback/feelback",
+    "pages/aboutme/aboutme",
+    "pages/personcenter/tixian/tixian"
   ],
   "subPackages": [],
   "window": {
@@ -29,6 +32,5 @@
   "navigateToMiniProgramAppIdList": [
     "wxbd687630cd02ce1d"
   ],
-  "usingComponents": {},
-  "sitemapLocation": "sitemap31.json"
+  "usingComponents": {}
 }

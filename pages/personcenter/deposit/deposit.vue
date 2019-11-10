@@ -7,7 +7,9 @@
 			<view class="content">
 				<view class="my">
 					我的账户余额：{{userinfo['money']?userinfo['money']:'...'}} 元
+					<view class="tx" @click="totx()">提现</view>
 				</view>
+				
 			</view>
 		</view>
 		<view class="block">
@@ -144,6 +146,10 @@
 				})
 		},
 		methods:{
+			async openidtogetinfo(openid){
+				let info= await this.$apis.openidtogetinfo({openid:openid});
+				this.userinfo=info.data;
+			},
 			//获取签约参数
 			async getsingparm(){
 				let info= await this.$apis.getsingparm();
@@ -355,7 +361,13 @@
 				console.log(getgifmoney+'--'+this.inputAmount,'金额');
 				
 				
+			},
+			totx(){
+				uni.navigateTo({url:'../../personcenter/tixian/tixian'})
 			}
+		},
+		onShow(){
+			this.openidtogetinfo(uni.getStorageSync('openid'))
 		},
 		onLoad() {
 			
@@ -379,6 +391,15 @@
 				align-items: center;
 				font-size: 30upx;
 				border-bottom: solid 1upx #eee;
+			}
+			.tx{
+				padding: 15rpx 35rpx;
+				background-color: #00B7B8;
+				color: #FFFFFF;
+				float: right;
+				position: absolute;
+				right: 20rpx;
+				top: 45rpx;
 			}
 			.amount{
 				width: 100%;
