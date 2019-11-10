@@ -2250,9 +2250,9 @@ createPage(_upgood.default);
 /***/ }),
 
 /***/ 112:
-/*!*********************************************************************************************************!*\
-  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fdowngood%2Fdowngood"} ***!
-  \*********************************************************************************************************/
+/*!**************************************************************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fdowngood%2Fdowngood"} ***!
+  \**************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2267,9 +2267,9 @@ createPage(_downgood.default);
 /***/ }),
 
 /***/ 120:
-/*!***************************************************************************************************************!*\
-  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fcheckuptype%2Fcheckuptype"} ***!
-  \***************************************************************************************************************/
+/*!********************************************************************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fcheckuptype%2Fcheckuptype"} ***!
+  \********************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2391,9 +2391,9 @@ function normalizeComponent (
 /***/ }),
 
 /***/ 14:
-/*!*********************************************************!*\
-  !*** D:/chenjinlong/githuademo/guijimini/apis/index.js ***!
-  \*********************************************************/
+/*!**************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/apis/index.js ***!
+  \**************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2471,9 +2471,9 @@ exports.coupontip = coupontip;var updatecloseorder = function updatecloseorder(d
 /***/ }),
 
 /***/ 147:
-/*!********************************************************************************!*\
-  !*** D:/chenjinlong/githuademo/guijimini/components/u-parse/libs/html2json.js ***!
-  \********************************************************************************/
+/*!*************************************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/components/u-parse/libs/html2json.js ***!
+  \*************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2743,9 +2743,9 @@ html2json;exports.default = _default;
 /***/ }),
 
 /***/ 148:
-/*!********************************************************************************!*\
-  !*** D:/chenjinlong/githuademo/guijimini/components/u-parse/libs/wxDiscode.js ***!
-  \********************************************************************************/
+/*!*************************************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/components/u-parse/libs/wxDiscode.js ***!
+  \*************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2948,9 +2948,9 @@ function urlToHttpUrl(url, domain) {
 /***/ }),
 
 /***/ 149:
-/*!*********************************************************************************!*\
-  !*** D:/chenjinlong/githuademo/guijimini/components/u-parse/libs/htmlparser.js ***!
-  \*********************************************************************************/
+/*!**************************************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/components/u-parse/libs/htmlparser.js ***!
+  \**************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 

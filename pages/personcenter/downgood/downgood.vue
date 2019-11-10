@@ -213,6 +213,7 @@
 		},
 		onLoad(option) {
 			console.log(option.sn,'传过来')
+			//this.getallgood(option.sn)
 			this.getallgood(option.sn)
 		}
 	}
