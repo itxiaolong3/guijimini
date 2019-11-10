@@ -221,8 +221,8 @@
 						return ;
 					}
 					if(this.inputAmount%10!=0){
-						// uni.showToast({title:'请输入10的整数金额',icon:'none'});
-						// return ;
+						uni.showToast({title:'请输入10的整数金额',icon:'none'});
+						return ;
 					}
 					if(parseFloat(this.inputAmount).toFixed(2)!=parseFloat(this.inputAmount)){
 						uni.showToast({title:'最多只能输入两位小数哦~',icon:'none'});

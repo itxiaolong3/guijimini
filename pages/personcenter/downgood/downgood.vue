@@ -52,26 +52,6 @@
 				checkcount:0
 			}
 		},
-		// created() {						//上面是模拟数据，以下是接口获取数据，
-		// 	var _this = this;
-		// 	uni.request({
-		// 		url : "",
-		// 		data:{},
-		// 		method: 'POST',
-		// 		header : {'content-type':'application/x-www-form-urlencoded',"Access-Control-Allow-Origin":"*","Access-Control-Allow-Credentials":"true","Access-Control-Allow-Methods":"*","Access-Control-Allow-Headers":"Content-Type,Access-Token"},
-		// 		dataType: 'json',
-		// 		success: function (data) {	
-		// 			data.forEach((item)=>{				//data实际根据你的数据类型对象来
-		// 				_this.$set(item,"check",false); //每条数据增加一个check字段；
-		// 			});
-		// 			_this.list = data;
-		// 			console.log(JSON.stringify(_this.list));
-		// 		}
-		// 	})
-		// },
-		// components:{
-		// 	uniSwipeAction
-		// },
 		methods: {
 			//获取柜机商品
 			async getallgood(sn){
@@ -233,8 +213,7 @@
 		},
 		onLoad(option) {
 			console.log(option.sn,'传过来')
-			//this.getallgood(option.sn)
-			this.getallgood('002001318804b222722d')
+			this.getallgood(option.sn)
 		}
 	}
 </script>

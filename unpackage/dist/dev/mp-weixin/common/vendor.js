@@ -1,9 +1,9 @@
 (global["webpackJsonp"] = global["webpackJsonp"] || []).push([["common/vendor"],{
 
 /***/ 0:
-/*!********************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js ***!
-  \********************************************************************/
+/*!***************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/main.js ***!
+  \***************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -755,7 +755,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -2233,9 +2233,9 @@ uni$1;exports.default = _default;
 /***/ }),
 
 /***/ 104:
-/*!**********************************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fupgood%2Fupgood"} ***!
-  \**********************************************************************************************************************/
+/*!*****************************************************************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fupgood%2Fupgood"} ***!
+  \*****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2245,6 +2245,40 @@ uni$1;exports.default = _default;
 var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
 var _upgood = _interopRequireDefault(__webpack_require__(/*! ./pages/personcenter/upgood/upgood.vue */ 105));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 createPage(_upgood.default);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
+
+/***/ }),
+
+/***/ 112:
+/*!*********************************************************************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fdowngood%2Fdowngood"} ***!
+  \*********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
+
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
+var _downgood = _interopRequireDefault(__webpack_require__(/*! ./pages/personcenter/downgood/downgood.vue */ 113));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+createPage(_downgood.default);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
+
+/***/ }),
+
+/***/ 120:
+/*!***************************************************************************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fcheckuptype%2Fcheckuptype"} ***!
+  \***************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
+
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
+var _checkuptype = _interopRequireDefault(__webpack_require__(/*! ./pages/personcenter/checkuptype/checkuptype.vue */ 121));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+createPage(_checkuptype.default);
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
 
 /***/ }),
@@ -2356,10 +2390,90 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ 132:
-/*!*************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/components/u-parse/libs/html2json.js ***!
-  \*************************************************************************************************/
+/***/ 14:
+/*!*********************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/apis/index.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.updatecloseorder = exports.coupontip = exports.updowngood = exports.shclose = exports.shopen = exports.backyue = exports.wxpaytwo = exports.checknopayorder = exports.orderlist = exports.checkgoodorder = exports.accountorder = exports.getgood = exports.getallgood = exports.opendoor = exports.getcoupon = exports.mycouponlist = exports.couponlist = exports.checkorderstate = exports.dowxpay = exports.getaddmoneyact = exports.regphone = exports.sendsms = exports.xieyi = exports.getadv = exports.bannerlist = exports.savesingres = exports.ismmsign = exports.getsingparm = exports.savephone = exports.getphone = exports.openidtogetinfo = exports.savainfo = exports.chencklogin = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! ./http.js */ 15));
+var _indexConfig = _interopRequireDefault(__webpack_require__(/*! @/config/index.config.js */ 16));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+
+// 获取用户资料
+var chencklogin = function chencklogin(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/chenckislogin"), data);};
+//保存个人信息
+exports.chencklogin = chencklogin;var savainfo = function savainfo(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/savauserinfo"), data);};
+//openid获取个人信息
+exports.savainfo = savainfo;var openidtogetinfo = function openidtogetinfo(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/openidtogetinfo"), data);};
+//获取手机号
+exports.openidtogetinfo = openidtogetinfo;var getphone = function getphone(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/getphone"), data);};
+//保存手机号
+exports.getphone = getphone;var savephone = function savephone(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/savephone"), data);};
+//获取签约参数
+exports.savephone = savephone;var getsingparm = function getsingparm(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/getsingparm"), data);};
+//判断该用户是否已签约
+exports.getsingparm = getsingparm;var ismmsign = function ismmsign(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/ismmsign"), data);};
+//保存签约协议ID
+exports.ismmsign = ismmsign;var savesingres = function savesingres(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/savesingres"), data);};
+//轮播图列表
+exports.savesingres = savesingres;var bannerlist = function bannerlist(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/bannerlist"), data);};
+//广告
+exports.bannerlist = bannerlist;var getadv = function getadv(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/getadv"), data);};
+//用户协议
+exports.getadv = getadv;var xieyi = function xieyi(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/xieyi"), data);};
+//获取短信验证码
+exports.xieyi = xieyi;var sendsms = function sendsms(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/sendsmsnew"), data);};
+//注册手机号
+exports.sendsms = sendsms;var regphone = function regphone(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/regphonenew"), data);};
+//获取充值活动数据
+exports.regphone = regphone;var getaddmoneyact = function getaddmoneyact(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/getaddmoneyact"), data);};
+//微信免密扣款
+exports.getaddmoneyact = getaddmoneyact;var dowxpay = function dowxpay(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/dowxpay"), data);};
+//查询订单是否支付
+exports.dowxpay = dowxpay;var checkorderstate = function checkorderstate(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/checkorderstate"), data);};
+//获取优惠券接口
+exports.checkorderstate = checkorderstate;var couponlist = function couponlist(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/couponlist"), data);};
+//获取我的优惠券列表
+exports.couponlist = couponlist;var mycouponlist = function mycouponlist(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/mycouponlist"), data);};
+//领取优惠券
+exports.mycouponlist = mycouponlist;var getcoupon = function getcoupon(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/getcoupon"), data);};
+//开柜
+exports.getcoupon = getcoupon;var opendoor = function opendoor(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/opendoor"), data);};
+//获取柜机所有商品
+exports.opendoor = opendoor;var getallgood = function getallgood(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/getallgood"), data);};
+//获取用户所拿商品
+exports.getallgood = getallgood;var getgood = function getgood(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/getgood"), data);};
+//提交订单进行支付
+exports.getgood = getgood;var accountorder = function accountorder(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/accountorder"), data);};
+//检查商品订单
+exports.accountorder = accountorder;var checkgoodorder = function checkgoodorder(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/checkgoodorder"), data);};
+//订单列表
+exports.checkgoodorder = checkgoodorder;var orderlist = function orderlist(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/orderlist"), data);};
+//检查是否有未支付订单
+exports.orderlist = orderlist;var checknopayorder = function checknopayorder(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/checknopayorder"), data);};
+//订单二次付款
+exports.checknopayorder = checknopayorder;var wxpaytwo = function wxpaytwo(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/wxpaytwo"), data);};
+//混合支付模式下,用户余额不足免密扣款,而导致系统余额减少,需要调用后台检查余额恢复接口
+exports.wxpaytwo = wxpaytwo;var backyue = function backyue(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/backyue"), data);};
+//上货开柜接口
+exports.backyue = backyue;var shopen = function shopen(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/shopen"), data);};
+//手动关柜
+exports.shopen = shopen;var shclose = function shclose(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/shclose"), data);};
+//上下货记录
+exports.shclose = shclose;var updowngood = function updowngood(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/updowngood"), data);};
+//检查优惠券更新提示
+exports.updowngood = updowngood;var coupontip = function coupontip(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/coupontip"), data);};
+//补接口,关门立即发送保存商品和价格数据到后台
+exports.coupontip = coupontip;var updatecloseorder = function updatecloseorder(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/updatecloseorder"), data);};exports.updatecloseorder = updatecloseorder;
+
+/***/ }),
+
+/***/ 147:
+/*!********************************************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/components/u-parse/libs/html2json.js ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2378,8 +2492,8 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
-var _wxDiscode = _interopRequireDefault(__webpack_require__(/*! ./wxDiscode */ 133));
-var _htmlparser = _interopRequireDefault(__webpack_require__(/*! ./htmlparser */ 134));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} /**
+var _wxDiscode = _interopRequireDefault(__webpack_require__(/*! ./wxDiscode */ 148));
+var _htmlparser = _interopRequireDefault(__webpack_require__(/*! ./htmlparser */ 149));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} /**
                                                                                                                                                                  * html2Json 改造来自: https://github.com/Jxck/html2json
                                                                                                                                                                  *
                                                                                                                                                                  *
@@ -2628,10 +2742,10 @@ html2json;exports.default = _default;
 
 /***/ }),
 
-/***/ 133:
-/*!*************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/components/u-parse/libs/wxDiscode.js ***!
-  \*************************************************************************************************/
+/***/ 148:
+/*!********************************************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/components/u-parse/libs/wxDiscode.js ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2833,10 +2947,10 @@ function urlToHttpUrl(url, domain) {
 
 /***/ }),
 
-/***/ 134:
-/*!**************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/components/u-parse/libs/htmlparser.js ***!
-  \**************************************************************************************************/
+/***/ 149:
+/*!*********************************************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/components/u-parse/libs/htmlparser.js ***!
+  \*********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3000,90 +3114,10 @@ HTMLParser;exports.default = _default;
 
 /***/ }),
 
-/***/ 14:
-/*!**************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/apis/index.js ***!
-  \**************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.updatecloseorder = exports.coupontip = exports.updowngood = exports.shclose = exports.shopen = exports.backyue = exports.wxpaytwo = exports.checknopayorder = exports.orderlist = exports.checkgoodorder = exports.accountorder = exports.getgood = exports.getallgood = exports.opendoor = exports.getcoupon = exports.mycouponlist = exports.couponlist = exports.checkorderstate = exports.dowxpay = exports.getaddmoneyact = exports.regphone = exports.sendsms = exports.xieyi = exports.getadv = exports.bannerlist = exports.savesingres = exports.ismmsign = exports.getsingparm = exports.savephone = exports.getphone = exports.openidtogetinfo = exports.savainfo = exports.chencklogin = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! ./http.js */ 15));
-var _indexConfig = _interopRequireDefault(__webpack_require__(/*! @/config/index.config.js */ 16));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-
-// 获取用户资料
-var chencklogin = function chencklogin(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/chenckislogin"), data);};
-//保存个人信息
-exports.chencklogin = chencklogin;var savainfo = function savainfo(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/savauserinfo"), data);};
-//openid获取个人信息
-exports.savainfo = savainfo;var openidtogetinfo = function openidtogetinfo(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/openidtogetinfo"), data);};
-//获取手机号
-exports.openidtogetinfo = openidtogetinfo;var getphone = function getphone(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/getphone"), data);};
-//保存手机号
-exports.getphone = getphone;var savephone = function savephone(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/savephone"), data);};
-//获取签约参数
-exports.savephone = savephone;var getsingparm = function getsingparm(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/getsingparm"), data);};
-//判断该用户是否已签约
-exports.getsingparm = getsingparm;var ismmsign = function ismmsign(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/ismmsign"), data);};
-//保存签约协议ID
-exports.ismmsign = ismmsign;var savesingres = function savesingres(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/savesingres"), data);};
-//轮播图列表
-exports.savesingres = savesingres;var bannerlist = function bannerlist(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/bannerlist"), data);};
-//广告
-exports.bannerlist = bannerlist;var getadv = function getadv(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/getadv"), data);};
-//用户协议
-exports.getadv = getadv;var xieyi = function xieyi(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/xieyi"), data);};
-//获取短信验证码
-exports.xieyi = xieyi;var sendsms = function sendsms(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/sendsmsnew"), data);};
-//注册手机号
-exports.sendsms = sendsms;var regphone = function regphone(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/regphonenew"), data);};
-//获取充值活动数据
-exports.regphone = regphone;var getaddmoneyact = function getaddmoneyact(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/getaddmoneyact"), data);};
-//微信免密扣款
-exports.getaddmoneyact = getaddmoneyact;var dowxpay = function dowxpay(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/dowxpay"), data);};
-//查询订单是否支付
-exports.dowxpay = dowxpay;var checkorderstate = function checkorderstate(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/checkorderstate"), data);};
-//获取优惠券接口
-exports.checkorderstate = checkorderstate;var couponlist = function couponlist(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/couponlist"), data);};
-//获取我的优惠券列表
-exports.couponlist = couponlist;var mycouponlist = function mycouponlist(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/mycouponlist"), data);};
-//领取优惠券
-exports.mycouponlist = mycouponlist;var getcoupon = function getcoupon(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/getcoupon"), data);};
-//开柜
-exports.getcoupon = getcoupon;var opendoor = function opendoor(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/opendoor"), data);};
-//获取柜机所有商品
-exports.opendoor = opendoor;var getallgood = function getallgood(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/getallgood"), data);};
-//获取用户所拿商品
-exports.getallgood = getallgood;var getgood = function getgood(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/getgood"), data);};
-//提交订单进行支付
-exports.getgood = getgood;var accountorder = function accountorder(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/accountorder"), data);};
-//检查商品订单
-exports.accountorder = accountorder;var checkgoodorder = function checkgoodorder(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/checkgoodorder"), data);};
-//订单列表
-exports.checkgoodorder = checkgoodorder;var orderlist = function orderlist(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/orderlist"), data);};
-//检查是否有未支付订单
-exports.orderlist = orderlist;var checknopayorder = function checknopayorder(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/checknopayorder"), data);};
-//订单二次付款
-exports.checknopayorder = checknopayorder;var wxpaytwo = function wxpaytwo(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/wxpaytwo"), data);};
-//混合支付模式下,用户余额不足免密扣款,而导致系统余额减少,需要调用后台检查余额恢复接口
-exports.wxpaytwo = wxpaytwo;var backyue = function backyue(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/backyue"), data);};
-//上货开柜接口
-exports.backyue = backyue;var shopen = function shopen(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/shopen"), data);};
-//手动关柜
-exports.shopen = shopen;var shclose = function shclose(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/shclose"), data);};
-//上下货记录
-exports.shclose = shclose;var updowngood = function updowngood(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/updowngood"), data);};
-//检查优惠券更新提示
-exports.updowngood = updowngood;var coupontip = function coupontip(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/coupontip"), data);};
-//补接口,关门立即发送保存商品和价格数据到后台
-exports.coupontip = coupontip;var updatecloseorder = function updatecloseorder(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/updatecloseorder"), data);};exports.updatecloseorder = updatecloseorder;
-
-/***/ }),
-
 /***/ 15:
-/*!*************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/apis/http.js ***!
-  \*************************************************************************/
+/*!********************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/apis/http.js ***!
+  \********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3212,9 +3246,9 @@ exports.coupontip = coupontip;var updatecloseorder = function updatecloseorder(d
 /***/ }),
 
 /***/ 16:
-/*!***********************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/config/index.config.js ***!
-  \***********************************************************************************/
+/*!******************************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/config/index.config.js ***!
+  \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3224,8 +3258,8 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   development: {
     loginTitleTxt: "it小龙", // 登录页标题
     copyrightTxt: "柜机1.0", // 版本信息
-    assetsPath: "https://xj.itxiaolong.cn/img", // 静态资源路径
-    baseUrl: "https://xj.itxiaolong.cn/api",
+    assetsPath: "https://xiguoxiansheng.com/img", // 静态资源路径
+    baseUrl: "https://xiguoxiansheng.com/api",
     tokenKey: "WECHAT_TRADE", // 登录标识
     testOpenId: "oEjRxwy7jL9PgG0kWeb4VcDTZEas", // 小程序测试openId
     forcedLogin: false, // touristMode游客模式下APP是否强制用户登录 场景：当用户进入登录页面后无法后退。
@@ -3237,7 +3271,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     loginTitleTxt: "it小龙", // 登录页标题
     copyrightTxt: "柜机1.0", // 版本信息
     assetsPath: "/static/img", // 静态资源路径
-    baseUrl: "https://xj.itxiaolong.cn/api",
+    baseUrl: "https://xiguoxiansheng.com/api",
     tokenKey: "WECHAT_TRADE", // 登录标识
     testOpenId: "oEjRxwy7jL9PgG0kWeb4VcDTZEas", // 小程序测试openId
     forcedLogin: false, // touristMode游客模式下APP是否强制用户登录 场景：当用户进入登录页面后无法后退。
@@ -3250,9 +3284,9 @@ CONFIG["development"];exports.default = _default;
 /***/ }),
 
 /***/ 17:
-/*!*****************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Findex%2Findex"} ***!
-  \*****************************************************************************************************/
+/*!************************************************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Findex%2Findex"} ***!
+  \************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8734,7 +8768,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -8755,14 +8789,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -8838,7 +8872,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -9215,40 +9249,6 @@ internalMixin(Vue);
 
 /***/ }),
 
-/***/ 222:
-/*!********************************************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fcheckuptype%2Fcheckuptype"} ***!
-  \********************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
-
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _checkuptype = _interopRequireDefault(__webpack_require__(/*! ./pages/personcenter/checkuptype/checkuptype.vue */ 223));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-createPage(_checkuptype.default);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
-
-/***/ }),
-
-/***/ 233:
-/*!**************************************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fdowngood%2Fdowngood"} ***!
-  \**************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
-
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _downgood = _interopRequireDefault(__webpack_require__(/*! ./pages/personcenter/downgood/downgood.vue */ 234));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-createPage(_downgood.default);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
-
-/***/ }),
-
 /***/ 3:
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
@@ -9281,9 +9281,9 @@ module.exports = g;
 /***/ }),
 
 /***/ 32:
-/*!*******************************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fpersoncenter"} ***!
-  \*******************************************************************************************************************/
+/*!**************************************************************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fpersoncenter"} ***!
+  \**************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9298,9 +9298,9 @@ createPage(_personcenter.default);
 /***/ }),
 
 /***/ 4:
-/*!***********************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/pages.json ***!
-  \***********************************************************************/
+/*!******************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/pages.json ***!
+  \******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9310,9 +9310,9 @@ createPage(_personcenter.default);
 /***/ }),
 
 /***/ 40:
-/*!***************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fauth%2Fauth"} ***!
-  \***************************************************************************************************/
+/*!**********************************************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Fauth%2Fauth"} ***!
+  \**********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9327,9 +9327,9 @@ createPage(_auth.default);
 /***/ }),
 
 /***/ 48:
-/*!****************************************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Forderlist%2Forderlist"} ***!
-  \****************************************************************************************************************************/
+/*!***********************************************************************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Forderlist%2Forderlist"} ***!
+  \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9344,9 +9344,9 @@ createPage(_orderlist.default);
 /***/ }),
 
 /***/ 56:
-/*!***********************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fgoodlist%2Fgoodlist"} ***!
-  \***********************************************************************************************************/
+/*!******************************************************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Fgoodlist%2Fgoodlist"} ***!
+  \******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9361,9 +9361,9 @@ createPage(_goodlist.default);
 /***/ }),
 
 /***/ 64:
-/*!*************************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fadvdetail%2Fadvdetail"} ***!
-  \*************************************************************************************************************/
+/*!********************************************************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Fadvdetail%2Fadvdetail"} ***!
+  \********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9378,9 +9378,9 @@ createPage(_advdetail.default);
 /***/ }),
 
 /***/ 72:
-/*!*****************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fxieyi%2Fxieyi"} ***!
-  \*****************************************************************************************************/
+/*!************************************************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Fxieyi%2Fxieyi"} ***!
+  \************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9407,9 +9407,9 @@ module.exports = __webpack_require__(/*! regenerator-runtime */ 9);
 /***/ }),
 
 /***/ 80:
-/*!************************************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fdeposit%2Fdeposit"} ***!
-  \************************************************************************************************************************/
+/*!*******************************************************************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fdeposit%2Fdeposit"} ***!
+  \*******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9424,9 +9424,9 @@ createPage(_deposit.default);
 /***/ }),
 
 /***/ 88:
-/*!******************************************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fpaysuccess%2Fpaysuccess"} ***!
-  \******************************************************************************************************************************/
+/*!*************************************************************************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fpaysuccess%2Fpaysuccess"} ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9489,9 +9489,9 @@ if (hadRuntime) {
 /***/ }),
 
 /***/ 96:
-/*!**********************************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fcoupon%2Fcoupon"} ***!
-  \**********************************************************************************************************************/
+/*!*****************************************************************************************************!*\
+  !*** D:/chenjinlong/githuademo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fcoupon%2Fcoupon"} ***!
+  \*****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
