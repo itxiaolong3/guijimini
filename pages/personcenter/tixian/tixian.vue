@@ -30,7 +30,7 @@
 					<view class="listvalue">
 						<view class="valuemoney">{{row.money}}</view>
 						<view class="valuetime">{{row.addtime}}</view>
-						<view class="valuestate">{{row.state == 1?'已提现':(item.state == 2?'已拒绝':'提现中') }}</view>
+						<view class="valuestate">{{row.state == 1?'已提现':(row.state == 2?'已拒绝':'提现中') }}</view>
 					</view>
 				
 				</view>
