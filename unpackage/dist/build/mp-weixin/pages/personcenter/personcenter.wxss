@@ -27,6 +27,17 @@
 page {
   background-color: #fff;
 }
+.kfbt {
+  width: 100%;
+  text-align: left;
+  background-color: #ffffff;
+}
+.kfbt button::after {
+    border: none;
+}
+button::after {
+  border: none;
+}
 .header {
   background-color: #7db8ec;
   width: 92%;
@@ -110,7 +121,7 @@ page {
 }
 .orders {
   background-color: #7db8ec;
-  width: 92%;
+  width: 94%;
   height: 11vw;
   padding: 0 4%;
   margin-bottom: calc(11vw + 40rpx);
@@ -273,7 +284,7 @@ page {
 }
 .balance-info .left .box {
       width: 50%;
-      font-size: 28rpx;
+      font-size: 35rpx;
 }
 .balance-info .left .box .num {
         width: 100%;

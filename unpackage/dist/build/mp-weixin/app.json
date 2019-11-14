@@ -6,12 +6,21 @@
     "pages/personcenter/orderlist/orderlist",
     "pages/goodlist/goodlist",
     "pages/advdetail/advdetail",
-    "pages/xieyi/xieyi"
+    "pages/xieyi/xieyi",
+    "pages/personcenter/deposit/deposit",
+    "pages/personcenter/paysuccess/paysuccess",
+    "pages/personcenter/coupon/coupon",
+    "pages/personcenter/upgood/upgood",
+    "pages/personcenter/downgood/downgood",
+    "pages/personcenter/checkuptype/checkuptype",
+    "pages/personcenter/feelback/feelback",
+    "pages/aboutme/aboutme",
+    "pages/personcenter/tixian/tixian"
   ],
   "subPackages": [],
   "window": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "uni-app",
+    "navigationBarTitleText": "喜菓柜机",
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8"
   },

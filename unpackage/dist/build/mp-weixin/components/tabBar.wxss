@@ -44,6 +44,17 @@ page {
   border-radius: 50%;
   margin: 0 auto;
 }
+.closeimg {
+  position: absolute;
+  left: 94%;
+  top: -4%;
+  width: 60rpx;
+  height: 60rpx;
+  z-index: 3;
+  background-color: #FFFFFF;
+  border-radius: 30rpx;
+  padding: 3rpx;
+}
 .is-input1 {
   height: 88rpx;
   width: 100%;

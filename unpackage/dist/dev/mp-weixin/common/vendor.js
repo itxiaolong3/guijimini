@@ -2510,6 +2510,23 @@ exports.withdrawreply = withdrawreply;var withdrawlist = function withdrawlist(d
 
 /***/ }),
 
+/***/ 144:
+/*!**********************************************************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Ftixian%2Ftixian"} ***!
+  \**********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
+
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
+var _tixian = _interopRequireDefault(__webpack_require__(/*! ./pages/personcenter/tixian/tixian.vue */ 145));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+createPage(_tixian.default);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
+
+/***/ }),
+
 /***/ 15:
 /*!*************************************************************************!*\
   !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/apis/http.js ***!
@@ -2679,7 +2696,24 @@ CONFIG["development"];exports.default = _default;
 
 /***/ }),
 
-/***/ 163:
+/***/ 17:
+/*!*****************************************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Findex%2Findex"} ***!
+  \*****************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
+
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
+var _index = _interopRequireDefault(__webpack_require__(/*! ./pages/index/index.vue */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+createPage(_index.default);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
+
+/***/ }),
+
+/***/ 171:
 /*!*************************************************************************************************!*\
   !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/components/u-parse/libs/html2json.js ***!
   \*************************************************************************************************/
@@ -2701,8 +2735,8 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
-var _wxDiscode = _interopRequireDefault(__webpack_require__(/*! ./wxDiscode */ 164));
-var _htmlparser = _interopRequireDefault(__webpack_require__(/*! ./htmlparser */ 165));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} /**
+var _wxDiscode = _interopRequireDefault(__webpack_require__(/*! ./wxDiscode */ 172));
+var _htmlparser = _interopRequireDefault(__webpack_require__(/*! ./htmlparser */ 173));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} /**
                                                                                                                                                                  * html2Json 改造来自: https://github.com/Jxck/html2json
                                                                                                                                                                  *
                                                                                                                                                                  *
@@ -2951,7 +2985,7 @@ html2json;exports.default = _default;
 
 /***/ }),
 
-/***/ 164:
+/***/ 172:
 /*!*************************************************************************************************!*\
   !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/components/u-parse/libs/wxDiscode.js ***!
   \*************************************************************************************************/
@@ -3156,7 +3190,7 @@ function urlToHttpUrl(url, domain) {
 
 /***/ }),
 
-/***/ 165:
+/***/ 173:
 /*!**************************************************************************************************!*\
   !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/components/u-parse/libs/htmlparser.js ***!
   \**************************************************************************************************/
@@ -3320,23 +3354,6 @@ function HTMLParser(html, handler) {
 }var _default =
 
 HTMLParser;exports.default = _default;
-
-/***/ }),
-
-/***/ 17:
-/*!*****************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Findex%2Findex"} ***!
-  \*****************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
-
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _index = _interopRequireDefault(__webpack_require__(/*! ./pages/index/index.vue */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-createPage(_index.default);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
 
 /***/ }),
 
@@ -9286,23 +9303,6 @@ internalMixin(Vue);
 /* harmony default export */ __webpack_exports__["default"] = (Vue);
 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../webpack/buildin/global.js */ 3)))
-
-/***/ }),
-
-/***/ 260:
-/*!**********************************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Ftixian%2Ftixian"} ***!
-  \**********************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
-
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _tixian = _interopRequireDefault(__webpack_require__(/*! ./pages/personcenter/tixian/tixian.vue */ 261));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-createPage(_tixian.default);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
 
 /***/ }),
 
