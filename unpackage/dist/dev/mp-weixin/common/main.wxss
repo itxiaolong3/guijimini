@@ -44,8 +44,8 @@ image {
   margin: 0 auto;
 }
 .zdTabBar .ul .li .ic {
-  width: 50px;
-  height: 50px;
+  width: 65px;
+  height: 65px;
   background-image: -webkit-gradient(linear, right top, left top, from(#e87d08), to(#eb5e00));
   background-image: -o-linear-gradient(right, #e87d08, #eb5e00);
   background-image: linear-gradient(right, #e87d08, #eb5e00);
@@ -53,17 +53,17 @@ image {
   border-radius: 50%;
   text-align: center;
   font-size: 20px;
-  line-height: 50px;
+  line-height: 65px;
   font-weight: bold;
   color: #ffffff;
-  margin: -30rpx auto 5px;
+  margin: -45rpx auto 5px;
 }
 .zdTabBar .ul .li .p {
   margin-top: 2px;
   text-align: center;
   font-size: 10px;
   line-height: 18px;
-  margin-bottom: 2px;
+  margin-bottom: 10px;
 }
 .page {
   color: #FFFFFF;
