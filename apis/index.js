@@ -73,3 +73,5 @@ export const feelback = (data) => http.POST(`${config.baseUrl}/minapi/feelback`,
 export const withdrawreply = (data) => http.POST(`${config.baseUrl}/minapi/withdrawreply`, data);
 //提现列表
 export const withdrawlist = (data) => http.POST(`${config.baseUrl}/minapi/withdrawlist`, data);
+//促销活动领取红包
+export const getactivecoupon = (data) => http.POST(`${config.baseUrl}/minapi/getactivecoupon`, data);

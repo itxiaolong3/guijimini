@@ -9,6 +9,12 @@
 				<view class="p">{{item.name}}</view>
 			</view>
 		</view>
+		<uni-popup ref="activecoupon" type="center" :maskClick="!maskclose" :custom="maskclose" style="padding: 0;margin: 0;border-radius: 30rpx;">
+			<view style="width: 550rpx;height: 850rpx;padding: 0;margin: 0;">
+				<image src="https://xiguoxiansheng.com/public/myimg/opencoupon.jpeg" style="width: 100%;height: 100%;" @click="opencoupon"/>
+				<image src="../static/img/close.png" class="closeimg" @click="closeimg"/>
+			</view>
+		</uni-popup>
 		<uni-popup ref="popupcoupon" type="center" :maskClick="!maskclose" :custom="maskclose" style="padding: 0;margin: 0;border-radius: 30rpx;">
 			<view style="width: 550rpx;height: 600rpx;padding: 0;margin: 0;">
 				<image :src="tipimg" style="width: 100%;height: 100%;" @click="gotcoupon"/>
@@ -97,7 +103,8 @@
 				userinfo:[],
 				extra_data:{},
 				nopaymsg:'',
-				tipimg:''	
+				tipimg:'',
+				aid:0
 			}
 		},
 		onReady() {
@@ -118,6 +125,55 @@
 					url:"../personcenter/coupon/coupon"
 				})
 			},
+			//打开领取促销活动卡券
+			opencoupon(){
+				console.log('点击了领取红包')
+				let openid=uni.getStorageSync('openid');
+				this.getactivecoupon(openid,this.aid)
+				uni.showLoading({
+					title:'领取中...'
+				})
+			},
+			//获取促销活动卡券
+			async getactivecoupon(openid,aid){
+				let info= await this.$apis.getactivecoupon({openId:openid,promotionsId:aid});
+				let t=this;
+				if(info.code==1){
+					setTimeout(function(e){
+						uni.hideLoading();
+						//弹出确认结果框
+						uni.showModal({
+						    title: '恭喜您',
+						    content: "获得¥"+info.data[0].amount+"优惠卡券,详细请在优惠券中查看",
+							showCancel:t.senderro,
+						    success: function (res) {
+						        if (res.confirm) {
+						            t.$refs.activecoupon.close();
+						        } else if (res.cancel) {
+									t.$refs.activecoupon.close();
+						            console.log('用户点击取消');
+						        }
+						    }
+						});
+					},1200)
+					
+				}else{
+					uni.hideLoading();
+					uni.showModal({
+					    title: '领取结果',
+					    content: "很遗憾，"+info.msg,
+						showCancel:t.senderro,
+					    success: function (res) {
+					        if (res.confirm) {
+					            t.$refs.activecoupon.close();
+					        } else if (res.cancel) {
+								t.$refs.activecoupon.close();
+					            console.log('用户点击取消');
+					        }
+					    }
+					});
+				}
+			},
 			//优惠券提示
 			async coupontip(openid){
 				let info= await this.$apis.coupontip({openid:openid});
@@ -137,7 +193,8 @@
 			},
 			closeimg(){
 				let t=this;
-				t.$refs.popupcoupon.close()
+				t.$refs.popupcoupon.close();
+				t.$refs.activecoupon.close()
 			},
 			//检查是否有未支付订单
 			async checknopayorder(openid){
@@ -158,11 +215,19 @@
 					    }
 					});
 				}else{
+					
 					uni.scanCode({
 						success:function(e){
-							var getpath=e.path;
-							var arr=getpath.split('=');
-							t.opendoor(openid,arr[1])
+							if(e.scanType=="QR_CODE"){
+								console.log(e.result,'二维码返回')
+								t.aid=e.result;
+								uni.hideLoading()
+								t.$refs.activecoupon.open()
+							}else{
+								var getpath=e.path;
+								var arr=getpath.split('=');
+								t.opendoor(openid,arr[1])
+							}
 							console.log(e,'扫码成功返回')
 							
 						},fail:function(e){

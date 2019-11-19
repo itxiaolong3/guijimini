@@ -2432,7 +2432,7 @@ createPage(_aboutme.default);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.withdrawlist = exports.withdrawreply = exports.feelback = exports.updatecloseorder = exports.coupontip = exports.updowngood = exports.shclose = exports.shopen = exports.backyue = exports.wxpaytwo = exports.checknopayorder = exports.orderlist = exports.checkgoodorder = exports.accountorder = exports.getgood = exports.getallgood = exports.opendoor = exports.getcoupon = exports.mycouponlist = exports.couponlist = exports.checkorderstate = exports.dowxpay = exports.getaddmoneyact = exports.regphone = exports.sendsms = exports.xieyi = exports.getadv = exports.bannerlist = exports.savesingres = exports.ismmsign = exports.getsingparm = exports.savephone = exports.getphone = exports.openidtogetinfo = exports.savainfo = exports.chencklogin = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! ./http.js */ 15));
+Object.defineProperty(exports, "__esModule", { value: true });exports.getactivecoupon = exports.withdrawlist = exports.withdrawreply = exports.feelback = exports.updatecloseorder = exports.coupontip = exports.updowngood = exports.shclose = exports.shopen = exports.backyue = exports.wxpaytwo = exports.checknopayorder = exports.orderlist = exports.checkgoodorder = exports.accountorder = exports.getgood = exports.getallgood = exports.opendoor = exports.getcoupon = exports.mycouponlist = exports.couponlist = exports.checkorderstate = exports.dowxpay = exports.getaddmoneyact = exports.regphone = exports.sendsms = exports.xieyi = exports.getadv = exports.bannerlist = exports.savesingres = exports.ismmsign = exports.getsingparm = exports.savephone = exports.getphone = exports.openidtogetinfo = exports.savainfo = exports.chencklogin = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! ./http.js */ 15));
 var _indexConfig = _interopRequireDefault(__webpack_require__(/*! @/config/index.config.js */ 16));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 // 获取用户资料
@@ -2506,7 +2506,9 @@ exports.updatecloseorder = updatecloseorder;var feelback = function feelback(dat
 //提现申请
 exports.feelback = feelback;var withdrawreply = function withdrawreply(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/withdrawreply"), data);};
 //提现列表
-exports.withdrawreply = withdrawreply;var withdrawlist = function withdrawlist(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/withdrawlist"), data);};exports.withdrawlist = withdrawlist;
+exports.withdrawreply = withdrawreply;var withdrawlist = function withdrawlist(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/withdrawlist"), data);};
+//促销活动领取红包
+exports.withdrawlist = withdrawlist;var getactivecoupon = function getactivecoupon(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/getactivecoupon"), data);};exports.getactivecoupon = getactivecoupon;
 
 /***/ }),
 

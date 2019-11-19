@@ -157,6 +157,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
 {
   props: {
     current: {
@@ -204,7 +210,8 @@ __webpack_require__.r(__webpack_exports__);
       userinfo: [],
       extra_data: {},
       nopaymsg: '',
-      tipimg: '' };
+      tipimg: '',
+      aid: 0 };
 
   },
   onReady: function onReady() {
@@ -225,9 +232,58 @@ __webpack_require__.r(__webpack_exports__);
         url: "../personcenter/coupon/coupon" });
 
     },
+    //打开领取促销活动卡券
+    opencoupon: function opencoupon() {
+      console.log('点击了领取红包');
+      var openid = uni.getStorageSync('openid');
+      this.getactivecoupon(openid, this.aid);
+      uni.showLoading({
+        title: '领取中...' });
+
+    },
+    //获取促销活动卡券
+    getactivecoupon: function () {var _getactivecoupon = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(openid, aid) {var info, t;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
+                  this.$apis.getactivecoupon({ openId: openid, promotionsId: aid }));case 2:info = _context.sent;
+                t = this;
+                if (info.code == 1) {
+                  setTimeout(function (e) {
+                    uni.hideLoading();
+                    //弹出确认结果框
+                    uni.showModal({
+                      title: '恭喜您',
+                      content: "获得¥" + info.data[0].amount + "优惠卡券,详细请在优惠券中查看",
+                      showCancel: t.senderro,
+                      success: function success(res) {
+                        if (res.confirm) {
+                          t.$refs.activecoupon.close();
+                        } else if (res.cancel) {
+                          t.$refs.activecoupon.close();
+                          console.log('用户点击取消');
+                        }
+                      } });
+
+                  }, 1200);
+
+                } else {
+                  uni.hideLoading();
+                  uni.showModal({
+                    title: '领取结果',
+                    content: "很遗憾，" + info.msg,
+                    showCancel: t.senderro,
+                    success: function success(res) {
+                      if (res.confirm) {
+                        t.$refs.activecoupon.close();
+                      } else if (res.cancel) {
+                        t.$refs.activecoupon.close();
+                        console.log('用户点击取消');
+                      }
+                    } });
+
+                }case 5:case "end":return _context.stop();}}}, _callee, this);}));function getactivecoupon(_x, _x2) {return _getactivecoupon.apply(this, arguments);}return getactivecoupon;}(),
+
     //优惠券提示
-    coupontip: function () {var _coupontip = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(openid) {var info, t, getids;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
-                  this.$apis.coupontip({ openid: openid }));case 2:info = _context.sent;
+    coupontip: function () {var _coupontip = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2(openid) {var info, t, getids;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:_context2.next = 2;return (
+                  this.$apis.coupontip({ openid: openid }));case 2:info = _context2.sent;
                 t = this;
                 if (info.data.ids) {
                   console.log(info, '返回');
@@ -239,16 +295,17 @@ __webpack_require__.r(__webpack_exports__);
                   uni.setStorageSync('couponids', info.data.ids);
 
 
-                }case 5:case "end":return _context.stop();}}}, _callee, this);}));function coupontip(_x) {return _coupontip.apply(this, arguments);}return coupontip;}(),
+                }case 5:case "end":return _context2.stop();}}}, _callee2, this);}));function coupontip(_x3) {return _coupontip.apply(this, arguments);}return coupontip;}(),
 
 
     closeimg: function closeimg() {
       var t = this;
       t.$refs.popupcoupon.close();
+      t.$refs.activecoupon.close();
     },
     //检查是否有未支付订单
-    checknopayorder: function () {var _checknopayorder = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2(openid) {var info, t;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:_context2.next = 2;return (
-                  this.$apis.checknopayorder({ openid: openid }));case 2:info = _context2.sent;
+    checknopayorder: function () {var _checknopayorder = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3(openid) {var info, t;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:_context3.next = 2;return (
+                  this.$apis.checknopayorder({ openid: openid }));case 2:info = _context3.sent;
                 t = this;
                 if (info.code) {
                   uni.hideLoading();
@@ -265,11 +322,19 @@ __webpack_require__.r(__webpack_exports__);
                     } });
 
                 } else {
+
                   uni.scanCode({
                     success: function success(e) {
-                      var getpath = e.path;
-                      var arr = getpath.split('=');
-                      t.opendoor(openid, arr[1]);
+                      if (e.scanType == "QR_CODE") {
+                        console.log(e.result, '二维码返回');
+                        t.aid = e.result;
+                        uni.hideLoading();
+                        t.$refs.activecoupon.open();
+                      } else {
+                        var getpath = e.path;
+                        var arr = getpath.split('=');
+                        t.opendoor(openid, arr[1]);
+                      }
                       console.log(e, '扫码成功返回');
 
                     }, fail: function fail(e) {
@@ -277,10 +342,10 @@ __webpack_require__.r(__webpack_exports__);
                       uni.hideLoading();
                     } });
 
-                }case 5:case "end":return _context2.stop();}}}, _callee2, this);}));function checknopayorder(_x2) {return _checknopayorder.apply(this, arguments);}return checknopayorder;}(),
+                }case 5:case "end":return _context3.stop();}}}, _callee3, this);}));function checknopayorder(_x4) {return _checknopayorder.apply(this, arguments);}return checknopayorder;}(),
 
-    getapiinfo: function () {var _getapiinfo = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3(code) {var info, t;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:_context3.next = 2;return (
-                  this.$apis.chencklogin({ code: code }));case 2:info = _context3.sent;
+    getapiinfo: function () {var _getapiinfo = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4(code) {var info, t;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:_context4.next = 2;return (
+                  this.$apis.chencklogin({ code: code }));case 2:info = _context4.sent;
                 t = this;
                 if (info.code == 0) {
                   // uni.reLaunch(
@@ -291,16 +356,16 @@ __webpack_require__.r(__webpack_exports__);
                   uni.setStorageSync('openid', info.data.openid);
                   t.coupontip(info.data.openid);
                   console.log(this.userinfo, '已登录');
-                }case 5:case "end":return _context3.stop();}}}, _callee3, this);}));function getapiinfo(_x3) {return _getapiinfo.apply(this, arguments);}return getapiinfo;}(),
+                }case 5:case "end":return _context4.stop();}}}, _callee4, this);}));function getapiinfo(_x5) {return _getapiinfo.apply(this, arguments);}return getapiinfo;}(),
 
     //更新个人信息
-    openidtogetinfo: function () {var _openidtogetinfo = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4(openid) {var info;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:_context4.next = 2;return (
-                  this.$apis.openidtogetinfo({ openid: openid }));case 2:info = _context4.sent;
-                this.userinfo = info.data;case 4:case "end":return _context4.stop();}}}, _callee4, this);}));function openidtogetinfo(_x4) {return _openidtogetinfo.apply(this, arguments);}return openidtogetinfo;}(),
+    openidtogetinfo: function () {var _openidtogetinfo = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee5(openid) {var info;return _regenerator.default.wrap(function _callee5$(_context5) {while (1) {switch (_context5.prev = _context5.next) {case 0:_context5.next = 2;return (
+                  this.$apis.openidtogetinfo({ openid: openid }));case 2:info = _context5.sent;
+                this.userinfo = info.data;case 4:case "end":return _context5.stop();}}}, _callee5, this);}));function openidtogetinfo(_x6) {return _openidtogetinfo.apply(this, arguments);}return openidtogetinfo;}(),
 
     //开柜
-    opendoor: function () {var _opendoor = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee5(openid, sn) {var info;return _regenerator.default.wrap(function _callee5$(_context5) {while (1) {switch (_context5.prev = _context5.next) {case 0:_context5.next = 2;return (
-                  this.$apis.opendoor({ openid: openid, sn: sn }));case 2:info = _context5.sent;
+    opendoor: function () {var _opendoor = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee6(openid, sn) {var info;return _regenerator.default.wrap(function _callee6$(_context6) {while (1) {switch (_context6.prev = _context6.next) {case 0:_context6.next = 2;return (
+                  this.$apis.opendoor({ openid: openid, sn: sn }));case 2:info = _context6.sent;
                 console.log(info.data, '开柜返回');
                 if (info.code) {
                   uni.setStorageSync('ordernum', info.data.ordernum);
@@ -312,21 +377,21 @@ __webpack_require__.r(__webpack_exports__);
                 } else {
                   uni.showToast({ title: '开柜失败,原因：' + info.msg, duration: 3000, icon: 'none' });
 
-                }case 5:case "end":return _context5.stop();}}}, _callee5, this);}));function opendoor(_x5, _x6) {return _opendoor.apply(this, arguments);}return opendoor;}(),
+                }case 5:case "end":return _context6.stop();}}}, _callee6, this);}));function opendoor(_x7, _x8) {return _opendoor.apply(this, arguments);}return opendoor;}(),
 
-    savaphone: function () {var _savaphone = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee6(openid, phone) {return _regenerator.default.wrap(function _callee6$(_context6) {while (1) {switch (_context6.prev = _context6.next) {case 0:
+    savaphone: function () {var _savaphone = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee7(openid, phone) {return _regenerator.default.wrap(function _callee7$(_context7) {while (1) {switch (_context7.prev = _context7.next) {case 0:
                 this.$apis.savephone({ openid: openid, phone: phone });
-                this.openidtogetinfo(openid);case 2:case "end":return _context6.stop();}}}, _callee6, this);}));function savaphone(_x7, _x8) {return _savaphone.apply(this, arguments);}return savaphone;}(),
+                this.openidtogetinfo(openid);case 2:case "end":return _context7.stop();}}}, _callee7, this);}));function savaphone(_x9, _x10) {return _savaphone.apply(this, arguments);}return savaphone;}(),
 
-    getphone: function () {var _getphone = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee7(code, iv, encryptedData) {var info, getopenid;return _regenerator.default.wrap(function _callee7$(_context7) {while (1) {switch (_context7.prev = _context7.next) {case 0:_context7.next = 2;return (
-                  this.$apis.getphone({ code: code, iv: iv, encryptedData: encryptedData }));case 2:info = _context7.sent;
+    getphone: function () {var _getphone = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee8(code, iv, encryptedData) {var info, getopenid;return _regenerator.default.wrap(function _callee8$(_context8) {while (1) {switch (_context8.prev = _context8.next) {case 0:_context8.next = 2;return (
+                  this.$apis.getphone({ code: code, iv: iv, encryptedData: encryptedData }));case 2:info = _context8.sent;
                 console.log(info.data.phoneNumber, '手机授权返回');
                 getopenid = uni.getStorageSync('openid');
-                this.savaphone(getopenid, info.data.phoneNumber);case 6:case "end":return _context7.stop();}}}, _callee7, this);}));function getphone(_x9, _x10, _x11) {return _getphone.apply(this, arguments);}return getphone;}(),
+                this.savaphone(getopenid, info.data.phoneNumber);case 6:case "end":return _context8.stop();}}}, _callee8, this);}));function getphone(_x11, _x12, _x13) {return _getphone.apply(this, arguments);}return getphone;}(),
 
     //获取签约参数
-    getsingparm: function () {var _getsingparm = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee8() {var info, t;return _regenerator.default.wrap(function _callee8$(_context8) {while (1) {switch (_context8.prev = _context8.next) {case 0:_context8.next = 2;return (
-                  this.$apis.getsingparm());case 2:info = _context8.sent;
+    getsingparm: function () {var _getsingparm = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee9() {var info, t;return _regenerator.default.wrap(function _callee9$(_context9) {while (1) {switch (_context9.prev = _context9.next) {case 0:_context9.next = 2;return (
+                  this.$apis.getsingparm());case 2:info = _context9.sent;
                 t = this;
                 uni.showLoading({
                   title: '跳转中...' });
@@ -362,12 +427,12 @@ __webpack_require__.r(__webpack_exports__);
                       console.log(res, '打开失败');
                     } });
 
-                }case 6:case "end":return _context8.stop();}}}, _callee8, this);}));function getsingparm() {return _getsingparm.apply(this, arguments);}return getsingparm;}(),
+                }case 6:case "end":return _context9.stop();}}}, _callee9, this);}));function getsingparm() {return _getsingparm.apply(this, arguments);}return getsingparm;}(),
 
     //是否已签约
-    ismmsign: function () {var _ismmsign = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee9() {var getopenid, info, t;return _regenerator.default.wrap(function _callee9$(_context9) {while (1) {switch (_context9.prev = _context9.next) {case 0:
-                getopenid = uni.getStorageSync('openid');_context9.next = 3;return (
-                  this.$apis.ismmsign({ openid: getopenid }));case 3:info = _context9.sent;
+    ismmsign: function () {var _ismmsign = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee10() {var getopenid, info, t;return _regenerator.default.wrap(function _callee10$(_context10) {while (1) {switch (_context10.prev = _context10.next) {case 0:
+                getopenid = uni.getStorageSync('openid');_context10.next = 3;return (
+                  this.$apis.ismmsign({ openid: getopenid }));case 3:info = _context10.sent;
                 t = this;
                 console.log(info, '是否签约');
                 if (info.data) {
@@ -391,7 +456,7 @@ __webpack_require__.r(__webpack_exports__);
                       }
                     } });
 
-                }case 7:case "end":return _context9.stop();}}}, _callee9, this);}));function ismmsign() {return _ismmsign.apply(this, arguments);}return ismmsign;}(),
+                }case 7:case "end":return _context10.stop();}}}, _callee10, this);}));function ismmsign() {return _ismmsign.apply(this, arguments);}return ismmsign;}(),
 
     goto: function goto(e) {
       console.log(e, '选中');
@@ -484,8 +549,8 @@ __webpack_require__.r(__webpack_exports__);
       this.register[dataval] = e.detail.value;
     },
     //发送验证码
-    sendsms: function () {var _sendsms = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee10(phone) {var info;return _regenerator.default.wrap(function _callee10$(_context10) {while (1) {switch (_context10.prev = _context10.next) {case 0:_context10.next = 2;return (
-                  this.$apis.sendsms({ phone: phone }));case 2:info = _context10.sent;
+    sendsms: function () {var _sendsms = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee11(phone) {var info;return _regenerator.default.wrap(function _callee11$(_context11) {while (1) {switch (_context11.prev = _context11.next) {case 0:_context11.next = 2;return (
+                  this.$apis.sendsms({ phone: phone }));case 2:info = _context11.sent;
                 console.log(info.data, 'dddd');
                 if (info.data == '1') {
                   uni.showToast({ title: info.msg, duration: 2000, icon: 'none' });
@@ -494,17 +559,17 @@ __webpack_require__.r(__webpack_exports__);
                 } else {
                   uni.showToast({ title: info.msg, duration: 2000, icon: 'none' });
                   this.senderro = true;
-                }case 5:case "end":return _context10.stop();}}}, _callee10, this);}));function sendsms(_x12) {return _sendsms.apply(this, arguments);}return sendsms;}(),
+                }case 5:case "end":return _context11.stop();}}}, _callee11, this);}));function sendsms(_x14) {return _sendsms.apply(this, arguments);}return sendsms;}(),
 
     //注册
-    regphone: function () {var _regphone = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee11(phone, code, openid) {var info;return _regenerator.default.wrap(function _callee11$(_context11) {while (1) {switch (_context11.prev = _context11.next) {case 0:_context11.next = 2;return (
-                  this.$apis.regphone({ phone: phone, code: code, openid: openid }));case 2:info = _context11.sent;
+    regphone: function () {var _regphone = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee12(phone, code, openid) {var info;return _regenerator.default.wrap(function _callee12$(_context12) {while (1) {switch (_context12.prev = _context12.next) {case 0:_context12.next = 2;return (
+                  this.$apis.regphone({ phone: phone, code: code, openid: openid }));case 2:info = _context12.sent;
                 if (info.data == "1") {
                   this.openidtogetinfo(openid);
                   this.$refs.popup.close();
                 } else {
                   uni.showToast({ title: info.msg, duration: 2000, icon: 'none' });
-                }case 4:case "end":return _context11.stop();}}}, _callee11, this);}));function regphone(_x13, _x14, _x15) {return _regphone.apply(this, arguments);}return regphone;}(),
+                }case 4:case "end":return _context12.stop();}}}, _callee12, this);}));function regphone(_x15, _x16, _x17) {return _regphone.apply(this, arguments);}return regphone;}(),
 
     doreg: function doreg() {
       console.log(this.register.phone, '手机号');
