@@ -1,6 +1,6 @@
 <template>
 	<view class="content">
-		<view  v-for="(obj,index) in list"  :key="index"   :options="obj.id"  >
+		<view  v-for="(obj,index) in list"  :key="index"   :options="obj.productId"  >
 			<view class="contBox">
 				<!-- <view class="circleBox" @click.stop="inp(obj.id)"> -->
 					<view class="circleBox">
@@ -10,12 +10,12 @@
 				<view class="goodBox">
 					<view>{{obj.productName}}<text>{{obj.productPrice}}</text></view>
 					<view class="countBox">
-						<view class="sign" @click="signCount(obj.id)">
+						<view class="sign" @click="signCount(obj.productId)">
 							<image src="../../../static/bbh-shopCar/icon/signf.png"  v-if="obj.count>0"></image>
 							<image src="../../../static/bbh-shopCar/icon/signe.png"  v-if="obj.count==0"></image>
 						</view>
 						<view class="count">{{obj.count}}</view>
-						<view class="add" @click="addCount(obj.id)">
+						<view class="add" @click="addCount(obj.productId)">
 							<image src="../../../static/bbh-shopCar/icon/addf.png" ></image>
 							<!-- <image src="../../../static/bbh-shopCar/icon/adde.png"   v-if="obj.stock==obj.count"></image> -->
 						</view>
@@ -114,7 +114,7 @@
 			signCount(id) { //减少商品
 				for (var i = 0; i < this.list.length; i++) {
 					var obj = this.list[i];
-					if (obj.id == id) {
+					if (obj.productId == id) {
 						if (obj.count > 0) {
 							obj.count--;
 						}
@@ -126,7 +126,7 @@
 			addCount(id) { //增加商品
 				for (var i = 0; i < this.list.length; i++) {
 					var obj = this.list[i];
-					if (obj.id == id) {
+					if (obj.productId == id) {
 						obj.count++;
 						obj.check=true;
 						// if (obj.count < obj.stock) {
@@ -143,7 +143,7 @@
 			},
 			inp(index) { //商品选择
 				for (var i = 0; i < this.list.length; i++) {
-					if (this.list[i].id == index) {
+					if (this.list[i].productId == index) {
 						this.list[i].check = !this.list[i].check;
 						if (this.list[i].check == false) {	  		 //如果有条数据没选择，就取消全选
 							this.flag = false;
