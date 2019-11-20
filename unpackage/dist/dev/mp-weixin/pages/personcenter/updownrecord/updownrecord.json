@@ -1,0 +1,6 @@
+{
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 50,
+  "navigationBarTitleText": "上货记录",
+  "usingComponents": {}
+}

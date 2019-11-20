@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/personcenter/updownrecord/updownrecord",
     "pages/index/index",
     "pages/personcenter/personcenter",
     "pages/auth/auth",
@@ -32,6 +33,5 @@
   "navigateToMiniProgramAppIdList": [
     "wxbd687630cd02ce1d"
   ],
-  "usingComponents": {},
-  "sitemapLocation": "sitemap84.json"
+  "usingComponents": {}
 }

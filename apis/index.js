@@ -75,3 +75,8 @@ export const withdrawreply = (data) => http.POST(`${config.baseUrl}/minapi/withd
 export const withdrawlist = (data) => http.POST(`${config.baseUrl}/minapi/withdrawlist`, data);
 //促销活动领取红包
 export const getactivecoupon = (data) => http.POST(`${config.baseUrl}/minapi/getactivecoupon`, data);
+//上货记录列表
+export const getsqrecord = (data) => http.POST(`${config.baseUrl}/minapi/getsqrecord`, data);
+//上下架货记录中商品
+export const getsqrecordgood = (data) => http.POST(`${config.baseUrl}/minapi/getsqrecordgood`, data);
+
