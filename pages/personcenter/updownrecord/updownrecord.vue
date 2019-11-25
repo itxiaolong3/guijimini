@@ -41,47 +41,48 @@
 		    }, 1000);
 		},
 		//上拉加载，需要自己在page.json文件中配置"onReachBottomDistance"
-		// onReachBottom(){
-		// 	//uni.showToast({title: '触发上拉加载'});
-		// 	if(this.isover){
-		// 		this.loadingText="到底了";
-		// 		return false;
-		// 	}else{
-		// 		let getpage=this.page;
-		// 		this.page=getpage+1;
-		// 		this.loadingText="正在加载...";
-		// 		this.getsqrecord(this.sn,getpage+1)
-		// 	}
-		// },
+		onReachBottom(){
+			//uni.showToast({title: '触发上拉加载'});
+			if(this.isover){
+				this.loadingText="到底了";
+				return false;
+			}else{
+				let getpage=this.page;
+				this.page=getpage+1;
+				this.loadingText="正在加载...";
+				this.getsqrecord(this.sn,getpage+1)
+			}
+		},
 		methods: {
 			//获取上下货列表
 			async getsqrecord(sn,page){
 				let info= await this.$apis.getsqrecord({sn:sn,pageNumber:page});
 				//this.recordlist=info.data;
-				if(info.data.length<=9){
+				if(info.data.length==0){
 					this.isover=true;
 				}else{
 					let t=this;
-				this.recordlist=info.data;
-				
-					//this.recordlist.concat(info.data);
-					
+					this.recordlist=this.recordlist.concat(info.data);
 				}
 			},
 			reload(){
 				this.page=1;
+				this.recordlist=[];
+				this.isover=false;
 				this.getsqrecord(this.sn,1)
 			},
 			toGoods(id){
 				console.log(id,'得到ID')
+				uni.navigateTo({
+					url:'../shrecordgooddetail/shrecordgooddetail?identifier='+id
+				})
 			}
 		},
 		onLoad(option) {
 			console.log(option.sn,'传过来')
-			//this.sn=option.sn;
-			//this.getsqrecord(option.sn,1)
-			this.loadingText="到底了";
-			this.getsqrecord(this.sn,1)
+			this.sn=option.sn;
+			this.getsqrecord(option.sn,1)
+			//this.getsqrecord(this.sn,1)
 		}
 	}
 </script>

@@ -261,8 +261,8 @@ view {
 }
 .coupon-item .get-btn {
     width: 146rpx;
-    height: 52rpx;
-    line-height: 50rpx;
+    height: 65rpx;
+    line-height: 65rpx;
     position: absolute;
     top: 50%;
     right: 26rpx;
@@ -271,7 +271,7 @@ view {
     border-radius: 60rpx;
     color: #ff9000;
     border: 1px solid #ff9000;
-    font-size: 24rpx;
+    font-size: 32rpx;
     float: right;
 }
 .coupon-item:after {

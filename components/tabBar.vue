@@ -161,7 +161,7 @@
 					uni.hideLoading();
 					uni.showModal({
 					    title: '领取结果',
-					    content: "很遗憾，"+info.msg,
+					    content: ""+info.msg,
 						showCancel:t.senderro,
 					    success: function (res) {
 					        if (res.confirm) {

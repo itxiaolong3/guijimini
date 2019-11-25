@@ -69,7 +69,9 @@
 				});
 			},
 			showrecord(){
-				uni.showToast({title: '点击查看记录',duration: 3000,icon:'none'});
+				//uni.showToast({title: '点击查看记录',duration: 3000,icon:'none'});
+				let getsn=uni.getStorageSync('shsn')
+				uni.navigateTo({url:'../updownrecord/updownrecord?sn='+getsn})
 			},
 			upgood(){
 				let getsn=uni.getStorageSync('shsn')

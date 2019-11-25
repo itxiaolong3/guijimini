@@ -1,6 +1,5 @@
 {
   "pages": [
-    "pages/personcenter/updownrecord/updownrecord",
     "pages/index/index",
     "pages/personcenter/personcenter",
     "pages/auth/auth",
@@ -16,7 +15,9 @@
     "pages/personcenter/checkuptype/checkuptype",
     "pages/personcenter/feelback/feelback",
     "pages/aboutme/aboutme",
-    "pages/personcenter/tixian/tixian"
+    "pages/personcenter/tixian/tixian",
+    "pages/personcenter/updownrecord/updownrecord",
+    "pages/personcenter/shrecordgooddetail/shrecordgooddetail"
   ],
   "subPackages": [],
   "window": {

@@ -29,7 +29,8 @@
 				</view> -->
 				<view class="box" @click="tocoupon">
 					<view class="num">
-						<view class="icon"><image src="../../static/img/coupon.png"></image></view>
+						<view class="icon" v-if="counponnum==0"><image src="../../static/img/coupon.png"></image></view>
+						<view class="num" v-if="counponnum>0">{{counponnum}}</view>
 					</view>
 					<view class="text">优惠券</view>
 				</view>
@@ -98,7 +99,8 @@
 					// 	{name:'关于平台',icon:'about.png',isshow:true}
 					// ]
 				],
-				isshowitem:false
+				isshowitem:false,
+				counponnum:0
 				
 			}
 		},
@@ -121,8 +123,15 @@
 					t.getapiinfo(e.code)
 				}
 			})
+			t.mycouponlist()
 		},
 		methods: {
+			//我的优惠券
+			async mycouponlist(){
+				let getopenid=uni.getStorageSync('openid');
+				let info= await this.$apis.mycouponlist({openId:getopenid});
+				this.counponnum=info.data.couponList.length;
+			},
 			async shopen(sn){
 				let info= await this.$apis.shopen({sn:sn});
 				if(info.code==1){
