@@ -251,7 +251,7 @@ __webpack_require__.r(__webpack_exports__);
                     //弹出确认结果框
                     uni.showModal({
                       title: '恭喜您',
-                      content: "获得¥" + info.data[0].amount + "优惠卡券,详细请在优惠券中查看",
+                      content: "获得¥" + info.data[0].amount + "元优惠卡券,已存入优惠券卡包中",
                       showCancel: t.senderro,
                       success: function success(res) {
                         if (res.confirm) {

@@ -296,6 +296,10 @@ page {
           font-size: 26rpx;
           color: #999;
 }
+.sub-list .row .carrier .left .term .shengyu {
+            font-size: 30rpx;
+            color: red;
+}
 .sub-list .row .carrier .left .gap-top, .sub-list .row .carrier .left .gap-bottom {
           position: absolute;
           width: 20rpx;

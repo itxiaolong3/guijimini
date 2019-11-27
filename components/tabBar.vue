@@ -16,8 +16,8 @@
 			</view>
 		</uni-popup>
 		<uni-popup ref="popupcoupon" type="center" :maskClick="!maskclose" :custom="maskclose" style="padding: 0;margin: 0;border-radius: 30rpx;">
-			<view style="width: 550rpx;height: 600rpx;padding: 0;margin: 0;">
-				<image :src="tipimg" style="width: 100%;height: 100%;" @click="gotcoupon"/>
+			<view style="width: 550rpx;height: 850rpx;padding: 0;margin: 0;">
+				<image src="https://xiguoxiansheng.com/public/myimg/opencoupon1.jpeg" style="width: 100%;height: 100%;" @click="gotcoupon"/>
 				<image src="../static/img/close.png" class="closeimg" @click="closeimg"/>
 			</view>
 		</uni-popup>
@@ -144,7 +144,7 @@
 						//弹出确认结果框
 						uni.showModal({
 						    title: '恭喜您',
-						    content: "获得¥"+info.data[0].amount+"优惠卡券,详细请在优惠券中查看",
+						    content: "获得¥"+info.data[0].amount+"元优惠卡券,已存入优惠券卡包中",
 							showCancel:t.senderro,
 						    success: function (res) {
 						        if (res.confirm) {

@@ -54,6 +54,7 @@
 							</view>
 							<view class="term">
 								{{row.termStart}} ~ {{row.termEnd}}
+								<view v-if="row.number>1" class="shengyu">剩余{{row.number}}张</view>
 							</view>
 							<!-- <view class="icon shixiao">
 								
@@ -340,6 +341,10 @@
 						margin: 0 5%;
 						font-size: 26upx;
 						color: #999;
+						.shengyu{
+							font-size: 30upx;
+							color: red;
+						}
 					}
 					position: relative;
 					.gap-top,.gap-bottom{
