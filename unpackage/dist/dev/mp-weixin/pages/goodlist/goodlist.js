@@ -320,7 +320,6 @@ __webpack_require__.r(__webpack_exports__);
                       goodtitle += this.userproductList[i].name + ",";
                     }
                     goodimg = this.userproductList[0].image;
-                    //updatecloseorder(allmoney,ordernum,goodinfo,goodtitle,goodimg)
                     orderId = uni.getStorageSync('ordernum');
                     this.updatecloseorder(this.allmoney, orderId, this.userproductList, goodtitle, goodimg);
                     this.$refs.popups.open();
@@ -356,6 +355,8 @@ __webpack_require__.r(__webpack_exports__);
                     console.log(_goodimg, '提交的商品图片');
                     //openid,ordernum,allmoney,getcoupontype,getticket,body,goodimg,couponid,goodinfo
                     _orderId = uni.getStorageSync('ordernum');
+                    //也先提交柜机未支付订单
+                    this.updatecloseorder(this.allmoney, _orderId, this.userproductList, _goodtitle, _goodimg);
                     this.postpay(getopenid, _orderId, this.allmoney, 0, 0, _goodtitle, _goodimg, 0, this.userproductList);
                   } else {
                     //结速购买，返回首页
@@ -417,6 +418,8 @@ __webpack_require__.r(__webpack_exports__);
               //openid,ordernum,allmoney,getcoupontype,getticket,body,goodimg,couponid,goodinfo
               var orderId = uni.getStorageSync('ordernum');
               var openid = uni.getStorageSync('openid');
+              //也先提交柜机未支付订单
+              this.updatecloseorder(t.allmoney, orderId, t.userproductList, goodtitle, goodimg);
               t.postpay(openid, orderId, t.allmoney, 0, 0, goodtitle, goodimg, 0, t.userproductList);
             } else if (res.cancel) {
               console.log('用户点击取消');
@@ -445,6 +448,8 @@ __webpack_require__.r(__webpack_exports__);
         //openid,ordernum,allmoney,getcoupontype,getticket,body,goodimg,couponid,goodinfo
         var orderId = uni.getStorageSync('ordernum');
         var openid = uni.getStorageSync('openid');
+        //也先提交柜机未支付订单
+        this.updatecloseorder(t.allmoney, orderId, t.userproductList, goodtitle, goodimg);
         this.postpay(openid, orderId, t.allmoney, getcoupon[0].type, getcoupon[0].ticket, goodtitle, goodimg, getcoupon[0].id, t.userproductList);
       }
 
@@ -523,7 +528,7 @@ __webpack_require__.r(__webpack_exports__);
 
         //30分种后不关就报估计异常
       }
-      console.log(reqTime, '请求时间');
+      // console.log(reqTime,'请求时间')
       _this2.getgood(orderId);
     },
     500);

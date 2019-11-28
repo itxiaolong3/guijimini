@@ -45,7 +45,7 @@
 				<view>数量：x1</view>
 			</view> -->
 		</uni-popup>
-		<uni-popup ref="popups" type="bottom" :maskClick="couponmask">
+		<uni-popup ref="popups" type="center" :maskClick="couponmask">
 			<view class="tip">请选中其中一张优惠卡<view class="dosure" @click="postcoupon" style="font-size: 50rpx;font-weight: bold;">确定</view></view>
 			
 			<view class="coupon-item" v-for="(item,index) in list" :key="index">
@@ -213,7 +213,6 @@
 							goodtitle+=this.userproductList[i].name+",";
 						}
 						goodimg=this.userproductList[0].image;
-						//updatecloseorder(allmoney,ordernum,goodinfo,goodtitle,goodimg)
 						let orderId=uni.getStorageSync('ordernum');
 						this.updatecloseorder(this.allmoney,orderId,this.userproductList,goodtitle,goodimg);
 						this.$refs.popups.open()
@@ -249,6 +248,8 @@
 						console.log(goodimg,'提交的商品图片')
 						//openid,ordernum,allmoney,getcoupontype,getticket,body,goodimg,couponid,goodinfo
 						let orderId=uni.getStorageSync('ordernum');
+						//也先提交柜机未支付订单
+						this.updatecloseorder(this.allmoney,orderId,this.userproductList,goodtitle,goodimg);
 						this.postpay(getopenid,orderId,this.allmoney,0,0,goodtitle,goodimg,0,this.userproductList);
 					}else{
 						//结速购买，返回首页
@@ -310,6 +311,8 @@
 							  //openid,ordernum,allmoney,getcoupontype,getticket,body,goodimg,couponid,goodinfo
 							  let orderId=uni.getStorageSync('ordernum');
 							  let openid=uni.getStorageSync('openid');
+							  //也先提交柜机未支付订单
+							  this.updatecloseorder(t.allmoney,orderId,t.userproductList,goodtitle,goodimg);
 							  t.postpay(openid,orderId,t.allmoney,0,0,goodtitle,goodimg,0,t.userproductList);
 					        } else if (res.cancel) {
 					            console.log('用户点击取消');
@@ -338,6 +341,8 @@
 					//openid,ordernum,allmoney,getcoupontype,getticket,body,goodimg,couponid,goodinfo
 					let orderId=uni.getStorageSync('ordernum');
 					let openid=uni.getStorageSync('openid');
+					//也先提交柜机未支付订单
+					this.updatecloseorder(t.allmoney,orderId,t.userproductList,goodtitle,goodimg);
 					this.postpay(openid,orderId,t.allmoney,getcoupon[0].type,getcoupon[0].ticket,goodtitle,goodimg,getcoupon[0].id,t.userproductList);
 				}
 				
@@ -416,7 +421,7 @@
 						})
 						//30分种后不关就报估计异常
 					}
-					console.log(reqTime,'请求时间')
+					// console.log(reqTime,'请求时间')
 					this.getgood(orderId);
 				},
 				500);
