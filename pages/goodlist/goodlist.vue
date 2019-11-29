@@ -102,7 +102,7 @@
 			//支付
 			async postpay(openid,ordernum,allmoney,getcoupontype,getticket,body,goodimg,couponid,goodinfo){
 				let info= await this.$apis.accountorder({openid:openid,ordernum:ordernum,allmoney:allmoney,getcoupontype:getcoupontype,
-				getticket:getticket,body:body,goodimg:goodimg,couponid:couponid,goodinfo:JSON.stringify(goodinfo)});
+				getticket:getticket,body:body,goodimg:goodimg,couponid:couponid,goodinfo:JSON.stringify(goodinfo),istest:1});
 				uni.showLoading({
 					title:'支付中...'
 				});
@@ -197,7 +197,7 @@
 			},
 			//关门上传商品数据
 			async updatecloseorder(allmoney,ordernum,goodinfo,goodtitle,goodimg){
-				let info= await this.$apis.updatecloseorder({allmoney:allmoney,ordernum:ordernum,goodinfo:JSON.stringify(goodinfo),goodtitle:goodtitle,goodimg:goodimg});
+				let info= await this.$apis.updatecloseorder({allmoney:allmoney,ordernum:ordernum,goodinfo:JSON.stringify(goodinfo),goodtitle:goodtitle,goodimg:goodimg,istest:1});
 			},
 			//获取我的优惠券
 			async mycouponlist(){

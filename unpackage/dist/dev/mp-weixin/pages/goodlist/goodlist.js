@@ -209,7 +209,7 @@ __webpack_require__.r(__webpack_exports__);
     //支付
     postpay: function () {var _postpay = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(openid, ordernum, allmoney, getcoupontype, getticket, body, goodimg, couponid, goodinfo) {var _this = this;var info, t;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
                   this.$apis.accountorder({ openid: openid, ordernum: ordernum, allmoney: allmoney, getcoupontype: getcoupontype,
-                    getticket: getticket, body: body, goodimg: goodimg, couponid: couponid, goodinfo: JSON.stringify(goodinfo) }));case 2:info = _context.sent;
+                    getticket: getticket, body: body, goodimg: goodimg, couponid: couponid, goodinfo: JSON.stringify(goodinfo), istest: 1 }));case 2:info = _context.sent;
                 uni.showLoading({
                   title: '支付中...' });
 
@@ -304,7 +304,7 @@ __webpack_require__.r(__webpack_exports__);
 
     //关门上传商品数据
     updatecloseorder: function () {var _updatecloseorder = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4(allmoney, ordernum, goodinfo, goodtitle, goodimg) {var info;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:_context4.next = 2;return (
-                  this.$apis.updatecloseorder({ allmoney: allmoney, ordernum: ordernum, goodinfo: JSON.stringify(goodinfo), goodtitle: goodtitle, goodimg: goodimg }));case 2:info = _context4.sent;case 3:case "end":return _context4.stop();}}}, _callee4, this);}));function updatecloseorder(_x14, _x15, _x16, _x17, _x18) {return _updatecloseorder.apply(this, arguments);}return updatecloseorder;}(),
+                  this.$apis.updatecloseorder({ allmoney: allmoney, ordernum: ordernum, goodinfo: JSON.stringify(goodinfo), goodtitle: goodtitle, goodimg: goodimg, istest: 1 }));case 2:info = _context4.sent;case 3:case "end":return _context4.stop();}}}, _callee4, this);}));function updatecloseorder(_x14, _x15, _x16, _x17, _x18) {return _updatecloseorder.apply(this, arguments);}return updatecloseorder;}(),
 
     //获取我的优惠券
     mycouponlist: function () {var _mycouponlist = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee5() {var getopenid, info, goodtitle, goodimg, i, orderId, _goodtitle, _goodimg, _orderId;return _regenerator.default.wrap(function _callee5$(_context5) {while (1) {switch (_context5.prev = _context5.next) {case 0:

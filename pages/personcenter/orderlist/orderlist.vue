@@ -164,7 +164,7 @@
 				
 			},
 			async wxpaytwo(oid){
-				let info= await this.$apis.wxpaytwo({oid:oid});
+				let info= await this.$apis.wxpaytwo({oid:oid,istest:1});
 				uni.showLoading({
 					title:'支付中...'
 				});

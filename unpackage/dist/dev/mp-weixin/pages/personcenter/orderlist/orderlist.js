@@ -271,7 +271,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
     wxpaytwo: function () {var _wxpaytwo = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4(oid) {var _this = this;var info, t;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:_context4.next = 2;return (
-                  this.$apis.wxpaytwo({ oid: oid }));case 2:info = _context4.sent;
+                  this.$apis.wxpaytwo({ oid: oid, istest: 1 }));case 2:info = _context4.sent;
                 uni.showLoading({
                   title: '支付中...' });
 
