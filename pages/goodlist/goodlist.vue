@@ -312,7 +312,7 @@
 							  let orderId=uni.getStorageSync('ordernum');
 							  let openid=uni.getStorageSync('openid');
 							  //也先提交柜机未支付订单
-							  this.updatecloseorder(t.allmoney,orderId,t.userproductList,goodtitle,goodimg);
+							 // this.updatecloseorder(t.allmoney,orderId,t.userproductList,goodtitle,goodimg);
 							  t.postpay(openid,orderId,t.allmoney,0,0,goodtitle,goodimg,0,t.userproductList);
 					        } else if (res.cancel) {
 					            console.log('用户点击取消');
@@ -342,7 +342,7 @@
 					let orderId=uni.getStorageSync('ordernum');
 					let openid=uni.getStorageSync('openid');
 					//也先提交柜机未支付订单
-					this.updatecloseorder(t.allmoney,orderId,t.userproductList,goodtitle,goodimg);
+					//this.updatecloseorder(t.allmoney,orderId,t.userproductList,goodtitle,goodimg);
 					this.postpay(openid,orderId,t.allmoney,getcoupon[0].type,getcoupon[0].ticket,goodtitle,goodimg,getcoupon[0].id,t.userproductList);
 				}
 				
