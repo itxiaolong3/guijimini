@@ -2432,7 +2432,7 @@ createPage(_aboutme.default);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.getsqrecordgood = exports.getsqrecord = exports.getactivecoupon = exports.withdrawlist = exports.withdrawreply = exports.feelback = exports.updatecloseorder = exports.coupontip = exports.updowngood = exports.shclose = exports.shopen = exports.backyue = exports.wxpaytwo = exports.checknopayorder = exports.orderlist = exports.checkgoodorder = exports.accountorder = exports.getgood = exports.getallgood = exports.opendoor = exports.getcoupon = exports.mycouponlist = exports.couponlist = exports.checkorderstate = exports.dowxpay = exports.getaddmoneyact = exports.regphone = exports.sendsms = exports.xieyi = exports.getadv = exports.bannerlist = exports.savesingres = exports.ismmsign = exports.getsingparm = exports.savephone = exports.getphone = exports.openidtogetinfo = exports.savainfo = exports.chencklogin = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! ./http.js */ 15));
+Object.defineProperty(exports, "__esModule", { value: true });exports.dotest = exports.getsqrecordgood = exports.getsqrecord = exports.getactivecoupon = exports.withdrawlist = exports.withdrawreply = exports.feelback = exports.updatecloseorder = exports.coupontip = exports.updowngood = exports.shclose = exports.shopen = exports.backyue = exports.wxpaytwo = exports.checknopayorder = exports.orderlist = exports.checkgoodorder = exports.accountorder = exports.getgood = exports.getallgood = exports.opendoor = exports.getcoupon = exports.mycouponlist = exports.couponlist = exports.checkorderstate = exports.dowxpay = exports.getaddmoneyact = exports.regphone = exports.sendsms = exports.xieyi = exports.getadv = exports.bannerlist = exports.savesingres = exports.ismmsign = exports.getsingparm = exports.savephone = exports.getphone = exports.openidtogetinfo = exports.savainfo = exports.chencklogin = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! ./http.js */ 15));
 var _indexConfig = _interopRequireDefault(__webpack_require__(/*! @/config/index.config.js */ 16));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 // 获取用户资料
@@ -2513,6 +2513,7 @@ exports.withdrawlist = withdrawlist;var getactivecoupon = function getactivecoup
 exports.getactivecoupon = getactivecoupon;var getsqrecord = function getsqrecord(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/getsqrecord"), data);};
 //上下架货记录中商品
 exports.getsqrecord = getsqrecord;var getsqrecordgood = function getsqrecordgood(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/getsqrecordgood"), data);};exports.getsqrecordgood = getsqrecordgood;
+var dotest = function dotest(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/dotest"), data);};exports.dotest = dotest;
 
 /***/ }),
 

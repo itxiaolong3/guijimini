@@ -149,23 +149,23 @@ var _jingSwiper = _interopRequireDefault(__webpack_require__(/*! ../../component
       showdots: true,
       bannerlist: [
       {
-        imgs: '../../static/img/goods/p2.jpg',
+        imgs: '../../static/img/goods/defadv.jpg',
         adid: 1 },
 
       {
-        imgs: '../../static/img/goods/p1.jpg',
+        imgs: '../../static/img/goods/defadv.jpg',
         adid: 2 },
 
       {
-        imgs: '../../static/img/goods/p3.jpg',
+        imgs: '../../static/img/goods/defadv.jpg',
         adid: 3 },
 
       {
-        imgs: '../../static/img/goods/p4.jpg',
+        imgs: '../../static/img/goods/defadv.jpg',
         adid: 4 },
 
       {
-        imgs: '../../static/img/goods/p5.jpg',
+        imgs: '../../static/img/goods/defadv.jpg',
         adid: 5 }],
 
 

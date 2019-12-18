@@ -46,7 +46,7 @@
 			</view> -->
 		</uni-popup>
 		<uni-popup ref="popups" type="center" :maskClick="couponmask">
-			<view class="tip">请选中一张卡券，({{passtime}})s后跳过<view class="dosure" @click="postcoupon" style="font-size: 50rpx;font-weight: bold;">确定</view></view>
+			<view class="tip">请选中其中一张优惠卡<view class="dosure" @click="postcoupon" style="font-size: 50rpx;font-weight: bold;">确定</view></view>
 			
 			<view class="coupon-item" v-for="(item,index) in list" :key="index">
 				<view class="coupon-money">
@@ -95,22 +95,18 @@
 				ispay:0,
 				waitpayTime: 30,
 				timerIdforgood: null,
-				timerIdforcheckcoupon: null,
-				passtime:15
             };
         },
 		components: {uniPopup},
         methods: {
 			//支付
 			async postpay(openid,ordernum,allmoney,getcoupontype,getticket,body,goodimg,couponid,goodinfo){
-				console.log('走支付了哦')
 				let info= await this.$apis.accountorder({openid:openid,ordernum:ordernum,allmoney:allmoney,getcoupontype:getcoupontype,
 				getticket:getticket,body:body,goodimg:goodimg,couponid:couponid,goodinfo:JSON.stringify(goodinfo),istest:1});
 				uni.showLoading({
 					title:'支付中...'
 				});
 				let t=this;
-				uni.setStorageSync('isclosedoor',0);
 				if(info.code==1){
 						console.log(t.ispay,'是否支付')
 						this.timerIdforgood = setInterval(() => {
@@ -126,7 +122,6 @@
 										showCancel:this.showcan,
 									    success: function (res) {
 									        if (res.confirm) {
-												clearInterval(t.timerIdforcheckcoupon);
 									            uni.reLaunch({
 									            	url:'../../pages/index/index'
 									            })
@@ -153,7 +148,6 @@
 										showCancel:this.showcan,
 									    success: function (res) {
 									        if (res.confirm) {
-												clearInterval(t.timerIdforcheckcoupon);
 									            uni.reLaunch({
 									            	url:'../../pages/index/index'
 									            })
@@ -169,6 +163,7 @@
 					console.log('走支付流程失败')
 					
 					uni.hideLoading();
+					//uni.showToast({title:info.msg,duration:1500,icon:'none'});
 					uni.showModal({
 					    title: '购买异常提示',
 					    content: '异常信息：'+info.msg,
@@ -204,15 +199,11 @@
 			async updatecloseorder(allmoney,ordernum,goodinfo,goodtitle,goodimg){
 				let info= await this.$apis.updatecloseorder({allmoney:allmoney,ordernum:ordernum,goodinfo:JSON.stringify(goodinfo),goodtitle:goodtitle,goodimg:goodimg,istest:1});
 			},
-			async dotest(){
-				let info= await this.$apis.dotest({});
-			},
 			//获取我的优惠券
 			async mycouponlist(){
 				let getopenid=uni.getStorageSync('openid');
 				let info= await this.$apis.mycouponlist({openId:getopenid});
 				this.list=info.data.couponList;
-				let t=this;
 				if(info.data.couponList.length>0){
 					if(this.allmoney>0){
 						//不选优惠券一样要上传商品和总价格。防止什么都不选直接关闭逃单
@@ -225,33 +216,6 @@
 						let orderId=uni.getStorageSync('ordernum');
 						this.updatecloseorder(this.allmoney,orderId,this.userproductList,goodtitle,goodimg);
 						this.$refs.popups.open()
-						//开启定时器检查
-						this.timerIdforcheckcoupon = setInterval(() => {
-								var passtime = this.passtime;
-								passtime--;
-								this.passtime = passtime;
-								if (passtime < 1) {
-									clearInterval(t.timerIdforcheckcoupon);
-									console.log('关闭等待'+passtime)
-									  let goodtitle='';
-									  let goodimg='';
-									  for(var i=0;i<t.userproductList.length;i++){
-									  	goodtitle +=t.userproductList[i].name;
-									  }
-									  goodimg=t.userproductList[0].image;
-									  console.log(goodtitle,'提交的商品名称')
-									  console.log(goodimg,'提交的商品图片')
-									  console.log(t.allmoney,'商品总额')
-									  console.log(t.userproductList,'提交的商品')
-									 let orderId=uni.getStorageSync('ordernum');
-									 let openid=uni.getStorageSync('openid');
-									t.postpay(openid,orderId,t.allmoney,0,0,goodtitle,goodimg,0,t.userproductList);
-								
-								}
-								console.log('等待时间'+passtime)
-								//this.getgood(orderId);
-							},
-							1000);
 					}else{
 						//结速购买，返回首页
 						uni.showModal({
@@ -260,7 +224,6 @@
 							showCancel:this.showcan,
 						    success: function (res) {
 						        if (res.confirm) {
-									clearInterval(t.timerIdforcheckcoupon);
 						            uni.reLaunch({
 						            	url:'../../pages/index/index'
 						            })
@@ -348,7 +311,8 @@
 							  //openid,ordernum,allmoney,getcoupontype,getticket,body,goodimg,couponid,goodinfo
 							  let orderId=uni.getStorageSync('ordernum');
 							  let openid=uni.getStorageSync('openid');
-							 
+							  //也先提交柜机未支付订单
+							 // this.updatecloseorder(t.allmoney,orderId,t.userproductList,goodtitle,goodimg);
 							  t.postpay(openid,orderId,t.allmoney,0,0,goodtitle,goodimg,0,t.userproductList);
 					        } else if (res.cancel) {
 					            console.log('用户点击取消');
@@ -403,7 +367,6 @@
 					this.showmode()
 				}
 				if(info.data.data.close){
-					uni.setStorageSync('isclosedoor',1);
 					clearInterval(this.timerId);
 					this.hiddenmode();
 					//检查是否有优惠券
@@ -464,28 +427,7 @@
 				500);
 			
 			
-        },
-		onHide: function() {
-			let iscolse=uni.getStorageSync('isclosedoor');
-			let t=this;
-			  let goodtitle='';
-			  let goodimg='';
-			  for(var i=0;i<t.userproductList.length;i++){
-			  	goodtitle +=t.userproductList[i].name;
-			  }
-			  goodimg=t.userproductList[0].image;
-			  console.log(goodtitle,'提交的商品名称')
-			  console.log(goodimg,'提交的商品图片')
-			  console.log(t.allmoney,'商品总额')
-			  console.log(t.userproductList,'提交的商品')
-			 let orderId=uni.getStorageSync('ordernum');
-			 let openid=uni.getStorageSync('openid');
-			if(iscolse==1&&t.allmoney>0){
-				t.postpay(openid,orderId,t.allmoney,0,0,goodtitle,goodimg,0,t.userproductList);
-			}
-			
-			
-		}
+        }
     };
 </script>
 

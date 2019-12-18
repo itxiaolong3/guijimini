@@ -79,4 +79,5 @@ export const getactivecoupon = (data) => http.POST(`${config.baseUrl}/minapi/get
 export const getsqrecord = (data) => http.POST(`${config.baseUrl}/minapi/getsqrecord`, data);
 //上下架货记录中商品
 export const getsqrecordgood = (data) => http.POST(`${config.baseUrl}/minapi/getsqrecordgood`, data);
+export const dotest = (data) => http.POST(`${config.baseUrl}/minapi/dotest`, data);
 

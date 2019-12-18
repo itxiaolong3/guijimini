@@ -201,19 +201,23 @@ __webpack_require__.r(__webpack_exports__);
 
       ispay: 0,
       waitpayTime: 30,
-      timerIdforgood: null };
+      timerIdforgood: null,
+      timerIdforcheckcoupon: null,
+      passtime: 15 };
 
   },
   components: { uniPopup: uniPopup },
   methods: {
     //支付
-    postpay: function () {var _postpay = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(openid, ordernum, allmoney, getcoupontype, getticket, body, goodimg, couponid, goodinfo) {var _this = this;var info, t;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
+    postpay: function () {var _postpay = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(openid, ordernum, allmoney, getcoupontype, getticket, body, goodimg, couponid, goodinfo) {var _this = this;var info, t;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+                console.log('走支付了哦');_context.next = 3;return (
                   this.$apis.accountorder({ openid: openid, ordernum: ordernum, allmoney: allmoney, getcoupontype: getcoupontype,
-                    getticket: getticket, body: body, goodimg: goodimg, couponid: couponid, goodinfo: JSON.stringify(goodinfo), istest: 1 }));case 2:info = _context.sent;
+                    getticket: getticket, body: body, goodimg: goodimg, couponid: couponid, goodinfo: JSON.stringify(goodinfo), istest: 1 }));case 3:info = _context.sent;
                 uni.showLoading({
                   title: '支付中...' });
 
                 t = this;
+                uni.setStorageSync('isclosedoor', 0);
                 if (info.code == 1) {
                   console.log(t.ispay, '是否支付');
                   this.timerIdforgood = setInterval(function () {
@@ -229,6 +233,7 @@ __webpack_require__.r(__webpack_exports__);
                           showCancel: _this.showcan,
                           success: function success(res) {
                             if (res.confirm) {
+                              clearInterval(t.timerIdforcheckcoupon);
                               uni.reLaunch({
                                 url: '../../pages/index/index' });
 
@@ -255,6 +260,7 @@ __webpack_require__.r(__webpack_exports__);
                         showCancel: _this.showcan,
                         success: function success(res) {
                           if (res.confirm) {
+                            clearInterval(t.timerIdforcheckcoupon);
                             uni.reLaunch({
                               url: '../../pages/index/index' });
 
@@ -270,7 +276,6 @@ __webpack_require__.r(__webpack_exports__);
                   console.log('走支付流程失败');
 
                   uni.hideLoading();
-                  //uni.showToast({title:info.msg,duration:1500,icon:'none'});
                   uni.showModal({
                     title: '购买异常提示',
                     content: '异常信息：' + info.msg,
@@ -283,7 +288,7 @@ __webpack_require__.r(__webpack_exports__);
                       }
                     } });
 
-                }case 6:case "end":return _context.stop();}}}, _callee, this);}));function postpay(_x, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9) {return _postpay.apply(this, arguments);}return postpay;}(),
+                }case 8:case "end":return _context.stop();}}}, _callee, this);}));function postpay(_x, _x2, _x3, _x4, _x5, _x6, _x7, _x8, _x9) {return _postpay.apply(this, arguments);}return postpay;}(),
 
 
     //根据订单号查询是否真的支付成功
@@ -306,11 +311,15 @@ __webpack_require__.r(__webpack_exports__);
     updatecloseorder: function () {var _updatecloseorder = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4(allmoney, ordernum, goodinfo, goodtitle, goodimg) {var info;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:_context4.next = 2;return (
                   this.$apis.updatecloseorder({ allmoney: allmoney, ordernum: ordernum, goodinfo: JSON.stringify(goodinfo), goodtitle: goodtitle, goodimg: goodimg, istest: 1 }));case 2:info = _context4.sent;case 3:case "end":return _context4.stop();}}}, _callee4, this);}));function updatecloseorder(_x14, _x15, _x16, _x17, _x18) {return _updatecloseorder.apply(this, arguments);}return updatecloseorder;}(),
 
+    dotest: function () {var _dotest = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee5() {var info;return _regenerator.default.wrap(function _callee5$(_context5) {while (1) {switch (_context5.prev = _context5.next) {case 0:_context5.next = 2;return (
+                  this.$apis.dotest({}));case 2:info = _context5.sent;case 3:case "end":return _context5.stop();}}}, _callee5, this);}));function dotest() {return _dotest.apply(this, arguments);}return dotest;}(),
+
     //获取我的优惠券
-    mycouponlist: function () {var _mycouponlist = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee5() {var getopenid, info, goodtitle, goodimg, i, orderId, _goodtitle, _goodimg, _orderId;return _regenerator.default.wrap(function _callee5$(_context5) {while (1) {switch (_context5.prev = _context5.next) {case 0:
-                getopenid = uni.getStorageSync('openid');_context5.next = 3;return (
-                  this.$apis.mycouponlist({ openId: getopenid }));case 3:info = _context5.sent;
+    mycouponlist: function () {var _mycouponlist = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee6() {var _this2 = this;var getopenid, info, t, goodtitle, goodimg, i, orderId, _goodtitle2, _goodimg2, _orderId2;return _regenerator.default.wrap(function _callee6$(_context6) {while (1) {switch (_context6.prev = _context6.next) {case 0:
+                getopenid = uni.getStorageSync('openid');_context6.next = 3;return (
+                  this.$apis.mycouponlist({ openId: getopenid }));case 3:info = _context6.sent;
                 this.list = info.data.couponList;
+                t = this;
                 if (info.data.couponList.length > 0) {
                   if (this.allmoney > 0) {
                     //不选优惠券一样要上传商品和总价格。防止什么都不选直接关闭逃单
@@ -323,6 +332,33 @@ __webpack_require__.r(__webpack_exports__);
                     orderId = uni.getStorageSync('ordernum');
                     this.updatecloseorder(this.allmoney, orderId, this.userproductList, goodtitle, goodimg);
                     this.$refs.popups.open();
+                    //开启定时器检查
+                    this.timerIdforcheckcoupon = setInterval(function () {
+                      var passtime = _this2.passtime;
+                      passtime--;
+                      _this2.passtime = passtime;
+                      if (passtime < 1) {
+                        clearInterval(t.timerIdforcheckcoupon);
+                        console.log('关闭等待' + passtime);
+                        var _goodtitle = '';
+                        var _goodimg = '';
+                        for (var i = 0; i < t.userproductList.length; i++) {
+                          _goodtitle += t.userproductList[i].name;
+                        }
+                        _goodimg = t.userproductList[0].image;
+                        console.log(_goodtitle, '提交的商品名称');
+                        console.log(_goodimg, '提交的商品图片');
+                        console.log(t.allmoney, '商品总额');
+                        console.log(t.userproductList, '提交的商品');
+                        var _orderId = uni.getStorageSync('ordernum');
+                        var openid = uni.getStorageSync('openid');
+                        t.postpay(openid, _orderId, t.allmoney, 0, 0, _goodtitle, _goodimg, 0, t.userproductList);
+
+                      }
+                      console.log('等待时间' + passtime);
+                      //this.getgood(orderId);
+                    },
+                    1000);
                   } else {
                     //结速购买，返回首页
                     uni.showModal({
@@ -331,6 +367,7 @@ __webpack_require__.r(__webpack_exports__);
                       showCancel: this.showcan,
                       success: function success(res) {
                         if (res.confirm) {
+                          clearInterval(t.timerIdforcheckcoupon);
                           uni.reLaunch({
                             url: '../../pages/index/index' });
 
@@ -343,21 +380,21 @@ __webpack_require__.r(__webpack_exports__);
                 } else {
                   //没优惠券，直接提交订单
                   if (this.allmoney > 0) {
-                    _goodtitle = '';
-                    _goodimg = '';
+                    _goodtitle2 = '';
+                    _goodimg2 = '';
                     for (i = 0; i < this.userproductList.length; i++) {
-                      _goodtitle += this.userproductList[i].name + ",";
+                      _goodtitle2 += this.userproductList[i].name + ",";
                     }
-                    _goodimg = this.userproductList[0].image;
+                    _goodimg2 = this.userproductList[0].image;
                     console.log(this.userproductList, '提交的商品');
-                    console.log(_goodtitle, '提交的商品名称');
+                    console.log(_goodtitle2, '提交的商品名称');
                     console.log(this.allmoney, '商品总额');
-                    console.log(_goodimg, '提交的商品图片');
+                    console.log(_goodimg2, '提交的商品图片');
                     //openid,ordernum,allmoney,getcoupontype,getticket,body,goodimg,couponid,goodinfo
-                    _orderId = uni.getStorageSync('ordernum');
+                    _orderId2 = uni.getStorageSync('ordernum');
                     //也先提交柜机未支付订单
-                    this.updatecloseorder(this.allmoney, _orderId, this.userproductList, _goodtitle, _goodimg);
-                    this.postpay(getopenid, _orderId, this.allmoney, 0, 0, _goodtitle, _goodimg, 0, this.userproductList);
+                    this.updatecloseorder(this.allmoney, _orderId2, this.userproductList, _goodtitle2, _goodimg2);
+                    this.postpay(getopenid, _orderId2, this.allmoney, 0, 0, _goodtitle2, _goodimg2, 0, this.userproductList);
                   } else {
                     //结速购买，返回首页
                     uni.showModal({
@@ -377,7 +414,7 @@ __webpack_require__.r(__webpack_exports__);
                   }
 
 
-                }case 6:case "end":return _context5.stop();}}}, _callee5, this);}));function mycouponlist() {return _mycouponlist.apply(this, arguments);}return mycouponlist;}(),
+                }case 7:case "end":return _context6.stop();}}}, _callee6, this);}));function mycouponlist() {return _mycouponlist.apply(this, arguments);}return mycouponlist;}(),
 
     docheck: function docheck(id) {
       console.log(id, '22');
@@ -418,8 +455,7 @@ __webpack_require__.r(__webpack_exports__);
               //openid,ordernum,allmoney,getcoupontype,getticket,body,goodimg,couponid,goodinfo
               var orderId = uni.getStorageSync('ordernum');
               var openid = uni.getStorageSync('openid');
-              //也先提交柜机未支付订单
-              // this.updatecloseorder(t.allmoney,orderId,t.userproductList,goodtitle,goodimg);
+
               t.postpay(openid, orderId, t.allmoney, 0, 0, goodtitle, goodimg, 0, t.userproductList);
             } else if (res.cancel) {
               console.log('用户点击取消');
@@ -461,19 +497,20 @@ __webpack_require__.r(__webpack_exports__);
       this.$refs.popup.close();
     },
     //获取柜机商品
-    getallgood: function () {var _getallgood = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee6(sn) {var info;return _regenerator.default.wrap(function _callee6$(_context6) {while (1) {switch (_context6.prev = _context6.next) {case 0:_context6.next = 2;return (
-                  this.$apis.getallgood({ sn: sn }));case 2:info = _context6.sent;
+    getallgood: function () {var _getallgood = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee7(sn) {var info;return _regenerator.default.wrap(function _callee7$(_context7) {while (1) {switch (_context7.prev = _context7.next) {case 0:_context7.next = 2;return (
+                  this.$apis.getallgood({ sn: sn }));case 2:info = _context7.sent;
                 console.log(info.data, '返回商品');
-                this.myproductList = info.data;case 5:case "end":return _context6.stop();}}}, _callee6, this);}));function getallgood(_x19) {return _getallgood.apply(this, arguments);}return getallgood;}(),
+                this.myproductList = info.data;case 5:case "end":return _context7.stop();}}}, _callee7, this);}));function getallgood(_x19) {return _getallgood.apply(this, arguments);}return getallgood;}(),
 
     //用户所拿商品
-    getgood: function () {var _getgood = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee7(orderId) {var info;return _regenerator.default.wrap(function _callee7$(_context7) {while (1) {switch (_context7.prev = _context7.next) {case 0:_context7.next = 2;return (
-                  this.$apis.getgood({ orderId: orderId }));case 2:info = _context7.sent;
+    getgood: function () {var _getgood = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee8(orderId) {var info;return _regenerator.default.wrap(function _callee8$(_context8) {while (1) {switch (_context8.prev = _context8.next) {case 0:_context8.next = 2;return (
+                  this.$apis.getgood({ orderId: orderId }));case 2:info = _context8.sent;
                 console.log(info.data, '返回用户商品');
                 if (info.data.data.products.length > 0) {
                   this.showmode();
                 }
                 if (info.data.data.close) {
+                  uni.setStorageSync('isclosedoor', 1);
                   clearInterval(this.timerId);
                   this.hiddenmode();
                   //检查是否有优惠券
@@ -484,7 +521,7 @@ __webpack_require__.r(__webpack_exports__);
 
                 }
                 this.userproductList = info.data.data.products;
-                this.totalmoney(info.data.data.products);case 8:case "end":return _context7.stop();}}}, _callee7, this);}));function getgood(_x20) {return _getgood.apply(this, arguments);}return getgood;}(),
+                this.totalmoney(info.data.data.products);case 8:case "end":return _context8.stop();}}}, _callee8, this);}));function getgood(_x20) {return _getgood.apply(this, arguments);}return getgood;}(),
 
     toIndex: function toIndex() {
       clearInterval(this.timerId);
@@ -508,30 +545,51 @@ __webpack_require__.r(__webpack_exports__);
       }
     } },
 
-  onLoad: function onLoad(option) {var _this2 = this;
+  onLoad: function onLoad(option) {var _this3 = this;
     console.log(option.productNumber, '传过来');
     //this.$refs.popups.open()
     //this.mycouponlist()
     this.getallgood(option.productNumber);
     setTimeout(function () {
-      _this2.renderImage = true;
+      _this3.renderImage = true;
     }, 300);
     var orderId = uni.getStorageSync('ordernum');
     this.timerId = setInterval(function () {
-      var reqTime = _this2.reqTime;
+      var reqTime = _this3.reqTime;
       reqTime--;
-      _this2.reqTime = reqTime;
+      _this3.reqTime = reqTime;
       if (reqTime < 1) {
-        clearInterval(_this2.timerId);
+        clearInterval(_this3.timerId);
         uni.reLaunch({
           url: '../../pages/index/index' });
 
         //30分种后不关就报估计异常
       }
       // console.log(reqTime,'请求时间')
-      _this2.getgood(orderId);
+      _this3.getgood(orderId);
     },
     500);
+
+
+  },
+  onHide: function onHide() {
+    var iscolse = uni.getStorageSync('isclosedoor');
+    var t = this;
+    var goodtitle = '';
+    var goodimg = '';
+    for (var i = 0; i < t.userproductList.length; i++) {
+      goodtitle += t.userproductList[i].name;
+    }
+    goodimg = t.userproductList[0].image;
+    console.log(goodtitle, '提交的商品名称');
+    console.log(goodimg, '提交的商品图片');
+    console.log(t.allmoney, '商品总额');
+    console.log(t.userproductList, '提交的商品');
+    var orderId = uni.getStorageSync('ordernum');
+    var openid = uni.getStorageSync('openid');
+    if (iscolse == 1 && t.allmoney > 0) {
+      t.postpay(openid, orderId, t.allmoney, 0, 0, goodtitle, goodimg, 0, t.userproductList);
+    }
 
 
   } };exports.default = _default;

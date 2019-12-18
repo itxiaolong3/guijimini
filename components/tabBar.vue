@@ -264,6 +264,7 @@
 					uni.setStorageSync('ordernum',info.data.ordernum)
 					uni.setStorageSync('sn',sn)
 					console.log('已开')
+					uni.setStorageSync('isclosedoor',0);
 					uni.reLaunch({
 						url:"../../pages/goodlist/goodlist?productNumber="+sn
 					})
