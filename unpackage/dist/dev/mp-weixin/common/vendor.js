@@ -2432,7 +2432,7 @@ createPage(_aboutme.default);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.dotest = exports.getsqrecordgood = exports.getsqrecord = exports.getactivecoupon = exports.withdrawlist = exports.withdrawreply = exports.feelback = exports.updatecloseorder = exports.coupontip = exports.updowngood = exports.shclose = exports.shopen = exports.backyue = exports.wxpaytwo = exports.checknopayorder = exports.orderlist = exports.checkgoodorder = exports.accountorder = exports.getgood = exports.getallgood = exports.opendoor = exports.getcoupon = exports.mycouponlist = exports.couponlist = exports.checkorderstate = exports.dowxpay = exports.getaddmoneyact = exports.regphone = exports.sendsms = exports.xieyi = exports.getadv = exports.bannerlist = exports.savesingres = exports.ismmsign = exports.getsingparm = exports.savephone = exports.getphone = exports.openidtogetinfo = exports.savainfo = exports.chencklogin = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! ./http.js */ 15));
+Object.defineProperty(exports, "__esModule", { value: true });exports.dotest = exports.getsqrecordgood = exports.getsqrecord = exports.getactivecoupon = exports.withdrawlist = exports.withdrawreply = exports.feelback = exports.updatecloseorder = exports.coupontip = exports.postupdowninfo = exports.updowngood = exports.shclose = exports.shopennew = exports.shopen = exports.backyue = exports.wxpaytwo = exports.checknopayorder = exports.orderlist = exports.checkgoodorder = exports.accountorder = exports.getgood = exports.getupgood = exports.getallgood = exports.opendoor = exports.getcoupon = exports.mycouponlist = exports.couponlist = exports.checkorderstate = exports.dowxpay = exports.getaddmoneyact = exports.regphone = exports.sendsms = exports.xieyi = exports.getadv = exports.bannerlist = exports.savesingres = exports.ismmsign = exports.getsingparm = exports.savephone = exports.getphone = exports.openidtogetinfo = exports.savainfo = exports.chencklogin = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! ./http.js */ 15));
 var _indexConfig = _interopRequireDefault(__webpack_require__(/*! @/config/index.config.js */ 16));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 // 获取用户资料
@@ -2477,8 +2477,10 @@ exports.mycouponlist = mycouponlist;var getcoupon = function getcoupon(data) {re
 exports.getcoupon = getcoupon;var opendoor = function opendoor(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/opendoor"), data);};
 //获取柜机所有商品
 exports.opendoor = opendoor;var getallgood = function getallgood(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/getallgood"), data);};
+//实时获取上下货商品-新
+exports.getallgood = getallgood;var getupgood = function getupgood(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/getupgood"), data);};
 //获取用户所拿商品
-exports.getallgood = getallgood;var getgood = function getgood(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/getgood"), data);};
+exports.getupgood = getupgood;var getgood = function getgood(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/getgood"), data);};
 //提交订单进行支付
 exports.getgood = getgood;var accountorder = function accountorder(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/accountorder"), data);};
 //检查商品订单
@@ -2491,14 +2493,18 @@ exports.orderlist = orderlist;var checknopayorder = function checknopayorder(dat
 exports.checknopayorder = checknopayorder;var wxpaytwo = function wxpaytwo(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/wxpaytwo"), data);};
 //混合支付模式下,用户余额不足免密扣款,而导致系统余额减少,需要调用后台检查余额恢复接口
 exports.wxpaytwo = wxpaytwo;var backyue = function backyue(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/backyue"), data);};
-//上货开柜接口
+//上下货开柜接口
 exports.backyue = backyue;var shopen = function shopen(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/shopen"), data);};
+//上下货开柜接口-新
+exports.shopen = shopen;var shopennew = function shopennew(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/shopennew"), data);};
 //手动关柜
-exports.shopen = shopen;var shclose = function shclose(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/shclose"), data);};
+exports.shopennew = shopennew;var shclose = function shclose(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/shclose"), data);};
 //上下货记录
 exports.shclose = shclose;var updowngood = function updowngood(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/updowngood"), data);};
+//提交上下货数据-新
+exports.updowngood = updowngood;var postupdowninfo = function postupdowninfo(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/postupdowninfo"), data);};
 //检查优惠券更新提示
-exports.updowngood = updowngood;var coupontip = function coupontip(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/coupontip"), data);};
+exports.postupdowninfo = postupdowninfo;var coupontip = function coupontip(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/coupontip"), data);};
 //补接口,关门立即发送保存商品和价格数据到后台
 exports.coupontip = coupontip;var updatecloseorder = function updatecloseorder(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/minapi/updatecloseorder"), data);};
 //反馈意见
@@ -9344,6 +9350,40 @@ internalMixin(Vue);
 /* harmony default export */ __webpack_exports__["default"] = (Vue);
 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../webpack/buildin/global.js */ 3)))
+
+/***/ }),
+
+/***/ 287:
+/*!*************************************************************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fupgood%2Fupgoodnew"} ***!
+  \*************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
+
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
+var _upgoodnew = _interopRequireDefault(__webpack_require__(/*! ./pages/personcenter/upgood/upgoodnew.vue */ 288));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+createPage(_upgoodnew.default);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
+
+/***/ }),
+
+/***/ 296:
+/*!*****************************************************************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fdowngood%2Fdowngoodnew"} ***!
+  \*****************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
+
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
+var _downgoodnew = _interopRequireDefault(__webpack_require__(/*! ./pages/personcenter/downgood/downgoodnew.vue */ 297));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+createPage(_downgoodnew.default);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
 
 /***/ }),
 

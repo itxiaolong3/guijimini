@@ -156,6 +156,22 @@ var _default =
                   uni.showToast({ title: '手动关门失败：' + info.msg, duration: 3000, icon: 'none' });
                 }case 4:case "end":return _context.stop();}}}, _callee, this);}));function shclose(_x) {return _shclose.apply(this, arguments);}return shclose;}(),
 
+    shopennew: function () {var _shopennew = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2(sn, type) {var openid, info;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
+                openid = uni.getStorageSync('openid');
+                uni.setStorageSync('shsn', sn);_context2.next = 4;return (
+                  this.$apis.shopennew({ sn: sn, openId: openid, type: type }));case 4:info = _context2.sent;
+                if (info.code == 1) {
+                  uni.hideLoading();
+                  if (type == 0) {
+                    uni.reLaunch({ url: '../upgood/upgoodnew?sn=' + sn });
+                  } else {
+                    uni.reLaunch({ url: '../downgood/downgoodnew?sn=' + sn });
+                  }
+
+                } else {
+                  uni.showToast({ title: '开柜失败:' + info.msg, duration: 3000, icon: 'none' });
+                }case 6:case "end":return _context2.stop();}}}, _callee2, this);}));function shopennew(_x2, _x3) {return _shopennew.apply(this, arguments);}return shopennew;}(),
+
     closedoor: function closedoor() {
       var t = this;
       var sn = uni.getStorageSync('shsn');
@@ -181,19 +197,57 @@ var _default =
       uni.navigateTo({ url: '../updownrecord/updownrecord?sn=' + getsn });
     },
     upgood: function upgood() {
-      var getsn = uni.getStorageSync('shsn');
-      uni.navigateTo({ url: '../upgood/upgood?sn=' + getsn });
+      //旧模式
+      // let getsn=uni.getStorageSync('shsn')
+      // uni.navigateTo({url:'../upgood/upgood?sn='+getsn}) 
+
+      uni.showLoading({
+        title: '开柜中...' });
+
+      var t = this;
+      uni.scanCode({
+        success: function success(e) {
+          var getpath = e.path;
+          var arr = getpath.split('=');
+          t.shopennew(arr[1], 0);
+          //t.opendoor(getopenid,arr[1])
+          console.log(arr[1], '扫码成功返回');
+
+        }, fail: function fail(e) {
+          console.log(e, '扫码失败返回');
+          uni.hideLoading();
+          uni.showToast({ title: '开柜失败', duration: 3000, icon: 'none' });
+        } });
+
     },
     downgood: function downgood() {
-      var getsn = uni.getStorageSync('shsn');
-      uni.navigateTo({ url: '../downgood/downgood?sn=' + getsn });
+      //旧模式
+      // let getsn=uni.getStorageSync('shsn')
+      // uni.navigateTo({url:'../downgood/downgood?sn='+getsn}) 
+      uni.showLoading({
+        title: '开柜中...' });
+
+      var t = this;
+      uni.scanCode({
+        success: function success(e) {
+          var getpath = e.path;
+          var arr = getpath.split('=');
+          t.shopennew(arr[1], 1);
+          //t.opendoor(getopenid,arr[1])
+          console.log(arr[1], '扫码成功返回');
+
+        }, fail: function fail(e) {
+          console.log(e, '扫码失败返回');
+          uni.hideLoading();
+          uni.showToast({ title: '开柜失败', duration: 3000, icon: 'none' });
+        } });
+
     } },
 
 
   onLoad: function onLoad(option) {
     console.log(option.sn, '传过来');
     uni.setStorageSync('shsn', option.sn);
-    //this.getallgood(option.sn)
 
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

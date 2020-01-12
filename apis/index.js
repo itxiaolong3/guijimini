@@ -43,6 +43,8 @@ export const getcoupon = (data) => http.POST(`${config.baseUrl}/minapi/getcoupon
 export const opendoor = (data) => http.POST(`${config.baseUrl}/minapi/opendoor`, data);
 //获取柜机所有商品
 export const getallgood = (data) => http.POST(`${config.baseUrl}/minapi/getallgood`, data);
+//实时获取上下货商品-新
+export const getupgood = (data) => http.POST(`${config.baseUrl}/minapi/getupgood`, data);
 //获取用户所拿商品
 export const getgood = (data) => http.POST(`${config.baseUrl}/minapi/getgood`, data);
 //提交订单进行支付
@@ -57,12 +59,16 @@ export const checknopayorder = (data) => http.POST(`${config.baseUrl}/minapi/che
 export const wxpaytwo = (data) => http.POST(`${config.baseUrl}/minapi/wxpaytwo`, data);
 //混合支付模式下,用户余额不足免密扣款,而导致系统余额减少,需要调用后台检查余额恢复接口
 export const backyue = (data) => http.POST(`${config.baseUrl}/minapi/backyue`, data);
-//上货开柜接口
+//上下货开柜接口
 export const shopen = (data) => http.POST(`${config.baseUrl}/minapi/shopen`, data);
+//上下货开柜接口-新
+export const shopennew = (data) => http.POST(`${config.baseUrl}/minapi/shopennew`, data);
 //手动关柜
 export const shclose = (data) => http.POST(`${config.baseUrl}/minapi/shclose`, data);
 //上下货记录
 export const updowngood = (data) => http.POST(`${config.baseUrl}/minapi/updowngood`, data);
+//提交上下货数据-新
+export const postupdowninfo = (data) => http.POST(`${config.baseUrl}/minapi/postupdowninfo`, data);
 //检查优惠券更新提示
 export const coupontip = (data) => http.POST(`${config.baseUrl}/minapi/coupontip`, data);
 //补接口,关门立即发送保存商品和价格数据到后台

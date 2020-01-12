@@ -46,10 +46,17 @@
         ,{
             "path" : "pages/personcenter/upgood/upgood",
             "style" : {"navigationBarTitleText": "提交上货数据"}
+        },{
+            "path" : "pages/personcenter/upgood/upgoodnew",
+            "style" : {"navigationBarTitleText": "上货页面"}
         }
 		,{
 		    "path" : "pages/personcenter/downgood/downgood",
 		    "style" : {"navigationBarTitleText": "提交下货数据"}
+		}
+		,{
+		    "path" : "pages/personcenter/downgood/downgoodnew",
+		    "style" : {"navigationBarTitleText": "卸货页面"}
 		}
         ,{
             "path" : "pages/personcenter/checkuptype/checkuptype",

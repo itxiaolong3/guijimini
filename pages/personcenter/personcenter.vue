@@ -223,25 +223,27 @@
 			//用户点击列表项
 			toPage(list_i,li_i){
 				if(this.severList[list_i][li_i].name=="我要上货"){
-					let getopenid=uni.getStorageSync('openid');
-					uni.showLoading({
-						title:'开柜中...'
-					})
-					let t=this;
-					uni.scanCode({
-						success:function(e){
-							var getpath=e.path;
-							var arr=getpath.split('=');
-							t.shopen(arr[1])
-							//t.opendoor(getopenid,arr[1])
-							console.log(arr[1],'扫码成功返回')
-							
-						},fail:function(e){
-							console.log(e,'扫码失败返回')
-							uni.hideLoading()
-							uni.showToast({title: '开柜失败',duration: 3000,icon:'none'});
-						}
-					})
+					uni.navigateTo({url:'./checkuptype/checkuptype'})
+					//以前手动上货版
+					// let getopenid=uni.getStorageSync('openid');
+					// uni.showLoading({
+					// 	title:'开柜中...'
+					// })
+					// let t=this;
+					// uni.scanCode({
+					// 	success:function(e){
+					// 		var getpath=e.path;
+					// 		var arr=getpath.split('=');
+					// 		t.shopen(arr[1])
+					// 		//t.opendoor(getopenid,arr[1])
+					// 		console.log(arr[1],'扫码成功返回')
+					// 		
+					// 	},fail:function(e){
+					// 		console.log(e,'扫码失败返回')
+					// 		uni.hideLoading()
+					// 		uni.showToast({title: '开柜失败',duration: 3000,icon:'none'});
+					// 	}
+					// })
 					
 				}else if(this.severList[list_i][li_i].name=="反馈意见"){
 					uni.navigateTo({url:'./feelback/feelback'}) 
