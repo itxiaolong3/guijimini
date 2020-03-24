@@ -1,29 +1,5 @@
 (global["webpackJsonp"] = global["webpackJsonp"] || []).push([["common/vendor"],{
 
-/***/ 0:
-/*!********************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js ***!
-  \********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(createApp) {__webpack_require__(/*! uni-pages */ 4);
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _App = _interopRequireDefault(__webpack_require__(/*! ./App */ 5));
-var $apis = _interopRequireWildcard(__webpack_require__(/*! ./apis/index.js */ 14));function _interopRequireWildcard(obj) {if (obj && obj.__esModule) {return obj;} else {var newObj = {};if (obj != null) {for (var key in obj) {if (Object.prototype.hasOwnProperty.call(obj, key)) {var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {};if (desc.get || desc.set) {Object.defineProperty(newObj, key, desc);} else {newObj[key] = obj[key];}}}}newObj.default = obj;return newObj;}}function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
-_vue.default.config.productionTip = false;
-_vue.default.prototype.$apis = $apis;
-_App.default.mpType = 'app';
-
-var app = new _vue.default(_objectSpread({},
-_App.default));
-
-createApp(app).$mount();
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createApp"]))
-
-/***/ }),
-
 /***/ 1:
 /*!************************************************************!*\
   !*** ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js ***!
@@ -265,7 +241,7 @@ var promiseInterceptor = {
 
 
 var SYNC_API_RE =
-/^\$|interceptors|Interceptor$|getSubNVueById|requireNativePlugin|upx2px|hideKeyboard|canIUse|^create|Sync$|Manager$|base64ToArrayBuffer|arrayBufferToBase64/;
+/^\$|restoreGlobal|getCurrentSubNVue|getMenuButtonBoundingClientRect|^report|interceptors|Interceptor$|getSubNVueById|requireNativePlugin|upx2px|hideKeyboard|canIUse|^create|Sync$|Manager$|base64ToArrayBuffer|arrayBufferToBase64/;
 
 var CONTEXT_API_RE = /^create|Manager$/;
 
@@ -279,7 +255,7 @@ function isSyncApi(name) {
 }
 
 function isCallbackApi(name) {
-  return CALLBACK_API_RE.test(name);
+  return CALLBACK_API_RE.test(name) && name !== 'onPush';
 }
 
 function handlePromise(promise) {
@@ -378,6 +354,7 @@ var interceptors = {
 
 
 var baseApi = /*#__PURE__*/Object.freeze({
+  __proto__: null,
   upx2px: upx2px,
   interceptors: interceptors,
   addInterceptor: addInterceptor,
@@ -418,10 +395,29 @@ var previewImage = {
   } };
 
 
-var protocols = {
-  previewImage: previewImage };
+function addSafeAreaInsets(result) {
+  if (result.safeArea) {
+    var safeArea = result.safeArea;
+    result.safeAreaInsets = {
+      top: safeArea.top,
+      left: safeArea.left,
+      right: result.windowWidth - safeArea.right,
+      bottom: result.windowHeight - safeArea.bottom };
 
-var todos = [];
+  }
+}
+var protocols = {
+  previewImage: previewImage,
+  getSystemInfo: {
+    returnValue: addSafeAreaInsets },
+
+  getSystemInfoSync: {
+    returnValue: addSafeAreaInsets } };
+
+
+var todos = [
+'vibrate'];
+
 var canIUses = [];
 
 var CALLBACKS = ['success', 'fail', 'cancel', 'complete'];
@@ -506,6 +502,7 @@ function wrapper(methodName, method) {
 var todoApis = Object.create(null);
 
 var TODOS = [
+'onTabBarMidButtonTap',
 'subscribePush',
 'unsubscribePush',
 'onPush',
@@ -561,6 +558,7 @@ function getProvider(_ref2)
 }
 
 var extraApi = /*#__PURE__*/Object.freeze({
+  __proto__: null,
   getProvider: getProvider });
 
 
@@ -596,6 +594,7 @@ function $emit() {
 }
 
 var eventApi = /*#__PURE__*/Object.freeze({
+  __proto__: null,
   $on: $on,
   $off: $off,
   $once: $once,
@@ -604,8 +603,8 @@ var eventApi = /*#__PURE__*/Object.freeze({
 
 
 
-var api = /*#__PURE__*/Object.freeze({});
-
+var api = /*#__PURE__*/Object.freeze({
+  __proto__: null });
 
 
 var MPPage = Page;
@@ -1106,6 +1105,18 @@ function handleEvent(event) {var _this = this;
           {// mp-weixin,mp-toutiao 抽象节点模拟 scoped slots
             handlerCtx = handlerCtx.$parent.$parent;
           }
+          if (methodName === '$emit') {
+            handlerCtx.$emit.apply(handlerCtx,
+            processEventArgs(
+            _this.$vm,
+            event,
+            eventArray[1],
+            eventArray[2],
+            isCustom,
+            methodName));
+
+            return;
+          }
           var handler = handlerCtx[methodName];
           if (!isFn(handler)) {
             throw new Error(" _vm.".concat(methodName, " is not a function"));
@@ -1149,6 +1160,10 @@ function parseBaseApp(vm, _ref3)
 
 
 {var mocks = _ref3.mocks,initRefs = _ref3.initRefs;
+  if (vm.$options.store) {
+    _vue.default.prototype.$store = vm.$options.store;
+  }
+
   _vue.default.prototype.mpHost = "mp-weixin";
 
   _vue.default.mixin({
@@ -1194,6 +1209,8 @@ function parseBaseApp(vm, _ref3)
 
 
       this.$vm.$scope = this;
+      // vm 上也挂载 globalData
+      this.$vm.globalData = this.globalData;
 
       this.$vm._isMounted = true;
       this.$vm.__call_hook('mounted', args);
@@ -1204,6 +1221,13 @@ function parseBaseApp(vm, _ref3)
 
   // 兼容旧版本 globalData
   appOptions.globalData = vm.$options.globalData || {};
+  // 将 methods 中的方法挂在 getApp() 中
+  var methods = vm.$options.methods;
+  if (methods) {
+    Object.keys(methods).forEach(function (name) {
+      appOptions[name] = methods[name];
+    });
+  }
 
   initHooks(appOptions, hooks);
 
@@ -1214,14 +1238,17 @@ var mocks = ['__route__', '__wxExparserNodeId__', '__wxWebviewId__'];
 
 function findVmByVueId(vm, vuePid) {
   var $children = vm.$children;
-  // 优先查找直属
-  var parentVm = $children.find(function (childVm) {return childVm.$scope._$vueId === vuePid;});
-  if (parentVm) {
-    return parentVm;
+  // 优先查找直属(反向查找:https://github.com/dcloudio/uni-app/issues/1200)
+  for (var i = $children.length - 1; i >= 0; i--) {
+    var childVm = $children[i];
+    if (childVm.$scope._$vueId === vuePid) {
+      return childVm;
+    }
   }
   // 反向递归查找
-  for (var i = $children.length - 1; i >= 0; i--) {
-    parentVm = findVmByVueId($children[i], vuePid);
+  var parentVm;
+  for (var _i = $children.length - 1; _i >= 0; _i--) {
+    parentVm = findVmByVueId($children[_i], vuePid);
     if (parentVm) {
       return parentVm;
     }
@@ -1300,11 +1327,20 @@ function parseBaseComponent(vueComponentOptions)
 {var _ref5 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},isPage = _ref5.isPage,initRelation = _ref5.initRelation;var _initVueComponent =
   initVueComponent(_vue.default, vueComponentOptions),_initVueComponent2 = _slicedToArray(_initVueComponent, 2),VueComponent = _initVueComponent2[0],vueOptions = _initVueComponent2[1];
 
-  var componentOptions = {
-    options: {
-      multipleSlots: true,
-      addGlobalClass: true },
+  var options = {
+    multipleSlots: true,
+    addGlobalClass: true };
 
+
+  {
+    // 微信 multipleSlots 部分情况有 bug，导致内容顺序错乱 如 u-list，提供覆盖选项
+    if (vueOptions['mp-weixin'] && vueOptions['mp-weixin']['options']) {
+      Object.assign(options, vueOptions['mp-weixin']['options']);
+    }
+  }
+
+  var componentOptions = {
+    options: options,
     data: initData(vueOptions, _vue.default.prototype),
     behaviors: initBehaviors(vueOptions, initBehavior),
     properties: initProperties(vueOptions.props, false, vueOptions.__file),
@@ -1345,7 +1381,7 @@ function parseBaseComponent(vueComponentOptions)
         }
       },
       detached: function detached() {
-        this.$vm.$destroy();
+        this.$vm && this.$vm.$destroy();
       } },
 
     pageLifetimes: {
@@ -1364,6 +1400,14 @@ function parseBaseComponent(vueComponentOptions)
       __e: handleEvent } };
 
 
+
+  if (Array.isArray(vueOptions.wxsCallMethods)) {
+    vueOptions.wxsCallMethods.forEach(function (callMethod) {
+      componentOptions.methods[callMethod] = function (args) {
+        return this.$vm[callMethod](args);
+      };
+    });
+  }
 
   if (isPage) {
     return componentOptions;
@@ -1438,6 +1482,9 @@ var uni = {};
 if (typeof Proxy !== 'undefined' && "mp-weixin" !== 'app-plus') {
   uni = new Proxy({}, {
     get: function get(target, name) {
+      if (target[name]) {
+        return target[name];
+      }
       if (baseApi[name]) {
         return baseApi[name];
       }
@@ -1459,6 +1506,10 @@ if (typeof Proxy !== 'undefined' && "mp-weixin" !== 'app-plus') {
         return;
       }
       return promisify(name, wrapper(name, wx[name]));
+    },
+    set: function set(target, name, value) {
+      target[name] = value;
+      return true;
     } });
 
 } else {
@@ -1500,7 +1551,67 @@ uni$1;exports.default = _default;
 
 /***/ }),
 
-/***/ 10:
+/***/ 12:
+/*!**********************************************************!*\
+  !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! regenerator-runtime */ 13);
+
+
+/***/ }),
+
+/***/ 13:
+/*!************************************************************!*\
+  !*** ./node_modules/regenerator-runtime/runtime-module.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * Copyright (c) 2014-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+// This method of obtaining a reference to the global object needs to be
+// kept identical to the way it is obtained in runtime.js
+var g = (function() {
+  return this || (typeof self === "object" && self);
+})() || Function("return this")();
+
+// Use `getOwnPropertyNames` because not all browsers support calling
+// `hasOwnProperty` on the global `self` object in a worker. See #183.
+var hadRuntime = g.regeneratorRuntime &&
+  Object.getOwnPropertyNames(g).indexOf("regeneratorRuntime") >= 0;
+
+// Save the old regeneratorRuntime in case it needs to be restored later.
+var oldRuntime = hadRuntime && g.regeneratorRuntime;
+
+// Force reevalutation of runtime.js.
+g.regeneratorRuntime = undefined;
+
+module.exports = __webpack_require__(/*! ./runtime */ 14);
+
+if (hadRuntime) {
+  // Restore the original runtime.
+  g.regeneratorRuntime = oldRuntime;
+} else {
+  // Remove the global property added by runtime.js.
+  try {
+    delete g.regeneratorRuntime;
+  } catch(e) {
+    g.regeneratorRuntime = undefined;
+  }
+}
+
+
+/***/ }),
+
+/***/ 14:
 /*!*****************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime.js ***!
   \*****************************************************/
@@ -2232,78 +2343,10 @@ uni$1;exports.default = _default;
 
 /***/ }),
 
-/***/ 104:
-/*!**********************************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fupgood%2Fupgood"} ***!
-  \**********************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
-
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _upgood = _interopRequireDefault(__webpack_require__(/*! ./pages/personcenter/upgood/upgood.vue */ 105));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-createPage(_upgood.default);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
-
-/***/ }),
-
-/***/ 112:
-/*!**************************************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fdowngood%2Fdowngood"} ***!
-  \**************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
-
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _downgood = _interopRequireDefault(__webpack_require__(/*! ./pages/personcenter/downgood/downgood.vue */ 113));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-createPage(_downgood.default);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
-
-/***/ }),
-
-/***/ 120:
-/*!********************************************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fcheckuptype%2Fcheckuptype"} ***!
-  \********************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
-
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _checkuptype = _interopRequireDefault(__webpack_require__(/*! ./pages/personcenter/checkuptype/checkuptype.vue */ 121));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-createPage(_checkuptype.default);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
-
-/***/ }),
-
-/***/ 128:
-/*!**************************************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Ffeelback%2Ffeelback"} ***!
-  \**************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
-
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _feelback = _interopRequireDefault(__webpack_require__(/*! ./pages/personcenter/feelback/feelback.vue */ 129));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-createPage(_feelback.default);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
-
-/***/ }),
-
-/***/ 13:
-/*!********************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/runtime/componentNormalizer.js ***!
-  \********************************************************************/
+/***/ 17:
+/*!**********************************************************************************************************!*\
+  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js ***!
+  \**********************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2324,12 +2367,26 @@ function normalizeComponent (
   injectStyles,
   scopeId,
   moduleIdentifier, /* server only */
-  shadowMode /* vue-cli only */
+  shadowMode, /* vue-cli only */
+  components, // fixed by xxxxxx auto components
+  renderjs // fixed by xxxxxx renderjs
 ) {
   // Vue.extend constructor export interop
   var options = typeof scriptExports === 'function'
     ? scriptExports.options
     : scriptExports
+
+  // fixed by xxxxxx auto components
+  if (components) {
+    options.components = Object.assign(components, options.components || {})
+  }
+  // fixed by xxxxxx renderjs
+  if (renderjs) {
+    (renderjs.beforeCreate || (renderjs.beforeCreate = [])).unshift(function() {
+      this[renderjs.__module] = this
+    });
+    (options.mixins || (options.mixins = [])).push(renderjs)
+  }
 
   // render functions
   if (render) {
@@ -2407,24 +2464,7 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ 136:
-/*!*********************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Faboutme%2Faboutme"} ***!
-  \*********************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
-
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _aboutme = _interopRequireDefault(__webpack_require__(/*! ./pages/aboutme/aboutme.vue */ 137));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-createPage(_aboutme.default);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
-
-/***/ }),
-
-/***/ 14:
+/***/ 18:
 /*!**************************************************************************!*\
   !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/apis/index.js ***!
   \**************************************************************************/
@@ -2432,8 +2472,8 @@ createPage(_aboutme.default);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.dotest = exports.getsqrecordgood = exports.getsqrecord = exports.getactivecoupon = exports.withdrawlist = exports.withdrawreply = exports.feelback = exports.updatecloseorder = exports.coupontip = exports.postupdowninfo = exports.updowngood = exports.shclose = exports.shopennew = exports.shopen = exports.backyue = exports.wxpaytwo = exports.checknopayorder = exports.orderlist = exports.checkgoodorder = exports.accountorder = exports.getgood = exports.getupgood = exports.getallgood = exports.opendoor = exports.getcoupon = exports.mycouponlist = exports.couponlist = exports.checkorderstate = exports.dowxpay = exports.getaddmoneyact = exports.regphone = exports.sendsms = exports.xieyi = exports.getadv = exports.bannerlist = exports.savesingres = exports.ismmsign = exports.getsingparm = exports.savephone = exports.getphone = exports.openidtogetinfo = exports.savainfo = exports.chencklogin = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! ./http.js */ 15));
-var _indexConfig = _interopRequireDefault(__webpack_require__(/*! @/config/index.config.js */ 16));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+Object.defineProperty(exports, "__esModule", { value: true });exports.dotest = exports.getsqrecordgood = exports.getsqrecord = exports.getactivecoupon = exports.withdrawlist = exports.withdrawreply = exports.feelback = exports.updatecloseorder = exports.coupontip = exports.postupdowninfo = exports.updowngood = exports.shclose = exports.shopennew = exports.shopen = exports.backyue = exports.wxpaytwo = exports.checknopayorder = exports.orderlist = exports.checkgoodorder = exports.accountorder = exports.getgood = exports.getupgood = exports.getallgood = exports.opendoor = exports.getcoupon = exports.mycouponlist = exports.couponlist = exports.checkorderstate = exports.dowxpay = exports.getaddmoneyact = exports.regphone = exports.sendsms = exports.xieyi = exports.getadv = exports.bannerlist = exports.savesingres = exports.ismmsign = exports.getsingparm = exports.savephone = exports.getphone = exports.openidtogetinfo = exports.savainfo = exports.chencklogin = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! ./http.js */ 19));
+var _indexConfig = _interopRequireDefault(__webpack_require__(/*! @/config/index.config.js */ 20));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 // 获取用户资料
 var chencklogin = function chencklogin(data) {return _http.default.POST("".concat(_indexConfig.default.baseUrl, "/index/chenckislogin"), data);};
@@ -2523,24 +2563,7 @@ var dotest = function dotest(data) {return _http.default.POST("".concat(_indexCo
 
 /***/ }),
 
-/***/ 144:
-/*!**********************************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Ftixian%2Ftixian"} ***!
-  \**********************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
-
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _tixian = _interopRequireDefault(__webpack_require__(/*! ./pages/personcenter/tixian/tixian.vue */ 145));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-createPage(_tixian.default);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
-
-/***/ }),
-
-/***/ 15:
+/***/ 19:
 /*!*************************************************************************!*\
   !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/apis/http.js ***!
   \*************************************************************************/
@@ -2671,739 +2694,6 @@ createPage(_tixian.default);
 
 /***/ }),
 
-/***/ 152:
-/*!**********************************************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fupdownrecord%2Fupdownrecord"} ***!
-  \**********************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
-
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _updownrecord = _interopRequireDefault(__webpack_require__(/*! ./pages/personcenter/updownrecord/updownrecord.vue */ 153));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-createPage(_updownrecord.default);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
-
-/***/ }),
-
-/***/ 16:
-/*!***********************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/config/index.config.js ***!
-  \***********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var CONFIG = {
-  //开发环境配置
-  development: {
-    loginTitleTxt: "it小龙", // 登录页标题
-    copyrightTxt: "柜机1.0", // 版本信息
-    assetsPath: "https://xiguoxiansheng.com/img", // 静态资源路径
-    baseUrl: "https://xiguoxiansheng.com/api",
-    tokenKey: "WECHAT_TRADE", // 登录标识
-    testOpenId: "oEjRxwy7jL9PgG0kWeb4VcDTZEas", // 小程序测试openId
-    forcedLogin: false, // touristMode游客模式下APP是否强制用户登录 场景：当用户进入登录页面后无法后退。
-    touristMode: true // APP是否开启游客模式， 游客模式true开启：APP打开后可以进入首页和无权限的页面，游客模式false关闭：APP打开后首先需要登录才能进入， 此时forcedLogin配置项失效。
-  },
-
-  //生产环境配置
-  production: {
-    loginTitleTxt: "it小龙", // 登录页标题
-    copyrightTxt: "柜机1.0", // 版本信息
-    assetsPath: "/static/img", // 静态资源路径
-    baseUrl: "https://xiguoxiansheng.com/api",
-    tokenKey: "WECHAT_TRADE", // 登录标识
-    testOpenId: "oEjRxwy7jL9PgG0kWeb4VcDTZEas", // 小程序测试openId
-    forcedLogin: false, // touristMode游客模式下APP是否强制用户登录 场景：当用户进入登录页面后无法后退。
-    touristMode: true // APP是否开启游客模式， 游客模式true开启：APP打开后可以进入首页和无权限的页面，游客模式false关闭：APP打开后首先需要登录才能进入， 此时forcedLogin配置项失效。
-  } };var _default =
-
-
-CONFIG["development"];exports.default = _default;
-
-/***/ }),
-
-/***/ 160:
-/*!**********************************************************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fshrecordgooddetail%2Fshrecordgooddetail"} ***!
-  \**********************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
-
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _shrecordgooddetail = _interopRequireDefault(__webpack_require__(/*! ./pages/personcenter/shrecordgooddetail/shrecordgooddetail.vue */ 161));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-createPage(_shrecordgooddetail.default);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
-
-/***/ }),
-
-/***/ 17:
-/*!*****************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Findex%2Findex"} ***!
-  \*****************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
-
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _index = _interopRequireDefault(__webpack_require__(/*! ./pages/index/index.vue */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-createPage(_index.default);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
-
-/***/ }),
-
-/***/ 187:
-/*!*************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/components/u-parse/libs/html2json.js ***!
-  \*************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-
-
-
-
-
-
-
-
-
-
-
-
-
-var _wxDiscode = _interopRequireDefault(__webpack_require__(/*! ./wxDiscode */ 188));
-var _htmlparser = _interopRequireDefault(__webpack_require__(/*! ./htmlparser */ 189));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} /**
-                                                                                                                                                                 * html2Json 改造来自: https://github.com/Jxck/html2json
-                                                                                                                                                                 *
-                                                                                                                                                                 *
-                                                                                                                                                                 * author: Di (微信小程序开发工程师)
-                                                                                                                                                                 * organization: WeAppDev(微信小程序开发论坛)(http://weappdev.com)
-                                                                                                                                                                 *               垂直微信小程序开发交流社区
-                                                                                                                                                                 *
-                                                                                                                                                                 * github地址: https://github.com/icindy/wxParse
-                                                                                                                                                                 *
-                                                                                                                                                                 * for: 微信小程序富文本解析
-                                                                                                                                                                 * detail : http://weappdev.com/t/wxparse-alpha0-1-html-markdown/184
-                                                                                                                                                                 */function makeMap(str) {var obj = {};var items = str.split(',');for (var i = 0; i < items.length; i += 1) {obj[items[i]] = true;}return obj;} // Block Elements - HTML 5
-var block = makeMap('br,code,address,article,applet,aside,audio,blockquote,button,canvas,center,dd,del,dir,div,dl,dt,fieldset,figcaption,figure,footer,form,frameset,h1,h2,h3,h4,h5,h6,header,hgroup,hr,iframe,ins,isindex,li,map,menu,noframes,noscript,object,ol,output,p,pre,section,script,table,tbody,td,tfoot,th,thead,tr,ul,video'); // Inline Elements - HTML 5
-var inline = makeMap('a,abbr,acronym,applet,b,basefont,bdo,big,button,cite,del,dfn,em,font,i,iframe,img,input,ins,kbd,label,map,object,q,s,samp,script,select,small,span,strike,strong,sub,sup,textarea,tt,u,var');
-// Elements that you can, intentionally, leave open
-// (and which close themselves)
-var closeSelf = makeMap('colgroup,dd,dt,li,options,p,td,tfoot,th,thead,tr');
-
-function removeDOCTYPE(html) {
-  var isDocument = /<body.*>([^]*)<\/body>/.test(html);
-  return isDocument ? RegExp.$1 : html;
-}
-
-function trimHtml(html) {
-  return html.
-  replace(/<!--.*?-->/gi, '').
-  replace(/\/\*.*?\*\//gi, '').
-  replace(/[ ]+</gi, '<').
-  replace(/<script[^]*<\/script>/gi, '').
-  replace(/<style[^]*<\/style>/gi, '');
-}
-
-function getScreenInfo() {
-  var screen = {};
-  wx.getSystemInfo({
-    success: function success(res) {
-      screen.width = res.windowWidth;
-      screen.height = res.windowHeight;
-    } });
-
-  return screen;
-}
-
-function html2json(html, customHandler, imageProp, host) {
-  // 处理字符串
-  html = removeDOCTYPE(html);
-  html = trimHtml(html);
-  html = _wxDiscode.default.strDiscode(html);
-  // 生成node节点
-  var bufArray = [];
-  var results = {
-    nodes: [],
-    imageUrls: [] };
-
-
-  var screen = getScreenInfo();
-  function Node(tag) {
-    this.node = 'element';
-    this.tag = tag;
-
-    this.$screen = screen;
-  }
-
-  (0, _htmlparser.default)(html, {
-    start: function start(tag, attrs, unary) {
-      // node for this element
-      var node = new Node(tag);
-
-      if (bufArray.length !== 0) {
-        var parent = bufArray[0];
-        if (parent.nodes === undefined) {
-          parent.nodes = [];
-        }
-      }
-
-      if (block[tag]) {
-        node.tagType = 'block';
-      } else if (inline[tag]) {
-        node.tagType = 'inline';
-      } else if (closeSelf[tag]) {
-        node.tagType = 'closeSelf';
-      }
-
-      node.attr = attrs.reduce(function (pre, attr) {var
-        name = attr.name;var
-        value = attr.value;
-        if (name === 'class') {
-          node.classStr = value;
-        }
-        // has multi attibutes
-        // make it array of attribute
-        if (name === 'style') {
-          node.styleStr = value;
-        }
-        if (value.match(/ /)) {
-          value = value.split(' ');
-        }
-
-        // if attr already exists
-        // merge it
-        if (pre[name]) {
-          if (Array.isArray(pre[name])) {
-            // already array, push to last
-            pre[name].push(value);
-          } else {
-            // single value, make it array
-            pre[name] = [pre[name], value];
-          }
-        } else {
-          // not exist, put it
-          pre[name] = value;
-        }
-
-        return pre;
-      }, {});
-
-      // 优化样式相关属性
-      if (node.classStr) {
-        node.classStr += " ".concat(node.tag);
-      } else {
-        node.classStr = node.tag;
-      }
-      if (node.tagType === 'inline') {
-        node.classStr += ' inline';
-      }
-
-      // 对img添加额外数据
-      if (node.tag === 'img') {
-        var imgUrl = node.attr.src;
-        imgUrl = _wxDiscode.default.urlToHttpUrl(imgUrl, imageProp.domain);
-        Object.assign(node.attr, imageProp, {
-          src: imgUrl || '' });
-
-        if (imgUrl) {
-          results.imageUrls.push(imgUrl);
-        }
-      }
-
-      // 处理a标签属性
-      if (node.tag === 'a') {
-        node.attr.href = node.attr.href || '';
-      }
-
-      // 处理font标签样式属性
-      if (node.tag === 'font') {
-        var fontSize = [
-        'x-small',
-        'small',
-        'medium',
-        'large',
-        'x-large',
-        'xx-large',
-        '-webkit-xxx-large'];
-
-        var styleAttrs = {
-          color: 'color',
-          face: 'font-family',
-          size: 'font-size' };
-
-        if (!node.styleStr) node.styleStr = '';
-        Object.keys(styleAttrs).forEach(function (key) {
-          if (node.attr[key]) {
-            var value = key === 'size' ? fontSize[node.attr[key] - 1] : node.attr[key];
-            node.styleStr += "".concat(styleAttrs[key], ": ").concat(value, ";");
-          }
-        });
-      }
-
-      // 临时记录source资源
-      if (node.tag === 'source') {
-        results.source = node.attr.src;
-      }
-
-      if (customHandler.start) {
-        customHandler.start(node, results);
-      }
-
-      if (unary) {
-        // if this tag doesn't have end tag
-        // like <img src="hoge.png"/>
-        // add to parents
-        var _parent = bufArray[0] || results;
-        if (_parent.nodes === undefined) {
-          _parent.nodes = [];
-        }
-        _parent.nodes.push(node);
-      } else {
-        bufArray.unshift(node);
-      }
-    },
-    end: function end(tag) {
-      // merge into parent tag
-      var node = bufArray.shift();
-      if (node.tag !== tag) {
-        console.error('invalid state: mismatch end tag');
-      }
-
-      // 当有缓存source资源时于于video补上src资源
-      if (node.tag === 'video' && results.source) {
-        node.attr.src = results.source;
-        delete results.source;
-      }
-
-      if (customHandler.end) {
-        customHandler.end(node, results);
-      }
-
-      if (bufArray.length === 0) {
-        results.nodes.push(node);
-      } else {
-        var parent = bufArray[0];
-        if (!parent.nodes) {
-          parent.nodes = [];
-        }
-        parent.nodes.push(node);
-      }
-    },
-    chars: function chars(text) {
-      if (!text.trim()) return;
-
-      var node = {
-        node: 'text',
-        text: text };
-
-
-      if (customHandler.chars) {
-        customHandler.chars(node, results);
-      }
-
-      if (bufArray.length === 0) {
-        results.nodes.push(node);
-      } else {
-        var parent = bufArray[0];
-        if (parent.nodes === undefined) {
-          parent.nodes = [];
-        }
-        parent.nodes.push(node);
-      }
-    } });
-
-
-  return results;
-}var _default =
-
-html2json;exports.default = _default;
-
-/***/ }),
-
-/***/ 188:
-/*!*************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/components/u-parse/libs/wxDiscode.js ***!
-  \*************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; // HTML 支持的数学符号
-function strNumDiscode(str) {
-  str = str.replace(/&forall;/g, '∀');
-  str = str.replace(/&part;/g, '∂');
-  str = str.replace(/&exist;/g, '∃');
-  str = str.replace(/&empty;/g, '∅');
-  str = str.replace(/&nabla;/g, '∇');
-  str = str.replace(/&isin;/g, '∈');
-  str = str.replace(/&notin;/g, '∉');
-  str = str.replace(/&ni;/g, '∋');
-  str = str.replace(/&prod;/g, '∏');
-  str = str.replace(/&sum;/g, '∑');
-  str = str.replace(/&minus;/g, '−');
-  str = str.replace(/&lowast;/g, '∗');
-  str = str.replace(/&radic;/g, '√');
-  str = str.replace(/&prop;/g, '∝');
-  str = str.replace(/&infin;/g, '∞');
-  str = str.replace(/&ang;/g, '∠');
-  str = str.replace(/&and;/g, '∧');
-  str = str.replace(/&or;/g, '∨');
-  str = str.replace(/&cap;/g, '∩');
-  str = str.replace(/&cup;/g, '∪');
-  str = str.replace(/&int;/g, '∫');
-  str = str.replace(/&there4;/g, '∴');
-  str = str.replace(/&sim;/g, '∼');
-  str = str.replace(/&cong;/g, '≅');
-  str = str.replace(/&asymp;/g, '≈');
-  str = str.replace(/&ne;/g, '≠');
-  str = str.replace(/&le;/g, '≤');
-  str = str.replace(/&ge;/g, '≥');
-  str = str.replace(/&sub;/g, '⊂');
-  str = str.replace(/&sup;/g, '⊃');
-  str = str.replace(/&nsub;/g, '⊄');
-  str = str.replace(/&sube;/g, '⊆');
-  str = str.replace(/&supe;/g, '⊇');
-  str = str.replace(/&oplus;/g, '⊕');
-  str = str.replace(/&otimes;/g, '⊗');
-  str = str.replace(/&perp;/g, '⊥');
-  str = str.replace(/&sdot;/g, '⋅');
-  return str;
-}
-
-// HTML 支持的希腊字母
-function strGreeceDiscode(str) {
-  str = str.replace(/&Alpha;/g, 'Α');
-  str = str.replace(/&Beta;/g, 'Β');
-  str = str.replace(/&Gamma;/g, 'Γ');
-  str = str.replace(/&Delta;/g, 'Δ');
-  str = str.replace(/&Epsilon;/g, 'Ε');
-  str = str.replace(/&Zeta;/g, 'Ζ');
-  str = str.replace(/&Eta;/g, 'Η');
-  str = str.replace(/&Theta;/g, 'Θ');
-  str = str.replace(/&Iota;/g, 'Ι');
-  str = str.replace(/&Kappa;/g, 'Κ');
-  str = str.replace(/&Lambda;/g, 'Λ');
-  str = str.replace(/&Mu;/g, 'Μ');
-  str = str.replace(/&Nu;/g, 'Ν');
-  str = str.replace(/&Xi;/g, 'Ν');
-  str = str.replace(/&Omicron;/g, 'Ο');
-  str = str.replace(/&Pi;/g, 'Π');
-  str = str.replace(/&Rho;/g, 'Ρ');
-  str = str.replace(/&Sigma;/g, 'Σ');
-  str = str.replace(/&Tau;/g, 'Τ');
-  str = str.replace(/&Upsilon;/g, 'Υ');
-  str = str.replace(/&Phi;/g, 'Φ');
-  str = str.replace(/&Chi;/g, 'Χ');
-  str = str.replace(/&Psi;/g, 'Ψ');
-  str = str.replace(/&Omega;/g, 'Ω');
-
-  str = str.replace(/&alpha;/g, 'α');
-  str = str.replace(/&beta;/g, 'β');
-  str = str.replace(/&gamma;/g, 'γ');
-  str = str.replace(/&delta;/g, 'δ');
-  str = str.replace(/&epsilon;/g, 'ε');
-  str = str.replace(/&zeta;/g, 'ζ');
-  str = str.replace(/&eta;/g, 'η');
-  str = str.replace(/&theta;/g, 'θ');
-  str = str.replace(/&iota;/g, 'ι');
-  str = str.replace(/&kappa;/g, 'κ');
-  str = str.replace(/&lambda;/g, 'λ');
-  str = str.replace(/&mu;/g, 'μ');
-  str = str.replace(/&nu;/g, 'ν');
-  str = str.replace(/&xi;/g, 'ξ');
-  str = str.replace(/&omicron;/g, 'ο');
-  str = str.replace(/&pi;/g, 'π');
-  str = str.replace(/&rho;/g, 'ρ');
-  str = str.replace(/&sigmaf;/g, 'ς');
-  str = str.replace(/&sigma;/g, 'σ');
-  str = str.replace(/&tau;/g, 'τ');
-  str = str.replace(/&upsilon;/g, 'υ');
-  str = str.replace(/&phi;/g, 'φ');
-  str = str.replace(/&chi;/g, 'χ');
-  str = str.replace(/&psi;/g, 'ψ');
-  str = str.replace(/&omega;/g, 'ω');
-  str = str.replace(/&thetasym;/g, 'ϑ');
-  str = str.replace(/&upsih;/g, 'ϒ');
-  str = str.replace(/&piv;/g, 'ϖ');
-  str = str.replace(/&middot;/g, '·');
-  return str;
-}
-
-function strcharacterDiscode(str) {
-  // 加入常用解析
-  str = str.replace(/&nbsp;/g, ' ');
-  str = str.replace(/&ensp;/g, ' ');
-  str = str.replace(/&emsp;/g, '　');
-  str = str.replace(/&quot;/g, "'");
-  str = str.replace(/&amp;/g, '&');
-  str = str.replace(/&lt;/g, '<');
-  str = str.replace(/&gt;/g, '>');
-  str = str.replace(/&#8226;/g, '•');
-
-  return str;
-}
-
-// HTML 支持的其他实体
-function strOtherDiscode(str) {
-  str = str.replace(/&OElig;/g, 'Œ');
-  str = str.replace(/&oelig;/g, 'œ');
-  str = str.replace(/&Scaron;/g, 'Š');
-  str = str.replace(/&scaron;/g, 'š');
-  str = str.replace(/&Yuml;/g, 'Ÿ');
-  str = str.replace(/&fnof;/g, 'ƒ');
-  str = str.replace(/&circ;/g, 'ˆ');
-  str = str.replace(/&tilde;/g, '˜');
-  str = str.replace(/&ensp;/g, '');
-  str = str.replace(/&emsp;/g, '');
-  str = str.replace(/&thinsp;/g, '');
-  str = str.replace(/&zwnj;/g, '');
-  str = str.replace(/&zwj;/g, '');
-  str = str.replace(/&lrm;/g, '');
-  str = str.replace(/&rlm;/g, '');
-  str = str.replace(/&ndash;/g, '–');
-  str = str.replace(/&mdash;/g, '—');
-  str = str.replace(/&lsquo;/g, '‘');
-  str = str.replace(/&rsquo;/g, '’');
-  str = str.replace(/&sbquo;/g, '‚');
-  str = str.replace(/&ldquo;/g, '“');
-  str = str.replace(/&rdquo;/g, '”');
-  str = str.replace(/&bdquo;/g, '„');
-  str = str.replace(/&dagger;/g, '†');
-  str = str.replace(/&Dagger;/g, '‡');
-  str = str.replace(/&bull;/g, '•');
-  str = str.replace(/&hellip;/g, '…');
-  str = str.replace(/&permil;/g, '‰');
-  str = str.replace(/&prime;/g, '′');
-  str = str.replace(/&Prime;/g, '″');
-  str = str.replace(/&lsaquo;/g, '‹');
-  str = str.replace(/&rsaquo;/g, '›');
-  str = str.replace(/&oline;/g, '‾');
-  str = str.replace(/&euro;/g, '€');
-  str = str.replace(/&trade;/g, '™');
-
-  str = str.replace(/&larr;/g, '←');
-  str = str.replace(/&uarr;/g, '↑');
-  str = str.replace(/&rarr;/g, '→');
-  str = str.replace(/&darr;/g, '↓');
-  str = str.replace(/&harr;/g, '↔');
-  str = str.replace(/&crarr;/g, '↵');
-  str = str.replace(/&lceil;/g, '⌈');
-  str = str.replace(/&rceil;/g, '⌉');
-
-  str = str.replace(/&lfloor;/g, '⌊');
-  str = str.replace(/&rfloor;/g, '⌋');
-  str = str.replace(/&loz;/g, '◊');
-  str = str.replace(/&spades;/g, '♠');
-  str = str.replace(/&clubs;/g, '♣');
-  str = str.replace(/&hearts;/g, '♥');
-
-  str = str.replace(/&diams;/g, '♦');
-  str = str.replace(/&#39;/g, "'");
-  return str;
-}
-
-function strDiscode(str) {
-  str = strNumDiscode(str);
-  str = strGreeceDiscode(str);
-  str = strcharacterDiscode(str);
-  str = strOtherDiscode(str);
-  return str;
-}
-
-function urlToHttpUrl(url, domain) {
-  if (/^\/\//.test(url)) {
-    return "https:".concat(url);
-  } else if (/^\//.test(url)) {
-    return "https://".concat(domain).concat(url);
-  }
-  return url;
-}var _default =
-
-{
-  strDiscode: strDiscode,
-  urlToHttpUrl: urlToHttpUrl };exports.default = _default;
-
-/***/ }),
-
-/***/ 189:
-/*!**************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/components/u-parse/libs/htmlparser.js ***!
-  \**************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; /**
-                                                                                                      *
-                                                                                                      * htmlParser改造自: https://github.com/blowsie/Pure-JavaScript-HTML5-Parser
-                                                                                                      *
-                                                                                                      * author: Di (微信小程序开发工程师)
-                                                                                                      * organization: WeAppDev(微信小程序开发论坛)(http://weappdev.com)
-                                                                                                      *               垂直微信小程序开发交流社区
-                                                                                                      *
-                                                                                                      * github地址: https://github.com/icindy/wxParse
-                                                                                                      *
-                                                                                                      * for: 微信小程序富文本解析
-                                                                                                      * detail : http://weappdev.com/t/wxparse-alpha0-1-html-markdown/184
-                                                                                                      */
-// Regular Expressions for parsing tags and attributes
-
-var startTag = /^<([-A-Za-z0-9_]+)((?:\s+[a-zA-Z0-9_:][-a-zA-Z0-9_:.]*(?:\s*=\s*(?:(?:"[^"]*")|(?:'[^']*')|[^>\s]+))?)*)\s*(\/?)>/;
-var endTag = /^<\/([-A-Za-z0-9_]+)[^>]*>/;
-var attr = /([a-zA-Z0-9_:][-a-zA-Z0-9_:.]*)(?:\s*=\s*(?:(?:"((?:\\.|[^"])*)")|(?:'((?:\\.|[^'])*)')|([^>\s]+)))?/g;
-
-function makeMap(str) {
-  var obj = {};
-  var items = str.split(',');
-  for (var i = 0; i < items.length; i += 1) {obj[items[i]] = true;}
-  return obj;
-}
-
-// Empty Elements - HTML 5
-var empty = makeMap('area,base,basefont,br,col,frame,hr,img,input,link,meta,param,embed,command,keygen,source,track,wbr');
-
-// Block Elements - HTML 5
-var block = makeMap('address,code,article,applet,aside,audio,blockquote,button,canvas,center,dd,del,dir,div,dl,dt,fieldset,figcaption,figure,footer,form,frameset,h1,h2,h3,h4,h5,h6,header,hgroup,hr,iframe,ins,isindex,li,map,menu,noframes,noscript,object,ol,output,p,pre,section,script,table,tbody,td,tfoot,th,thead,tr,ul,video');
-
-// Inline Elements - HTML 5
-var inline = makeMap('a,abbr,acronym,applet,b,basefont,bdo,big,br,button,cite,del,dfn,em,font,i,iframe,img,input,ins,kbd,label,map,object,q,s,samp,script,select,small,span,strike,strong,sub,sup,textarea,tt,u,var');
-
-// Elements that you can, intentionally, leave open
-// (and which close themselves)
-var closeSelf = makeMap('colgroup,dd,dt,li,options,p,td,tfoot,th,thead,tr');
-
-// Attributes that have their values filled in disabled="disabled"
-var fillAttrs = makeMap('checked,compact,declare,defer,disabled,ismap,multiple,nohref,noresize,noshade,nowrap,readonly,selected');
-
-function HTMLParser(html, handler) {
-  var index;
-  var chars;
-  var match;
-  var last = html;
-  var stack = [];
-
-  stack.last = function () {return stack[stack.length - 1];};
-
-  function parseEndTag(tag, tagName) {
-    // If no tag name is provided, clean shop
-    var pos;
-    if (!tagName) {
-      pos = 0;
-    } else {
-      // Find the closest opened tag of the same type
-      tagName = tagName.toLowerCase();
-      for (pos = stack.length - 1; pos >= 0; pos -= 1) {
-        if (stack[pos] === tagName) break;
-      }
-    }
-    if (pos >= 0) {
-      // Close all the open elements, up the stack
-      for (var i = stack.length - 1; i >= pos; i -= 1) {
-        if (handler.end) handler.end(stack[i]);
-      }
-
-      // Remove the open elements from the stack
-      stack.length = pos;
-    }
-  }
-
-  function parseStartTag(tag, tagName, rest, unary) {
-    tagName = tagName.toLowerCase();
-
-    if (block[tagName]) {
-      while (stack.last() && inline[stack.last()]) {
-        parseEndTag('', stack.last());
-      }
-    }
-
-    if (closeSelf[tagName] && stack.last() === tagName) {
-      parseEndTag('', tagName);
-    }
-
-    unary = empty[tagName] || !!unary;
-
-    if (!unary) stack.push(tagName);
-
-    if (handler.start) {
-      var attrs = [];
-
-      rest.replace(attr, function genAttr(matches, name) {
-        var value = arguments[2] || arguments[3] || arguments[4] || (fillAttrs[name] ? name : '');
-
-        attrs.push({
-          name: name,
-          value: value,
-          escaped: value.replace(/(^|[^\\])"/g, '$1\\"') // "
-        });
-      });
-
-      if (handler.start) {
-        handler.start(tagName, attrs, unary);
-      }
-    }
-  }
-
-  while (html) {
-    chars = true;
-
-    if (html.indexOf('</') === 0) {
-      match = html.match(endTag);
-
-      if (match) {
-        html = html.substring(match[0].length);
-        match[0].replace(endTag, parseEndTag);
-        chars = false;
-      }
-
-      // start tag
-    } else if (html.indexOf('<') === 0) {
-      match = html.match(startTag);
-
-      if (match) {
-        html = html.substring(match[0].length);
-        match[0].replace(startTag, parseStartTag);
-        chars = false;
-      }
-    }
-
-    if (chars) {
-      index = html.indexOf('<');
-      var text = '';
-      while (index === 0) {
-        text += '<';
-        html = html.substring(1);
-        index = html.indexOf('<');
-      }
-      text += index < 0 ? html : html.substring(0, index);
-      html = index < 0 ? '' : html.substring(index);
-
-      if (handler.chars) handler.chars(text);
-    }
-
-    if (html === last) throw new Error("Parse Error: ".concat(html));
-    last = html;
-  }
-
-  // Clean up any remaining tags
-  parseEndTag();
-}var _default =
-
-HTMLParser;exports.default = _default;
-
-/***/ }),
-
 /***/ 2:
 /*!******************************************************************************************!*\
   !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/mp-vue/dist/mp.runtime.esm.js ***!
@@ -3414,7 +2704,7 @@ HTMLParser;exports.default = _default;
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function(global) {/*!
- * Vue.js v2.6.10
+ * Vue.js v2.6.11
  * (c) 2014-2019 Evan You
  * Released under the MIT License.
  */
@@ -4113,7 +3403,13 @@ var uid = 0;
  * directives subscribing to it.
  */
 var Dep = function Dep () {
-  this.id = uid++;
+  // fixed by xxxxxx (nvue vuex)
+  /* eslint-disable no-undef */
+  if(typeof SharedObject !== 'undefined'){
+    this.id = SharedObject.uid++;
+  } else {
+    this.id = uid++;
+  }
   this.subs = [];
 };
 
@@ -4126,8 +3422,8 @@ Dep.prototype.removeSub = function removeSub (sub) {
 };
 
 Dep.prototype.depend = function depend () {
-  if (Dep.target) {
-    Dep.target.addDep(this);
+  if (Dep.SharedObject.target) {
+    Dep.SharedObject.target.addDep(this);
   }
 };
 
@@ -4148,17 +3444,20 @@ Dep.prototype.notify = function notify () {
 // The current target watcher being evaluated.
 // This is globally unique because only one watcher
 // can be evaluated at a time.
-Dep.target = null;
-var targetStack = [];
+// fixed by xxxxxx (nvue shared vuex)
+/* eslint-disable no-undef */
+Dep.SharedObject = typeof SharedObject !== 'undefined' ? SharedObject : {};
+Dep.SharedObject.target = null;
+Dep.SharedObject.targetStack = [];
 
 function pushTarget (target) {
-  targetStack.push(target);
-  Dep.target = target;
+  Dep.SharedObject.targetStack.push(target);
+  Dep.SharedObject.target = target;
 }
 
 function popTarget () {
-  targetStack.pop();
-  Dep.target = targetStack[targetStack.length - 1];
+  Dep.SharedObject.targetStack.pop();
+  Dep.SharedObject.target = Dep.SharedObject.targetStack[Dep.SharedObject.targetStack.length - 1];
 }
 
 /*  */
@@ -4325,7 +3624,13 @@ var Observer = function Observer (value) {
   def(value, '__ob__', this);
   if (Array.isArray(value)) {
     if (hasProto) {
-      protoAugment(value, arrayMethods);
+      {// fixed by xxxxxx 微信小程序使用 plugins 之后，数组方法被直接挂载到了数组对象上，需要执行 copyAugment 逻辑
+        if(value.push !== value.__proto__.push){
+          copyAugment(value, arrayMethods, arrayKeys);
+        } else {
+          protoAugment(value, arrayMethods);
+        }
+      }
     } else {
       copyAugment(value, arrayMethods, arrayKeys);
     }
@@ -4437,7 +3742,7 @@ function defineReactive$$1 (
     configurable: true,
     get: function reactiveGetter () {
       var value = getter ? getter.call(obj) : val;
-      if (Dep.target) {
+      if (Dep.SharedObject.target) { // fixed by xxxxxx
         dep.depend();
         if (childOb) {
           childOb.dep.depend();
@@ -5368,7 +4673,7 @@ if (typeof Promise !== 'undefined' && isNative(Promise)) {
   };
 } else if (typeof setImmediate !== 'undefined' && isNative(setImmediate)) {
   // Fallback to setImmediate.
-  // Techinically it leverages the (macro) task queue,
+  // Technically it leverages the (macro) task queue,
   // but it is still a better choice than setTimeout.
   timerFunc = function () {
     setImmediate(flushCallbacks);
@@ -5434,7 +4739,7 @@ if (true) {
     warn(
       "Property \"" + key + "\" must be accessed with \"$data." + key + "\" because " +
       'properties starting with "$" or "_" are not proxied in the Vue instance to ' +
-      'prevent conflicts with Vue internals' +
+      'prevent conflicts with Vue internals. ' +
       'See: https://vuejs.org/v2/api/#data',
       target
     );
@@ -5634,17 +4939,48 @@ function updateListeners (
 
 /*  */
 
+// fixed by xxxxxx (mp properties)
+function extractPropertiesFromVNodeData(data, Ctor, res, context) {
+  var propOptions = Ctor.options.mpOptions && Ctor.options.mpOptions.properties;
+  if (isUndef(propOptions)) {
+    return res
+  }
+  var externalClasses = Ctor.options.mpOptions.externalClasses || [];
+  var attrs = data.attrs;
+  var props = data.props;
+  if (isDef(attrs) || isDef(props)) {
+    for (var key in propOptions) {
+      var altKey = hyphenate(key);
+      var result = checkProp(res, props, key, altKey, true) ||
+          checkProp(res, attrs, key, altKey, false);
+      // externalClass
+      if (
+        result &&
+        res[key] &&
+        externalClasses.indexOf(altKey) !== -1 &&
+        context[camelize(res[key])]
+      ) {
+        // 赋值 externalClass 真正的值(模板里 externalClass 的值可能是字符串)
+        res[key] = context[camelize(res[key])];
+      }
+    }
+  }
+  return res
+}
+
 function extractPropsFromVNodeData (
   data,
   Ctor,
-  tag
+  tag,
+  context// fixed by xxxxxx
 ) {
   // we are only extracting raw values here.
   // validation and default values are handled in the child
   // component itself.
   var propOptions = Ctor.options.props;
   if (isUndef(propOptions)) {
-    return
+    // fixed by xxxxxx
+    return extractPropertiesFromVNodeData(data, Ctor, {}, context)
   }
   var res = {};
   var attrs = data.attrs;
@@ -5672,7 +5008,8 @@ function extractPropsFromVNodeData (
       checkProp(res, attrs, key, altKey, false);
     }
   }
-  return res
+  // fixed by xxxxxx
+  return extractPropertiesFromVNodeData(data, Ctor, res, context)
 }
 
 function checkProp (
@@ -5890,7 +5227,12 @@ function resolveSlots (
         slot.push(child);
       }
     } else {
-      (slots.default || (slots.default = [])).push(child);
+      // fixed by xxxxxx 临时 hack 掉 uni-app 中的异步 name slot page
+      if(child.asyncMeta && child.asyncMeta.data && child.asyncMeta.data.slot === 'page'){
+        (slots['page'] || (slots['page'] = [])).push(child);
+      }else{
+        (slots.default || (slots.default = [])).push(child);
+      }
     }
   }
   // ignore slots that contains only whitespace
@@ -6000,12 +5342,12 @@ function renderList (
   if (Array.isArray(val) || typeof val === 'string') {
     ret = new Array(val.length);
     for (i = 0, l = val.length; i < l; i++) {
-      ret[i] = render(val[i], i);
+      ret[i] = render(val[i], i, i, i); // fixed by xxxxxx
     }
   } else if (typeof val === 'number') {
     ret = new Array(val);
     for (i = 0; i < val; i++) {
-      ret[i] = render(i + 1, i);
+      ret[i] = render(i + 1, i, i, i); // fixed by xxxxxx
     }
   } else if (isObject(val)) {
     if (hasSymbol && val[Symbol.iterator]) {
@@ -6013,7 +5355,7 @@ function renderList (
       var iterator = val[Symbol.iterator]();
       var result = iterator.next();
       while (!result.done) {
-        ret.push(render(result.value, ret.length));
+        ret.push(render(result.value, ret.length, i++, i)); // fixed by xxxxxx
         result = iterator.next();
       }
     } else {
@@ -6021,7 +5363,7 @@ function renderList (
       ret = new Array(keys.length);
       for (i = 0, l = keys.length; i < l; i++) {
         key = keys[i];
-        ret[i] = render(val[key], key, i);
+        ret[i] = render(val[key], key, i, i); // fixed by xxxxxx
       }
     }
   }
@@ -6056,7 +5398,8 @@ function renderSlot (
       }
       props = extend(extend({}, bindObject), props);
     }
-    nodes = scopedSlotFn(props) || fallback;
+    // fixed by xxxxxx app-plus scopedSlot
+    nodes = scopedSlotFn(props, this, props._i) || fallback;
   } else {
     nodes = this.$slots[name] || fallback;
   }
@@ -6284,7 +5627,7 @@ function bindDynamicKeys (baseObj, values) {
     if (typeof key === 'string' && key) {
       baseObj[values[i]] = values[i + 1];
     } else if ( true && key !== '' && key !== null) {
-      // null is a speical value for explicitly removing a binding
+      // null is a special value for explicitly removing a binding
       warn(
         ("Invalid value for dynamic directive argument (expected string or null): " + key),
         this
@@ -6508,6 +5851,8 @@ var componentVNodeHooks = {
     var context = vnode.context;
     var componentInstance = vnode.componentInstance;
     if (!componentInstance._isMounted) {
+      callHook(componentInstance, 'onServiceCreated');
+      callHook(componentInstance, 'onServiceAttached');
       componentInstance._isMounted = true;
       callHook(componentInstance, 'mounted');
     }
@@ -6597,7 +5942,7 @@ function createComponent (
   }
 
   // extract props
-  var propsData = extractPropsFromVNodeData(data, Ctor, tag);
+  var propsData = extractPropsFromVNodeData(data, Ctor, tag, context); // fixed by xxxxxx
 
   // functional component
   if (isTrue(Ctor.options.functional)) {
@@ -6780,6 +6125,12 @@ function _createElement (
     ns = (context.$vnode && context.$vnode.ns) || config.getTagNamespace(tag);
     if (config.isReservedTag(tag)) {
       // platform built-in elements
+      if ( true && isDef(data) && isDef(data.nativeOn)) {
+        warn(
+          ("The .native modifier for v-on is only valid on components but it was used on <" + tag + ">."),
+          context
+        );
+      }
       vnode = new VNode(
         config.parsePlatformTagName(tag), data, children,
         undefined, undefined, context
@@ -6905,7 +6256,7 @@ function renderMixin (Vue) {
     // render self
     var vnode;
     try {
-      // There's no need to maintain a stack becaues all render fns are called
+      // There's no need to maintain a stack because all render fns are called
       // separately from one another. Nested component's render fns are called
       // when parent component is patched.
       currentRenderingInstance = vm;
@@ -7440,7 +6791,10 @@ function updateChildComponent (
     // keep a copy of raw propsData
     vm.$options.propsData = propsData;
   }
-
+  
+  // fixed by xxxxxx update properties(mp runtime)
+  vm._$updateProperties && vm._$updateProperties(vm);
+  
   // update listeners
   listeners = listeners || emptyObject;
   var oldListeners = vm.$options._parentListeners;
@@ -8146,7 +7500,7 @@ function createComputedGetter (key) {
       if (watcher.dirty) {
         watcher.evaluate();
       }
-      if (Dep.target) {
+      if (Dep.SharedObject.target) {// fixed by xxxxxx
         watcher.depend();
       }
       return watcher.value
@@ -8759,7 +8113,7 @@ Object.defineProperty(Vue, 'FunctionalRenderContext', {
   value: FunctionalRenderContext
 });
 
-Vue.version = '2.6.10';
+Vue.version = '2.6.11';
 
 /**
  * https://raw.githubusercontent.com/Tencent/westore/master/packages/westore/utils/diff.js
@@ -9149,7 +8503,13 @@ function getTarget(obj, path) {
 function internalMixin(Vue) {
 
   Vue.config.errorHandler = function(err) {
-    console.error(err);
+    /* eslint-disable no-undef */
+    var app = getApp();
+    if (app && app.onError) {
+      app.onError(err);
+    } else {
+      console.error(err);
+    }
   };
 
   var oldEmit = Vue.prototype.$emit;
@@ -9169,9 +8529,21 @@ function internalMixin(Vue) {
 
   MP_METHODS.forEach(function (method) {
     Vue.prototype[method] = function(args) {
-      if (this.$scope) {
+      if (this.$scope && this.$scope[method]) {
         return this.$scope[method](args)
       }
+      // mp-alipay
+      if (typeof my === 'undefined') {
+        return
+      }
+      if (method === 'createSelectorQuery') {
+        /* eslint-disable no-undef */
+        return my.createSelectorQuery(args)
+      } else if (method === 'createIntersectionObserver') {
+        /* eslint-disable no-undef */
+        return my.createIntersectionObserver(args)
+      }
+      // TODO mp-alipay 暂不支持 selectAllComponents,selectComponent
     };
   });
 
@@ -9192,7 +8564,7 @@ function internalMixin(Vue) {
       }
     }
     if (vm._hasHookEvent) {
-      vm.$emit('hook:' + hook);
+      vm.$emit('hook:' + hook, args);
     }
     popTarget();
     return ret
@@ -9353,37 +8725,685 @@ internalMixin(Vue);
 
 /***/ }),
 
-/***/ 287:
-/*!*************************************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fupgood%2Fupgoodnew"} ***!
-  \*************************************************************************************************************************/
+/***/ 20:
+/*!***********************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/config/index.config.js ***!
+  \***********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var CONFIG = {
+  //开发环境配置
+  development: {
+    loginTitleTxt: "it小龙", // 登录页标题
+    copyrightTxt: "柜机1.0", // 版本信息
+    assetsPath: "https://xiguoxiansheng.com/img", // 静态资源路径
+    baseUrl: "https://xiguoxiansheng.com/api",
+    tokenKey: "WECHAT_TRADE", // 登录标识
+    testOpenId: "oEjRxwy7jL9PgG0kWeb4VcDTZEas", // 小程序测试openId
+    forcedLogin: false, // touristMode游客模式下APP是否强制用户登录 场景：当用户进入登录页面后无法后退。
+    touristMode: true // APP是否开启游客模式， 游客模式true开启：APP打开后可以进入首页和无权限的页面，游客模式false关闭：APP打开后首先需要登录才能进入， 此时forcedLogin配置项失效。
+  },
 
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _upgoodnew = _interopRequireDefault(__webpack_require__(/*! ./pages/personcenter/upgood/upgoodnew.vue */ 288));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-createPage(_upgoodnew.default);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
+  //生产环境配置
+  production: {
+    loginTitleTxt: "it小龙", // 登录页标题
+    copyrightTxt: "柜机1.0", // 版本信息
+    assetsPath: "/static/img", // 静态资源路径
+    baseUrl: "https://xiguoxiansheng.com/api",
+    tokenKey: "WECHAT_TRADE", // 登录标识
+    testOpenId: "oEjRxwy7jL9PgG0kWeb4VcDTZEas", // 小程序测试openId
+    forcedLogin: false, // touristMode游客模式下APP是否强制用户登录 场景：当用户进入登录页面后无法后退。
+    touristMode: true // APP是否开启游客模式， 游客模式true开启：APP打开后可以进入首页和无权限的页面，游客模式false关闭：APP打开后首先需要登录才能进入， 此时forcedLogin配置项失效。
+  } };var _default =
+
+
+CONFIG["development"];exports.default = _default;
 
 /***/ }),
 
-/***/ 296:
-/*!*****************************************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fdowngood%2Fdowngoodnew"} ***!
-  \*****************************************************************************************************************************/
+/***/ 207:
+/*!*************************************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/components/u-parse/libs/html2json.js ***!
+  \*************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _downgoodnew = _interopRequireDefault(__webpack_require__(/*! ./pages/personcenter/downgood/downgoodnew.vue */ 297));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-createPage(_downgoodnew.default);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
+
+
+
+
+
+
+
+
+
+
+
+
+var _wxDiscode = _interopRequireDefault(__webpack_require__(/*! ./wxDiscode */ 208));
+var _htmlparser = _interopRequireDefault(__webpack_require__(/*! ./htmlparser */ 209));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} /**
+                                                                                                                                                                 * html2Json 改造来自: https://github.com/Jxck/html2json
+                                                                                                                                                                 *
+                                                                                                                                                                 *
+                                                                                                                                                                 * author: Di (微信小程序开发工程师)
+                                                                                                                                                                 * organization: WeAppDev(微信小程序开发论坛)(http://weappdev.com)
+                                                                                                                                                                 *               垂直微信小程序开发交流社区
+                                                                                                                                                                 *
+                                                                                                                                                                 * github地址: https://github.com/icindy/wxParse
+                                                                                                                                                                 *
+                                                                                                                                                                 * for: 微信小程序富文本解析
+                                                                                                                                                                 * detail : http://weappdev.com/t/wxparse-alpha0-1-html-markdown/184
+                                                                                                                                                                 */function makeMap(str) {var obj = {};var items = str.split(',');for (var i = 0; i < items.length; i += 1) {obj[items[i]] = true;}return obj;} // Block Elements - HTML 5
+var block = makeMap('br,code,address,article,applet,aside,audio,blockquote,button,canvas,center,dd,del,dir,div,dl,dt,fieldset,figcaption,figure,footer,form,frameset,h1,h2,h3,h4,h5,h6,header,hgroup,hr,iframe,ins,isindex,li,map,menu,noframes,noscript,object,ol,output,p,pre,section,script,table,tbody,td,tfoot,th,thead,tr,ul,video'); // Inline Elements - HTML 5
+var inline = makeMap('a,abbr,acronym,applet,b,basefont,bdo,big,button,cite,del,dfn,em,font,i,iframe,img,input,ins,kbd,label,map,object,q,s,samp,script,select,small,span,strike,strong,sub,sup,textarea,tt,u,var');
+// Elements that you can, intentionally, leave open
+// (and which close themselves)
+var closeSelf = makeMap('colgroup,dd,dt,li,options,p,td,tfoot,th,thead,tr');
+
+function removeDOCTYPE(html) {
+  var isDocument = /<body.*>([^]*)<\/body>/.test(html);
+  return isDocument ? RegExp.$1 : html;
+}
+
+function trimHtml(html) {
+  return html.
+  replace(/<!--.*?-->/gi, '').
+  replace(/\/\*.*?\*\//gi, '').
+  replace(/[ ]+</gi, '<').
+  replace(/<script[^]*<\/script>/gi, '').
+  replace(/<style[^]*<\/style>/gi, '');
+}
+
+function getScreenInfo() {
+  var screen = {};
+  wx.getSystemInfo({
+    success: function success(res) {
+      screen.width = res.windowWidth;
+      screen.height = res.windowHeight;
+    } });
+
+  return screen;
+}
+
+function html2json(html, customHandler, imageProp, host) {
+  // 处理字符串
+  html = removeDOCTYPE(html);
+  html = trimHtml(html);
+  html = _wxDiscode.default.strDiscode(html);
+  // 生成node节点
+  var bufArray = [];
+  var results = {
+    nodes: [],
+    imageUrls: [] };
+
+
+  var screen = getScreenInfo();
+  function Node(tag) {
+    this.node = 'element';
+    this.tag = tag;
+
+    this.$screen = screen;
+  }
+
+  (0, _htmlparser.default)(html, {
+    start: function start(tag, attrs, unary) {
+      // node for this element
+      var node = new Node(tag);
+
+      if (bufArray.length !== 0) {
+        var parent = bufArray[0];
+        if (parent.nodes === undefined) {
+          parent.nodes = [];
+        }
+      }
+
+      if (block[tag]) {
+        node.tagType = 'block';
+      } else if (inline[tag]) {
+        node.tagType = 'inline';
+      } else if (closeSelf[tag]) {
+        node.tagType = 'closeSelf';
+      }
+
+      node.attr = attrs.reduce(function (pre, attr) {var
+        name = attr.name;var
+        value = attr.value;
+        if (name === 'class') {
+          node.classStr = value;
+        }
+        // has multi attibutes
+        // make it array of attribute
+        if (name === 'style') {
+          node.styleStr = value;
+        }
+        if (value.match(/ /)) {
+          value = value.split(' ');
+        }
+
+        // if attr already exists
+        // merge it
+        if (pre[name]) {
+          if (Array.isArray(pre[name])) {
+            // already array, push to last
+            pre[name].push(value);
+          } else {
+            // single value, make it array
+            pre[name] = [pre[name], value];
+          }
+        } else {
+          // not exist, put it
+          pre[name] = value;
+        }
+
+        return pre;
+      }, {});
+
+      // 优化样式相关属性
+      if (node.classStr) {
+        node.classStr += " ".concat(node.tag);
+      } else {
+        node.classStr = node.tag;
+      }
+      if (node.tagType === 'inline') {
+        node.classStr += ' inline';
+      }
+
+      // 对img添加额外数据
+      if (node.tag === 'img') {
+        var imgUrl = node.attr.src;
+        imgUrl = _wxDiscode.default.urlToHttpUrl(imgUrl, imageProp.domain);
+        Object.assign(node.attr, imageProp, {
+          src: imgUrl || '' });
+
+        if (imgUrl) {
+          results.imageUrls.push(imgUrl);
+        }
+      }
+
+      // 处理a标签属性
+      if (node.tag === 'a') {
+        node.attr.href = node.attr.href || '';
+      }
+
+      // 处理font标签样式属性
+      if (node.tag === 'font') {
+        var fontSize = [
+        'x-small',
+        'small',
+        'medium',
+        'large',
+        'x-large',
+        'xx-large',
+        '-webkit-xxx-large'];
+
+        var styleAttrs = {
+          color: 'color',
+          face: 'font-family',
+          size: 'font-size' };
+
+        if (!node.styleStr) node.styleStr = '';
+        Object.keys(styleAttrs).forEach(function (key) {
+          if (node.attr[key]) {
+            var value = key === 'size' ? fontSize[node.attr[key] - 1] : node.attr[key];
+            node.styleStr += "".concat(styleAttrs[key], ": ").concat(value, ";");
+          }
+        });
+      }
+
+      // 临时记录source资源
+      if (node.tag === 'source') {
+        results.source = node.attr.src;
+      }
+
+      if (customHandler.start) {
+        customHandler.start(node, results);
+      }
+
+      if (unary) {
+        // if this tag doesn't have end tag
+        // like <img src="hoge.png"/>
+        // add to parents
+        var _parent = bufArray[0] || results;
+        if (_parent.nodes === undefined) {
+          _parent.nodes = [];
+        }
+        _parent.nodes.push(node);
+      } else {
+        bufArray.unshift(node);
+      }
+    },
+    end: function end(tag) {
+      // merge into parent tag
+      var node = bufArray.shift();
+      if (node.tag !== tag) {
+        console.error('invalid state: mismatch end tag');
+      }
+
+      // 当有缓存source资源时于于video补上src资源
+      if (node.tag === 'video' && results.source) {
+        node.attr.src = results.source;
+        delete results.source;
+      }
+
+      if (customHandler.end) {
+        customHandler.end(node, results);
+      }
+
+      if (bufArray.length === 0) {
+        results.nodes.push(node);
+      } else {
+        var parent = bufArray[0];
+        if (!parent.nodes) {
+          parent.nodes = [];
+        }
+        parent.nodes.push(node);
+      }
+    },
+    chars: function chars(text) {
+      if (!text.trim()) return;
+
+      var node = {
+        node: 'text',
+        text: text };
+
+
+      if (customHandler.chars) {
+        customHandler.chars(node, results);
+      }
+
+      if (bufArray.length === 0) {
+        results.nodes.push(node);
+      } else {
+        var parent = bufArray[0];
+        if (parent.nodes === undefined) {
+          parent.nodes = [];
+        }
+        parent.nodes.push(node);
+      }
+    } });
+
+
+  return results;
+}var _default =
+
+html2json;exports.default = _default;
+
+/***/ }),
+
+/***/ 208:
+/*!*************************************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/components/u-parse/libs/wxDiscode.js ***!
+  \*************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; // HTML 支持的数学符号
+function strNumDiscode(str) {
+  str = str.replace(/&forall;/g, '∀');
+  str = str.replace(/&part;/g, '∂');
+  str = str.replace(/&exist;/g, '∃');
+  str = str.replace(/&empty;/g, '∅');
+  str = str.replace(/&nabla;/g, '∇');
+  str = str.replace(/&isin;/g, '∈');
+  str = str.replace(/&notin;/g, '∉');
+  str = str.replace(/&ni;/g, '∋');
+  str = str.replace(/&prod;/g, '∏');
+  str = str.replace(/&sum;/g, '∑');
+  str = str.replace(/&minus;/g, '−');
+  str = str.replace(/&lowast;/g, '∗');
+  str = str.replace(/&radic;/g, '√');
+  str = str.replace(/&prop;/g, '∝');
+  str = str.replace(/&infin;/g, '∞');
+  str = str.replace(/&ang;/g, '∠');
+  str = str.replace(/&and;/g, '∧');
+  str = str.replace(/&or;/g, '∨');
+  str = str.replace(/&cap;/g, '∩');
+  str = str.replace(/&cup;/g, '∪');
+  str = str.replace(/&int;/g, '∫');
+  str = str.replace(/&there4;/g, '∴');
+  str = str.replace(/&sim;/g, '∼');
+  str = str.replace(/&cong;/g, '≅');
+  str = str.replace(/&asymp;/g, '≈');
+  str = str.replace(/&ne;/g, '≠');
+  str = str.replace(/&le;/g, '≤');
+  str = str.replace(/&ge;/g, '≥');
+  str = str.replace(/&sub;/g, '⊂');
+  str = str.replace(/&sup;/g, '⊃');
+  str = str.replace(/&nsub;/g, '⊄');
+  str = str.replace(/&sube;/g, '⊆');
+  str = str.replace(/&supe;/g, '⊇');
+  str = str.replace(/&oplus;/g, '⊕');
+  str = str.replace(/&otimes;/g, '⊗');
+  str = str.replace(/&perp;/g, '⊥');
+  str = str.replace(/&sdot;/g, '⋅');
+  return str;
+}
+
+// HTML 支持的希腊字母
+function strGreeceDiscode(str) {
+  str = str.replace(/&Alpha;/g, 'Α');
+  str = str.replace(/&Beta;/g, 'Β');
+  str = str.replace(/&Gamma;/g, 'Γ');
+  str = str.replace(/&Delta;/g, 'Δ');
+  str = str.replace(/&Epsilon;/g, 'Ε');
+  str = str.replace(/&Zeta;/g, 'Ζ');
+  str = str.replace(/&Eta;/g, 'Η');
+  str = str.replace(/&Theta;/g, 'Θ');
+  str = str.replace(/&Iota;/g, 'Ι');
+  str = str.replace(/&Kappa;/g, 'Κ');
+  str = str.replace(/&Lambda;/g, 'Λ');
+  str = str.replace(/&Mu;/g, 'Μ');
+  str = str.replace(/&Nu;/g, 'Ν');
+  str = str.replace(/&Xi;/g, 'Ν');
+  str = str.replace(/&Omicron;/g, 'Ο');
+  str = str.replace(/&Pi;/g, 'Π');
+  str = str.replace(/&Rho;/g, 'Ρ');
+  str = str.replace(/&Sigma;/g, 'Σ');
+  str = str.replace(/&Tau;/g, 'Τ');
+  str = str.replace(/&Upsilon;/g, 'Υ');
+  str = str.replace(/&Phi;/g, 'Φ');
+  str = str.replace(/&Chi;/g, 'Χ');
+  str = str.replace(/&Psi;/g, 'Ψ');
+  str = str.replace(/&Omega;/g, 'Ω');
+
+  str = str.replace(/&alpha;/g, 'α');
+  str = str.replace(/&beta;/g, 'β');
+  str = str.replace(/&gamma;/g, 'γ');
+  str = str.replace(/&delta;/g, 'δ');
+  str = str.replace(/&epsilon;/g, 'ε');
+  str = str.replace(/&zeta;/g, 'ζ');
+  str = str.replace(/&eta;/g, 'η');
+  str = str.replace(/&theta;/g, 'θ');
+  str = str.replace(/&iota;/g, 'ι');
+  str = str.replace(/&kappa;/g, 'κ');
+  str = str.replace(/&lambda;/g, 'λ');
+  str = str.replace(/&mu;/g, 'μ');
+  str = str.replace(/&nu;/g, 'ν');
+  str = str.replace(/&xi;/g, 'ξ');
+  str = str.replace(/&omicron;/g, 'ο');
+  str = str.replace(/&pi;/g, 'π');
+  str = str.replace(/&rho;/g, 'ρ');
+  str = str.replace(/&sigmaf;/g, 'ς');
+  str = str.replace(/&sigma;/g, 'σ');
+  str = str.replace(/&tau;/g, 'τ');
+  str = str.replace(/&upsilon;/g, 'υ');
+  str = str.replace(/&phi;/g, 'φ');
+  str = str.replace(/&chi;/g, 'χ');
+  str = str.replace(/&psi;/g, 'ψ');
+  str = str.replace(/&omega;/g, 'ω');
+  str = str.replace(/&thetasym;/g, 'ϑ');
+  str = str.replace(/&upsih;/g, 'ϒ');
+  str = str.replace(/&piv;/g, 'ϖ');
+  str = str.replace(/&middot;/g, '·');
+  return str;
+}
+
+function strcharacterDiscode(str) {
+  // 加入常用解析
+  str = str.replace(/&nbsp;/g, ' ');
+  str = str.replace(/&ensp;/g, ' ');
+  str = str.replace(/&emsp;/g, '　');
+  str = str.replace(/&quot;/g, "'");
+  str = str.replace(/&amp;/g, '&');
+  str = str.replace(/&lt;/g, '<');
+  str = str.replace(/&gt;/g, '>');
+  str = str.replace(/&#8226;/g, '•');
+
+  return str;
+}
+
+// HTML 支持的其他实体
+function strOtherDiscode(str) {
+  str = str.replace(/&OElig;/g, 'Œ');
+  str = str.replace(/&oelig;/g, 'œ');
+  str = str.replace(/&Scaron;/g, 'Š');
+  str = str.replace(/&scaron;/g, 'š');
+  str = str.replace(/&Yuml;/g, 'Ÿ');
+  str = str.replace(/&fnof;/g, 'ƒ');
+  str = str.replace(/&circ;/g, 'ˆ');
+  str = str.replace(/&tilde;/g, '˜');
+  str = str.replace(/&ensp;/g, '');
+  str = str.replace(/&emsp;/g, '');
+  str = str.replace(/&thinsp;/g, '');
+  str = str.replace(/&zwnj;/g, '');
+  str = str.replace(/&zwj;/g, '');
+  str = str.replace(/&lrm;/g, '');
+  str = str.replace(/&rlm;/g, '');
+  str = str.replace(/&ndash;/g, '–');
+  str = str.replace(/&mdash;/g, '—');
+  str = str.replace(/&lsquo;/g, '‘');
+  str = str.replace(/&rsquo;/g, '’');
+  str = str.replace(/&sbquo;/g, '‚');
+  str = str.replace(/&ldquo;/g, '“');
+  str = str.replace(/&rdquo;/g, '”');
+  str = str.replace(/&bdquo;/g, '„');
+  str = str.replace(/&dagger;/g, '†');
+  str = str.replace(/&Dagger;/g, '‡');
+  str = str.replace(/&bull;/g, '•');
+  str = str.replace(/&hellip;/g, '…');
+  str = str.replace(/&permil;/g, '‰');
+  str = str.replace(/&prime;/g, '′');
+  str = str.replace(/&Prime;/g, '″');
+  str = str.replace(/&lsaquo;/g, '‹');
+  str = str.replace(/&rsaquo;/g, '›');
+  str = str.replace(/&oline;/g, '‾');
+  str = str.replace(/&euro;/g, '€');
+  str = str.replace(/&trade;/g, '™');
+
+  str = str.replace(/&larr;/g, '←');
+  str = str.replace(/&uarr;/g, '↑');
+  str = str.replace(/&rarr;/g, '→');
+  str = str.replace(/&darr;/g, '↓');
+  str = str.replace(/&harr;/g, '↔');
+  str = str.replace(/&crarr;/g, '↵');
+  str = str.replace(/&lceil;/g, '⌈');
+  str = str.replace(/&rceil;/g, '⌉');
+
+  str = str.replace(/&lfloor;/g, '⌊');
+  str = str.replace(/&rfloor;/g, '⌋');
+  str = str.replace(/&loz;/g, '◊');
+  str = str.replace(/&spades;/g, '♠');
+  str = str.replace(/&clubs;/g, '♣');
+  str = str.replace(/&hearts;/g, '♥');
+
+  str = str.replace(/&diams;/g, '♦');
+  str = str.replace(/&#39;/g, "'");
+  return str;
+}
+
+function strDiscode(str) {
+  str = strNumDiscode(str);
+  str = strGreeceDiscode(str);
+  str = strcharacterDiscode(str);
+  str = strOtherDiscode(str);
+  return str;
+}
+
+function urlToHttpUrl(url, domain) {
+  if (/^\/\//.test(url)) {
+    return "https:".concat(url);
+  } else if (/^\//.test(url)) {
+    return "https://".concat(domain).concat(url);
+  }
+  return url;
+}var _default =
+
+{
+  strDiscode: strDiscode,
+  urlToHttpUrl: urlToHttpUrl };exports.default = _default;
+
+/***/ }),
+
+/***/ 209:
+/*!**************************************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/components/u-parse/libs/htmlparser.js ***!
+  \**************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; /**
+                                                                                                      *
+                                                                                                      * htmlParser改造自: https://github.com/blowsie/Pure-JavaScript-HTML5-Parser
+                                                                                                      *
+                                                                                                      * author: Di (微信小程序开发工程师)
+                                                                                                      * organization: WeAppDev(微信小程序开发论坛)(http://weappdev.com)
+                                                                                                      *               垂直微信小程序开发交流社区
+                                                                                                      *
+                                                                                                      * github地址: https://github.com/icindy/wxParse
+                                                                                                      *
+                                                                                                      * for: 微信小程序富文本解析
+                                                                                                      * detail : http://weappdev.com/t/wxparse-alpha0-1-html-markdown/184
+                                                                                                      */
+// Regular Expressions for parsing tags and attributes
+
+var startTag = /^<([-A-Za-z0-9_]+)((?:\s+[a-zA-Z0-9_:][-a-zA-Z0-9_:.]*(?:\s*=\s*(?:(?:"[^"]*")|(?:'[^']*')|[^>\s]+))?)*)\s*(\/?)>/;
+var endTag = /^<\/([-A-Za-z0-9_]+)[^>]*>/;
+var attr = /([a-zA-Z0-9_:][-a-zA-Z0-9_:.]*)(?:\s*=\s*(?:(?:"((?:\\.|[^"])*)")|(?:'((?:\\.|[^'])*)')|([^>\s]+)))?/g;
+
+function makeMap(str) {
+  var obj = {};
+  var items = str.split(',');
+  for (var i = 0; i < items.length; i += 1) {obj[items[i]] = true;}
+  return obj;
+}
+
+// Empty Elements - HTML 5
+var empty = makeMap('area,base,basefont,br,col,frame,hr,img,input,link,meta,param,embed,command,keygen,source,track,wbr');
+
+// Block Elements - HTML 5
+var block = makeMap('address,code,article,applet,aside,audio,blockquote,button,canvas,center,dd,del,dir,div,dl,dt,fieldset,figcaption,figure,footer,form,frameset,h1,h2,h3,h4,h5,h6,header,hgroup,hr,iframe,ins,isindex,li,map,menu,noframes,noscript,object,ol,output,p,pre,section,script,table,tbody,td,tfoot,th,thead,tr,ul,video');
+
+// Inline Elements - HTML 5
+var inline = makeMap('a,abbr,acronym,applet,b,basefont,bdo,big,br,button,cite,del,dfn,em,font,i,iframe,img,input,ins,kbd,label,map,object,q,s,samp,script,select,small,span,strike,strong,sub,sup,textarea,tt,u,var');
+
+// Elements that you can, intentionally, leave open
+// (and which close themselves)
+var closeSelf = makeMap('colgroup,dd,dt,li,options,p,td,tfoot,th,thead,tr');
+
+// Attributes that have their values filled in disabled="disabled"
+var fillAttrs = makeMap('checked,compact,declare,defer,disabled,ismap,multiple,nohref,noresize,noshade,nowrap,readonly,selected');
+
+function HTMLParser(html, handler) {
+  var index;
+  var chars;
+  var match;
+  var last = html;
+  var stack = [];
+
+  stack.last = function () {return stack[stack.length - 1];};
+
+  function parseEndTag(tag, tagName) {
+    // If no tag name is provided, clean shop
+    var pos;
+    if (!tagName) {
+      pos = 0;
+    } else {
+      // Find the closest opened tag of the same type
+      tagName = tagName.toLowerCase();
+      for (pos = stack.length - 1; pos >= 0; pos -= 1) {
+        if (stack[pos] === tagName) break;
+      }
+    }
+    if (pos >= 0) {
+      // Close all the open elements, up the stack
+      for (var i = stack.length - 1; i >= pos; i -= 1) {
+        if (handler.end) handler.end(stack[i]);
+      }
+
+      // Remove the open elements from the stack
+      stack.length = pos;
+    }
+  }
+
+  function parseStartTag(tag, tagName, rest, unary) {
+    tagName = tagName.toLowerCase();
+
+    if (block[tagName]) {
+      while (stack.last() && inline[stack.last()]) {
+        parseEndTag('', stack.last());
+      }
+    }
+
+    if (closeSelf[tagName] && stack.last() === tagName) {
+      parseEndTag('', tagName);
+    }
+
+    unary = empty[tagName] || !!unary;
+
+    if (!unary) stack.push(tagName);
+
+    if (handler.start) {
+      var attrs = [];
+
+      rest.replace(attr, function genAttr(matches, name) {
+        var value = arguments[2] || arguments[3] || arguments[4] || (fillAttrs[name] ? name : '');
+
+        attrs.push({
+          name: name,
+          value: value,
+          escaped: value.replace(/(^|[^\\])"/g, '$1\\"') // "
+        });
+      });
+
+      if (handler.start) {
+        handler.start(tagName, attrs, unary);
+      }
+    }
+  }
+
+  while (html) {
+    chars = true;
+
+    if (html.indexOf('</') === 0) {
+      match = html.match(endTag);
+
+      if (match) {
+        html = html.substring(match[0].length);
+        match[0].replace(endTag, parseEndTag);
+        chars = false;
+      }
+
+      // start tag
+    } else if (html.indexOf('<') === 0) {
+      match = html.match(startTag);
+
+      if (match) {
+        html = html.substring(match[0].length);
+        match[0].replace(startTag, parseStartTag);
+        chars = false;
+      }
+    }
+
+    if (chars) {
+      index = html.indexOf('<');
+      var text = '';
+      while (index === 0) {
+        text += '<';
+        html = html.substring(1);
+        index = html.indexOf('<');
+      }
+      text += index < 0 ? html : html.substring(0, index);
+      html = index < 0 ? '' : html.substring(index);
+
+      if (handler.chars) handler.chars(text);
+    }
+
+    if (html === last) throw new Error("Parse Error: ".concat(html));
+    last = html;
+  }
+
+  // Clean up any remaining tags
+  parseEndTag();
+}var _default =
+
+HTMLParser;exports.default = _default;
 
 /***/ }),
 
@@ -9418,23 +9438,6 @@ module.exports = g;
 
 /***/ }),
 
-/***/ 32:
-/*!*******************************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fpersoncenter"} ***!
-  \*******************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
-
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _personcenter = _interopRequireDefault(__webpack_require__(/*! ./pages/personcenter/personcenter.vue */ 33));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-createPage(_personcenter.default);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
-
-/***/ }),
-
 /***/ 4:
 /*!***********************************************************************!*\
   !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/pages.json ***!
@@ -9447,199 +9450,925 @@ createPage(_personcenter.default);
 
 /***/ }),
 
-/***/ 40:
-/*!***************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fauth%2Fauth"} ***!
-  \***************************************************************************************************/
+/***/ 5:
+/*!*******************************************************!*\
+  !*** ./node_modules/@dcloudio/uni-stat/dist/index.js ***!
+  \*******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
+/* WEBPACK VAR INJECTION */(function(uni) {var _package = __webpack_require__(/*! ../package.json */ 6);function _possibleConstructorReturn(self, call) {if (call && (typeof call === "object" || typeof call === "function")) {return call;}return _assertThisInitialized(self);}function _assertThisInitialized(self) {if (self === void 0) {throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return self;}function _getPrototypeOf(o) {_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {return o.__proto__ || Object.getPrototypeOf(o);};return _getPrototypeOf(o);}function _inherits(subClass, superClass) {if (typeof superClass !== "function" && superClass !== null) {throw new TypeError("Super expression must either be null or a function");}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });if (superClass) _setPrototypeOf(subClass, superClass);}function _setPrototypeOf(o, p) {_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {o.__proto__ = p;return o;};return _setPrototypeOf(o, p);}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}
 
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _auth = _interopRequireDefault(__webpack_require__(/*! ./pages/auth/auth.vue */ 41));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-createPage(_auth.default);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
+var STAT_VERSION = _package.version;
+var STAT_URL = 'https://tongji.dcloud.io/uni/stat';
+var STAT_H5_URL = 'https://tongji.dcloud.io/uni/stat.gif';
+var PAGE_PVER_TIME = 1800;
+var APP_PVER_TIME = 300;
+var OPERATING_TIME = 10;
+
+var UUID_KEY = '__DC_STAT_UUID';
+var UUID_VALUE = '__DC_UUID_VALUE';
+
+function getUuid() {
+  var uuid = '';
+  if (getPlatformName() === 'n') {
+    try {
+      uuid = plus.runtime.getDCloudId();
+    } catch (e) {
+      uuid = '';
+    }
+    return uuid;
+  }
+
+  try {
+    uuid = uni.getStorageSync(UUID_KEY);
+  } catch (e) {
+    uuid = UUID_VALUE;
+  }
+
+  if (!uuid) {
+    uuid = Date.now() + '' + Math.floor(Math.random() * 1e7);
+    try {
+      uni.setStorageSync(UUID_KEY, uuid);
+    } catch (e) {
+      uni.setStorageSync(UUID_KEY, UUID_VALUE);
+    }
+  }
+  return uuid;
+}
+
+var getSgin = function getSgin(statData) {
+  var arr = Object.keys(statData);
+  var sortArr = arr.sort();
+  var sgin = {};
+  var sginStr = '';
+  for (var i in sortArr) {
+    sgin[sortArr[i]] = statData[sortArr[i]];
+    sginStr += sortArr[i] + '=' + statData[sortArr[i]] + '&';
+  }
+  // const options = sginStr.substr(0, sginStr.length - 1)
+  // sginStr = sginStr.substr(0, sginStr.length - 1) + '&key=' + STAT_KEY;
+  // const si = crypto.createHash('md5').update(sginStr).digest('hex');
+  return {
+    sign: '',
+    options: sginStr.substr(0, sginStr.length - 1) };
+
+};
+
+var getSplicing = function getSplicing(data) {
+  var str = '';
+  for (var i in data) {
+    str += i + '=' + data[i] + '&';
+  }
+  return str.substr(0, str.length - 1);
+};
+
+var getTime = function getTime() {
+  return parseInt(new Date().getTime() / 1000);
+};
+
+var getPlatformName = function getPlatformName() {
+  var platformList = {
+    'app-plus': 'n',
+    'h5': 'h5',
+    'mp-weixin': 'wx',
+    'mp-alipay': 'ali',
+    'mp-baidu': 'bd',
+    'mp-toutiao': 'tt',
+    'mp-qq': 'qq' };
+
+  return platformList["mp-weixin"];
+};
+
+var getPackName = function getPackName() {
+  var packName = '';
+  if (getPlatformName() === 'wx' || getPlatformName() === 'qq') {
+    // 兼容微信小程序低版本基础库
+    if (uni.canIUse('getAccountInfoSync')) {
+      packName = uni.getAccountInfoSync().miniProgram.appId || '';
+    }
+  }
+  return packName;
+};
+
+var getVersion = function getVersion() {
+  return getPlatformName() === 'n' ? plus.runtime.version : '';
+};
+
+var getChannel = function getChannel() {
+  var platformName = getPlatformName();
+  var channel = '';
+  if (platformName === 'n') {
+    channel = plus.runtime.channel;
+  }
+  return channel;
+};
+
+var getScene = function getScene(options) {
+  var platformName = getPlatformName();
+  var scene = '';
+  if (options) {
+    return options;
+  }
+  if (platformName === 'wx') {
+    scene = uni.getLaunchOptionsSync().scene;
+  }
+  return scene;
+};
+var First__Visit__Time__KEY = 'First__Visit__Time';
+var Last__Visit__Time__KEY = 'Last__Visit__Time';
+
+var getFirstVisitTime = function getFirstVisitTime() {
+  var timeStorge = uni.getStorageSync(First__Visit__Time__KEY);
+  var time = 0;
+  if (timeStorge) {
+    time = timeStorge;
+  } else {
+    time = getTime();
+    uni.setStorageSync(First__Visit__Time__KEY, time);
+    uni.removeStorageSync(Last__Visit__Time__KEY);
+  }
+  return time;
+};
+
+var getLastVisitTime = function getLastVisitTime() {
+  var timeStorge = uni.getStorageSync(Last__Visit__Time__KEY);
+  var time = 0;
+  if (timeStorge) {
+    time = timeStorge;
+  } else {
+    time = '';
+  }
+  uni.setStorageSync(Last__Visit__Time__KEY, getTime());
+  return time;
+};
+
+
+var PAGE_RESIDENCE_TIME = '__page__residence__time';
+var First_Page_residence_time = 0;
+var Last_Page_residence_time = 0;
+
+
+var setPageResidenceTime = function setPageResidenceTime() {
+  First_Page_residence_time = getTime();
+  if (getPlatformName() === 'n') {
+    uni.setStorageSync(PAGE_RESIDENCE_TIME, getTime());
+  }
+  return First_Page_residence_time;
+};
+
+var getPageResidenceTime = function getPageResidenceTime() {
+  Last_Page_residence_time = getTime();
+  if (getPlatformName() === 'n') {
+    First_Page_residence_time = uni.getStorageSync(PAGE_RESIDENCE_TIME);
+  }
+  return Last_Page_residence_time - First_Page_residence_time;
+};
+var TOTAL__VISIT__COUNT = 'Total__Visit__Count';
+var getTotalVisitCount = function getTotalVisitCount() {
+  var timeStorge = uni.getStorageSync(TOTAL__VISIT__COUNT);
+  var count = 1;
+  if (timeStorge) {
+    count = timeStorge;
+    count++;
+  }
+  uni.setStorageSync(TOTAL__VISIT__COUNT, count);
+  return count;
+};
+
+var GetEncodeURIComponentOptions = function GetEncodeURIComponentOptions(statData) {
+  var data = {};
+  for (var prop in statData) {
+    data[prop] = encodeURIComponent(statData[prop]);
+  }
+  return data;
+};
+
+var Set__First__Time = 0;
+var Set__Last__Time = 0;
+
+var getFirstTime = function getFirstTime() {
+  var time = new Date().getTime();
+  Set__First__Time = time;
+  Set__Last__Time = 0;
+  return time;
+};
+
+
+var getLastTime = function getLastTime() {
+  var time = new Date().getTime();
+  Set__Last__Time = time;
+  return time;
+};
+
+
+var getResidenceTime = function getResidenceTime(type) {
+  var residenceTime = 0;
+  if (Set__First__Time !== 0) {
+    residenceTime = Set__Last__Time - Set__First__Time;
+  }
+
+  residenceTime = parseInt(residenceTime / 1000);
+  residenceTime = residenceTime < 1 ? 1 : residenceTime;
+  if (type === 'app') {
+    var overtime = residenceTime > APP_PVER_TIME ? true : false;
+    return {
+      residenceTime: residenceTime,
+      overtime: overtime };
+
+  }
+  if (type === 'page') {
+    var _overtime = residenceTime > PAGE_PVER_TIME ? true : false;
+    return {
+      residenceTime: residenceTime,
+      overtime: _overtime };
+
+  }
+
+  return {
+    residenceTime: residenceTime };
+
+
+};
+
+var getRoute = function getRoute() {
+  var pages = getCurrentPages();
+  var page = pages[pages.length - 1];
+  var _self = page.$vm;
+
+  if (getPlatformName() === 'bd') {
+    return _self.$mp && _self.$mp.page.is;
+  } else {
+    return _self.$scope && _self.$scope.route || _self.$mp && _self.$mp.page.route;
+  }
+};
+
+var getPageRoute = function getPageRoute(self) {
+  var pages = getCurrentPages();
+  var page = pages[pages.length - 1];
+  var _self = page.$vm;
+  var query = self._query;
+  var str = query && JSON.stringify(query) !== '{}' ? '?' + JSON.stringify(query) : '';
+  // clear
+  self._query = '';
+  if (getPlatformName() === 'bd') {
+    return _self.$mp && _self.$mp.page.is + str;
+  } else {
+    return _self.$scope && _self.$scope.route + str || _self.$mp && _self.$mp.page.route + str;
+  }
+};
+
+var getPageTypes = function getPageTypes(self) {
+  if (self.mpType === 'page' || self.$mp && self.$mp.mpType === 'page' || self.$options.mpType === 'page') {
+    return true;
+  }
+  return false;
+};
+
+var calibration = function calibration(eventName, options) {
+  //  login 、 share 、pay_success 、pay_fail 、register 、title
+  if (!eventName) {
+    console.error("uni.report \u7F3A\u5C11 [eventName] \u53C2\u6570");
+    return true;
+  }
+  if (typeof eventName !== 'string') {
+    console.error("uni.report [eventName] \u53C2\u6570\u7C7B\u578B\u9519\u8BEF,\u53EA\u80FD\u4E3A String \u7C7B\u578B");
+    return true;
+  }
+  if (eventName.length > 255) {
+    console.error("uni.report [eventName] \u53C2\u6570\u957F\u5EA6\u4E0D\u80FD\u5927\u4E8E 255");
+    return true;
+  }
+
+  if (typeof options !== 'string' && typeof options !== 'object') {
+    console.error("uni.report [options] \u53C2\u6570\u7C7B\u578B\u9519\u8BEF,\u53EA\u80FD\u4E3A String \u6216 Object \u7C7B\u578B");
+    return true;
+  }
+
+  if (typeof options === 'string' && options.length > 255) {
+    console.error("uni.report [options] \u53C2\u6570\u957F\u5EA6\u4E0D\u80FD\u5927\u4E8E 255");
+    return true;
+  }
+
+  if (eventName === 'title' && typeof options !== 'string') {
+    console.error('uni.report [eventName] 参数为 title 时，[options] 参数只能为 String 类型');
+    return true;
+  }
+};
+
+var PagesJson = __webpack_require__(/*! uni-pages?{"type":"style"} */ 7).default;
+var statConfig = __webpack_require__(/*! uni-stat-config */ 8).default || __webpack_require__(/*! uni-stat-config */ 8);
+
+var resultOptions = uni.getSystemInfoSync();var
+
+Util = /*#__PURE__*/function () {
+  function Util() {_classCallCheck(this, Util);
+    this.self = '';
+    this._retry = 0;
+    this._platform = '';
+    this._query = {};
+    this._navigationBarTitle = {
+      config: '',
+      page: '',
+      report: '',
+      lt: '' };
+
+    this._operatingTime = 0;
+    this._reportingRequestData = {
+      '1': [],
+      '11': [] };
+
+    this.__prevent_triggering = false;
+
+    this.__licationHide = false;
+    this.__licationShow = false;
+    this._lastPageRoute = '';
+    this.statData = {
+      uuid: getUuid(),
+      ut: getPlatformName(),
+      mpn: getPackName(),
+      ak: statConfig.appid,
+      usv: STAT_VERSION,
+      v: getVersion(),
+      ch: getChannel(),
+      cn: '',
+      pn: '',
+      ct: '',
+      t: getTime(),
+      tt: '',
+      p: resultOptions.platform === 'android' ? 'a' : 'i',
+      brand: resultOptions.brand || '',
+      md: resultOptions.model,
+      sv: resultOptions.system.replace(/(Android|iOS)\s/, ''),
+      mpsdk: resultOptions.SDKVersion || '',
+      mpv: resultOptions.version || '',
+      lang: resultOptions.language,
+      pr: resultOptions.pixelRatio,
+      ww: resultOptions.windowWidth,
+      wh: resultOptions.windowHeight,
+      sw: resultOptions.screenWidth,
+      sh: resultOptions.screenHeight };
+
+
+  }_createClass(Util, [{ key: "_applicationShow", value: function _applicationShow()
+
+    {
+      if (this.__licationHide) {
+        getLastTime();
+        var time = getResidenceTime('app');
+        if (time.overtime) {
+          var options = {
+            path: this._lastPageRoute,
+            scene: this.statData.sc };
+
+          this._sendReportRequest(options);
+        }
+        this.__licationHide = false;
+      }
+    } }, { key: "_applicationHide", value: function _applicationHide(
+
+    self, type) {
+
+      this.__licationHide = true;
+      getLastTime();
+      var time = getResidenceTime();
+      getFirstTime();
+      var route = getPageRoute(this);
+      this._sendHideRequest({
+        urlref: route,
+        urlref_ts: time.residenceTime },
+      type);
+    } }, { key: "_pageShow", value: function _pageShow()
+
+    {
+      var route = getPageRoute(this);
+      var routepath = getRoute();
+      this._navigationBarTitle.config = PagesJson &&
+      PagesJson.pages[routepath] &&
+      PagesJson.pages[routepath].titleNView &&
+      PagesJson.pages[routepath].titleNView.titleText ||
+      PagesJson &&
+      PagesJson.pages[routepath] &&
+      PagesJson.pages[routepath].navigationBarTitleText || '';
+
+      if (this.__licationShow) {
+        getFirstTime();
+        this.__licationShow = false;
+        // console.log('这是 onLauch 之后执行的第一次 pageShow ，为下次记录时间做准备');
+        this._lastPageRoute = route;
+        return;
+      }
+
+      getLastTime();
+      this._lastPageRoute = route;
+      var time = getResidenceTime('page');
+      if (time.overtime) {
+        var options = {
+          path: this._lastPageRoute,
+          scene: this.statData.sc };
+
+        this._sendReportRequest(options);
+      }
+      getFirstTime();
+    } }, { key: "_pageHide", value: function _pageHide()
+
+    {
+      if (!this.__licationHide) {
+        getLastTime();
+        var time = getResidenceTime('page');
+        this._sendPageRequest({
+          url: this._lastPageRoute,
+          urlref: this._lastPageRoute,
+          urlref_ts: time.residenceTime });
+
+        this._navigationBarTitle = {
+          config: '',
+          page: '',
+          report: '',
+          lt: '' };
+
+        return;
+      }
+    } }, { key: "_login", value: function _login()
+
+    {
+      this._sendEventRequest({
+        key: 'login' },
+      0);
+    } }, { key: "_share", value: function _share()
+
+    {
+      this._sendEventRequest({
+        key: 'share' },
+      0);
+    } }, { key: "_payment", value: function _payment(
+    key) {
+      this._sendEventRequest({
+        key: key },
+      0);
+    } }, { key: "_sendReportRequest", value: function _sendReportRequest(
+    options) {
+
+      this._navigationBarTitle.lt = '1';
+      var query = options.query && JSON.stringify(options.query) !== '{}' ? '?' + JSON.stringify(options.query) : '';
+      this.statData.lt = '1';
+      this.statData.url = options.path + query || '';
+      this.statData.t = getTime();
+      this.statData.sc = getScene(options.scene);
+      this.statData.fvts = getFirstVisitTime();
+      this.statData.lvts = getLastVisitTime();
+      this.statData.tvc = getTotalVisitCount();
+      if (getPlatformName() === 'n') {
+        this.getProperty();
+      } else {
+        this.getNetworkInfo();
+      }
+    } }, { key: "_sendPageRequest", value: function _sendPageRequest(
+
+    opt) {var
+
+      url =
+
+
+      opt.url,urlref = opt.urlref,urlref_ts = opt.urlref_ts;
+      this._navigationBarTitle.lt = '11';
+      var options = {
+        ak: this.statData.ak,
+        uuid: this.statData.uuid,
+        lt: '11',
+        ut: this.statData.ut,
+        url: url,
+        tt: this.statData.tt,
+        urlref: urlref,
+        urlref_ts: urlref_ts,
+        ch: this.statData.ch,
+        usv: this.statData.usv,
+        t: getTime(),
+        p: this.statData.p };
+
+      this.request(options);
+    } }, { key: "_sendHideRequest", value: function _sendHideRequest(
+
+    opt, type) {var
+
+      urlref =
+
+      opt.urlref,urlref_ts = opt.urlref_ts;
+      var options = {
+        ak: this.statData.ak,
+        uuid: this.statData.uuid,
+        lt: '3',
+        ut: this.statData.ut,
+        urlref: urlref,
+        urlref_ts: urlref_ts,
+        ch: this.statData.ch,
+        usv: this.statData.usv,
+        t: getTime(),
+        p: this.statData.p };
+
+      this.request(options, type);
+    } }, { key: "_sendEventRequest", value: function _sendEventRequest()
+
+
+
+    {var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},_ref$key = _ref.key,key = _ref$key === void 0 ? '' : _ref$key,_ref$value = _ref.value,value = _ref$value === void 0 ? "" : _ref$value;
+      var route = this._lastPageRoute;
+      var options = {
+        ak: this.statData.ak,
+        uuid: this.statData.uuid,
+        lt: '21',
+        ut: this.statData.ut,
+        url: route,
+        ch: this.statData.ch,
+        e_n: key,
+        e_v: typeof value === 'object' ? JSON.stringify(value) : value.toString(),
+        usv: this.statData.usv,
+        t: getTime(),
+        p: this.statData.p };
+
+      this.request(options);
+    } }, { key: "getNetworkInfo", value: function getNetworkInfo()
+
+    {var _this = this;
+      uni.getNetworkType({
+        success: function success(result) {
+          _this.statData.net = result.networkType;
+          _this.getLocation();
+        } });
+
+    } }, { key: "getProperty", value: function getProperty()
+
+    {var _this2 = this;
+      plus.runtime.getProperty(plus.runtime.appid, function (wgtinfo) {
+        _this2.statData.v = wgtinfo.version || '';
+        _this2.getNetworkInfo();
+      });
+    } }, { key: "getLocation", value: function getLocation()
+
+    {var _this3 = this;
+      if (statConfig.getLocation) {
+        uni.getLocation({
+          type: 'wgs84',
+          geocode: true,
+          success: function success(result) {
+            if (result.address) {
+              _this3.statData.cn = result.address.country;
+              _this3.statData.pn = result.address.province;
+              _this3.statData.ct = result.address.city;
+            }
+
+            _this3.statData.lat = result.latitude;
+            _this3.statData.lng = result.longitude;
+            _this3.request(_this3.statData);
+          } });
+
+      } else {
+        this.statData.lat = 0;
+        this.statData.lng = 0;
+        this.request(this.statData);
+      }
+    } }, { key: "request", value: function request(
+
+    data, type) {var _this4 = this;
+      var time = getTime();
+      var title = this._navigationBarTitle;
+      data.ttn = title.page;
+      data.ttpj = title.config;
+      data.ttc = title.report;
+
+      var requestData = this._reportingRequestData;
+      if (getPlatformName() === 'n') {
+        requestData = uni.getStorageSync('__UNI__STAT__DATA') || {};
+      }
+      if (!requestData[data.lt]) {
+        requestData[data.lt] = [];
+      }
+      requestData[data.lt].push(data);
+
+      if (getPlatformName() === 'n') {
+        uni.setStorageSync('__UNI__STAT__DATA', requestData);
+      }
+      if (getPageResidenceTime() < OPERATING_TIME && !type) {
+        return;
+      }
+      var uniStatData = this._reportingRequestData;
+      if (getPlatformName() === 'n') {
+        uniStatData = uni.getStorageSync('__UNI__STAT__DATA');
+      }
+      // 时间超过，重新获取时间戳
+      setPageResidenceTime();
+      var firstArr = [];
+      var contentArr = [];
+      var lastArr = [];var _loop = function _loop(
+
+      i) {
+        var rd = uniStatData[i];
+        rd.forEach(function (elm) {
+          var newData = getSplicing(elm);
+          if (i === 0) {
+            firstArr.push(newData);
+          } else if (i === 3) {
+            lastArr.push(newData);
+          } else {
+            contentArr.push(newData);
+          }
+        });};for (var i in uniStatData) {_loop(i);
+      }
+
+      firstArr.push.apply(firstArr, contentArr.concat(lastArr));
+      var optionsData = {
+        usv: STAT_VERSION, //统计 SDK 版本号
+        t: time, //发送请求时的时间戮
+        requests: JSON.stringify(firstArr) };
+
+
+      this._reportingRequestData = {};
+      if (getPlatformName() === 'n') {
+        uni.removeStorageSync('__UNI__STAT__DATA');
+      }
+
+      if (data.ut === 'h5') {
+        this.imageRequest(optionsData);
+        return;
+      }
+
+      if (getPlatformName() === 'n' && this.statData.p === 'a') {
+        setTimeout(function () {
+          _this4._sendRequest(optionsData);
+        }, 200);
+        return;
+      }
+      this._sendRequest(optionsData);
+    } }, { key: "_sendRequest", value: function _sendRequest(
+    optionsData) {var _this5 = this;
+      uni.request({
+        url: STAT_URL,
+        method: 'POST',
+        // header: {
+        //   'content-type': 'application/json' // 默认值
+        // },
+        data: optionsData,
+        success: function success() {
+          // if (process.env.NODE_ENV === 'development') {
+          //   console.log('stat request success');
+          // }
+        },
+        fail: function fail(e) {
+          if (++_this5._retry < 3) {
+            setTimeout(function () {
+              _this5._sendRequest(optionsData);
+            }, 1000);
+          }
+        } });
+
+    }
+    /**
+       * h5 请求
+       */ }, { key: "imageRequest", value: function imageRequest(
+    data) {
+      var image = new Image();
+      var options = getSgin(GetEncodeURIComponentOptions(data)).options;
+      image.src = STAT_H5_URL + '?' + options;
+    } }, { key: "sendEvent", value: function sendEvent(
+
+    key, value) {
+      // 校验 type 参数
+      if (calibration(key, value)) return;
+
+      if (key === 'title') {
+        this._navigationBarTitle.report = value;
+        return;
+      }
+      this._sendEventRequest({
+        key: key,
+        value: typeof value === 'object' ? JSON.stringify(value) : value },
+      1);
+    } }]);return Util;}();var
+
+
+
+Stat = /*#__PURE__*/function (_Util) {_inherits(Stat, _Util);_createClass(Stat, null, [{ key: "getInstance", value: function getInstance()
+    {
+      if (!this.instance) {
+        this.instance = new Stat();
+      }
+      return this.instance;
+    } }]);
+  function Stat() {var _this6;_classCallCheck(this, Stat);
+    _this6 = _possibleConstructorReturn(this, _getPrototypeOf(Stat).call(this));
+    _this6.instance = null;
+    // 注册拦截器
+    if (typeof uni.addInterceptor === 'function' && "development" !== 'development') {
+      _this6.addInterceptorInit();
+      _this6.interceptLogin();
+      _this6.interceptShare(true);
+      _this6.interceptRequestPayment();
+    }return _this6;
+  }_createClass(Stat, [{ key: "addInterceptorInit", value: function addInterceptorInit()
+
+    {
+      var self = this;
+      uni.addInterceptor('setNavigationBarTitle', {
+        invoke: function invoke(args) {
+          self._navigationBarTitle.page = args.title;
+        } });
+
+    } }, { key: "interceptLogin", value: function interceptLogin()
+
+    {
+      var self = this;
+      uni.addInterceptor('login', {
+        complete: function complete() {
+          self._login();
+        } });
+
+    } }, { key: "interceptShare", value: function interceptShare(
+
+    type) {
+      var self = this;
+      if (!type) {
+        self._share();
+        return;
+      }
+      uni.addInterceptor('share', {
+        success: function success() {
+          self._share();
+        },
+        fail: function fail() {
+          self._share();
+        } });
+
+    } }, { key: "interceptRequestPayment", value: function interceptRequestPayment()
+
+    {
+      var self = this;
+      uni.addInterceptor('requestPayment', {
+        success: function success() {
+          self._payment('pay_success');
+        },
+        fail: function fail() {
+          self._payment('pay_fail');
+        } });
+
+    } }, { key: "report", value: function report(
+
+    options, self) {
+      this.self = self;
+      // if (process.env.NODE_ENV === 'development') {
+      //   console.log('report init');
+      // }
+      setPageResidenceTime();
+      this.__licationShow = true;
+      this._sendReportRequest(options, true);
+    } }, { key: "load", value: function load(
+
+    options, self) {
+      if (!self.$scope && !self.$mp) {
+        var page = getCurrentPages();
+        self.$scope = page[page.length - 1];
+      }
+      this.self = self;
+      this._query = options;
+    } }, { key: "show", value: function show(
+
+    self) {
+      this.self = self;
+      if (getPageTypes(self)) {
+        this._pageShow(self);
+      } else {
+        this._applicationShow(self);
+      }
+    } }, { key: "ready", value: function ready(
+
+    self) {
+      // this.self = self;
+      // if (getPageTypes(self)) {
+      //   this._pageShow(self);
+      // }
+    } }, { key: "hide", value: function hide(
+    self) {
+      this.self = self;
+      if (getPageTypes(self)) {
+        this._pageHide(self);
+      } else {
+        this._applicationHide(self, true);
+      }
+    } }, { key: "error", value: function error(
+    em) {
+      if (this._platform === 'devtools') {
+        if (true) {
+          console.info('当前运行环境为开发者工具，不上报数据。');
+        }
+        // return;
+      }
+      var emVal = '';
+      if (!em.message) {
+        emVal = JSON.stringify(em);
+      } else {
+        emVal = em.stack;
+      }
+      var options = {
+        ak: this.statData.ak,
+        uuid: this.statData.uuid,
+        lt: '31',
+        ut: this.statData.ut,
+        ch: this.statData.ch,
+        mpsdk: this.statData.mpsdk,
+        mpv: this.statData.mpv,
+        v: this.statData.v,
+        em: emVal,
+        usv: this.statData.usv,
+        t: getTime(),
+        p: this.statData.p };
+
+      this.request(options);
+    } }]);return Stat;}(Util);
+
+
+var stat = Stat.getInstance();
+var isHide = false;
+var lifecycle = {
+  onLaunch: function onLaunch(options) {
+    stat.report(options, this);
+  },
+  onReady: function onReady() {
+    stat.ready(this);
+  },
+  onLoad: function onLoad(options) {
+    stat.load(options, this);
+    // 重写分享，获取分享上报事件
+    if (this.$scope && this.$scope.onShareAppMessage) {
+      var oldShareAppMessage = this.$scope.onShareAppMessage;
+      this.$scope.onShareAppMessage = function (options) {
+        stat.interceptShare(false);
+        return oldShareAppMessage.call(this, options);
+      };
+    }
+  },
+  onShow: function onShow() {
+    isHide = false;
+    stat.show(this);
+  },
+  onHide: function onHide() {
+    isHide = true;
+    stat.hide(this);
+  },
+  onUnload: function onUnload() {
+    if (isHide) {
+      isHide = false;
+      return;
+    }
+    stat.hide(this);
+  },
+  onError: function onError(e) {
+    stat.error(e);
+  } };
+
+
+function main() {
+  if (true) {
+    uni.report = function (type, options) {};
+  } else { var Vue; }
+}
+
+main();
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 
-/***/ 48:
-/*!****************************************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Forderlist%2Forderlist"} ***!
-  \****************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 6:
+/*!******************************************************!*\
+  !*** ./node_modules/@dcloudio/uni-stat/package.json ***!
+  \******************************************************/
+/*! exports provided: _from, _id, _inBundle, _integrity, _location, _phantomChildren, _requested, _requiredBy, _resolved, _shasum, _spec, _where, author, bugs, bundleDependencies, deprecated, description, devDependencies, files, gitHead, homepage, license, main, name, repository, scripts, version, default */
+/***/ (function(module) {
 
-"use strict";
-/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
-
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _orderlist = _interopRequireDefault(__webpack_require__(/*! ./pages/personcenter/orderlist/orderlist.vue */ 49));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-createPage(_orderlist.default);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
+module.exports = {"_from":"@dcloudio/uni-stat@alpha","_id":"@dcloudio/uni-stat@2.0.0-alpha-25720200116005","_inBundle":false,"_integrity":"sha512-RZFw3WAaS/CZTzzv9JPaWvmoNitojD/06vPdHSzlqZi8GbuE222lFuyochEjrGkG8rPPrWHAnwfoPBuQVtkfdg==","_location":"/@dcloudio/uni-stat","_phantomChildren":{},"_requested":{"type":"tag","registry":true,"raw":"@dcloudio/uni-stat@alpha","name":"@dcloudio/uni-stat","escapedName":"@dcloudio%2funi-stat","scope":"@dcloudio","rawSpec":"alpha","saveSpec":null,"fetchSpec":"alpha"},"_requiredBy":["#USER","/","/@dcloudio/vue-cli-plugin-uni"],"_resolved":"https://registry.npmjs.org/@dcloudio/uni-stat/-/uni-stat-2.0.0-alpha-25720200116005.tgz","_shasum":"08bb17aba91c84a981f33d74153aa3dd07b578ad","_spec":"@dcloudio/uni-stat@alpha","_where":"/Users/guoshengqiang/Documents/dcloud-plugins/alpha/uniapp-cli","author":"","bugs":{"url":"https://github.com/dcloudio/uni-app/issues"},"bundleDependencies":false,"deprecated":false,"description":"","devDependencies":{"@babel/core":"^7.5.5","@babel/preset-env":"^7.5.5","eslint":"^6.1.0","rollup":"^1.19.3","rollup-plugin-babel":"^4.3.3","rollup-plugin-clear":"^2.0.7","rollup-plugin-commonjs":"^10.0.2","rollup-plugin-copy":"^3.1.0","rollup-plugin-eslint":"^7.0.0","rollup-plugin-json":"^4.0.0","rollup-plugin-node-resolve":"^5.2.0","rollup-plugin-replace":"^2.2.0","rollup-plugin-uglify":"^6.0.2"},"files":["dist","package.json","LICENSE"],"gitHead":"a129bde60de35f7ef497f43d5a45b4556231995c","homepage":"https://github.com/dcloudio/uni-app#readme","license":"Apache-2.0","main":"dist/index.js","name":"@dcloudio/uni-stat","repository":{"type":"git","url":"git+https://github.com/dcloudio/uni-app.git","directory":"packages/uni-stat"},"scripts":{"build":"NODE_ENV=production rollup -c rollup.config.js","dev":"NODE_ENV=development rollup -w -c rollup.config.js"},"version":"2.0.0-alpha-25720200116005"};
 
 /***/ }),
 
-/***/ 56:
-/*!***********************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fgoodlist%2Fgoodlist"} ***!
-  \***********************************************************************************************************/
+/***/ 7:
+/*!****************************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/pages.json?{"type":"style"} ***!
+  \****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
-
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _goodlist = _interopRequireDefault(__webpack_require__(/*! ./pages/goodlist/goodlist.vue */ 57));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-createPage(_goodlist.default);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
-
-/***/ }),
-
-/***/ 64:
-/*!*************************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fadvdetail%2Fadvdetail"} ***!
-  \*************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
-
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _advdetail = _interopRequireDefault(__webpack_require__(/*! ./pages/advdetail/advdetail.vue */ 65));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-createPage(_advdetail.default);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
-
-/***/ }),
-
-/***/ 72:
-/*!*****************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fxieyi%2Fxieyi"} ***!
-  \*****************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
-
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _xieyi = _interopRequireDefault(__webpack_require__(/*! ./pages/xieyi/xieyi.vue */ 73));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-createPage(_xieyi.default);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/index/index": { "navigationBarTitleText": "首页" }, "pages/personcenter/personcenter": { "navigationBarTitleText": "个人中心" }, "pages/auth/auth": { "navigationBarTitleText": "授权页面" }, "pages/personcenter/orderlist/orderlist": { "navigationBarTitleText": "订单列表" }, "pages/goodlist/goodlist": { "navigationBarTitleText": "已开锁" }, "pages/advdetail/advdetail": { "navigationBarTitleText": "内容详细" }, "pages/xieyi/xieyi": { "navigationBarTitleText": "协议内容" }, "pages/personcenter/deposit/deposit": { "navigationBarTitleText": "用户充值" }, "pages/personcenter/paysuccess/paysuccess": { "navigationBarTitleText": "支付成功" }, "pages/personcenter/coupon/coupon": { "navigationBarTitleText": "优惠卡券" }, "pages/personcenter/upgood/upgood": { "navigationBarTitleText": "提交上货数据" }, "pages/personcenter/upgood/upgoodnew": { "navigationBarTitleText": "上货页面" }, "pages/personcenter/downgood/downgood": { "navigationBarTitleText": "提交下货数据" }, "pages/personcenter/downgood/downgoodnew": { "navigationBarTitleText": "卸货页面" }, "pages/personcenter/checkuptype/checkuptype": { "navigationBarTitleText": "选中类型" }, "pages/personcenter/feelback/feelback": { "navigationBarTitleText": "提交反馈" }, "pages/aboutme/aboutme": { "navigationBarTitleText": "关于平台" }, "pages/personcenter/tixian/tixian": { "navigationBarTitleText": "申请提现" }, "pages/personcenter/updownrecord/updownrecord": { "enablePullDownRefresh": true, "onReachBottomDistance": 50, "navigationBarTitleText": "上货记录" }, "pages/personcenter/shrecordgooddetail/shrecordgooddetail": { "navigationBarTitleText": "记录详细" } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "喜菓柜机", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
 
 /***/ }),
 
 /***/ 8:
-/*!**********************************************************!*\
-  !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
-  \**********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(/*! regenerator-runtime */ 9);
-
-
-/***/ }),
-
-/***/ 80:
-/*!************************************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fdeposit%2Fdeposit"} ***!
-  \************************************************************************************************************************/
+/*!***************************************************************************************!*\
+  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/pages.json?{"type":"stat"} ***!
+  \***************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
-
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _deposit = _interopRequireDefault(__webpack_require__(/*! ./pages/personcenter/deposit/deposit.vue */ 81));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-createPage(_deposit.default);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
-
-/***/ }),
-
-/***/ 88:
-/*!******************************************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fpaysuccess%2Fpaysuccess"} ***!
-  \******************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
-
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _paysuccess = _interopRequireDefault(__webpack_require__(/*! ./pages/personcenter/paysuccess/paysuccess.vue */ 89));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-createPage(_paysuccess.default);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
-
-/***/ }),
-
-/***/ 9:
-/*!************************************************************!*\
-  !*** ./node_modules/regenerator-runtime/runtime-module.js ***!
-  \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/**
- * Copyright (c) 2014-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-// This method of obtaining a reference to the global object needs to be
-// kept identical to the way it is obtained in runtime.js
-var g = (function() {
-  return this || (typeof self === "object" && self);
-})() || Function("return this")();
-
-// Use `getOwnPropertyNames` because not all browsers support calling
-// `hasOwnProperty` on the global `self` object in a worker. See #183.
-var hadRuntime = g.regeneratorRuntime &&
-  Object.getOwnPropertyNames(g).indexOf("regeneratorRuntime") >= 0;
-
-// Save the old regeneratorRuntime in case it needs to be restored later.
-var oldRuntime = hadRuntime && g.regeneratorRuntime;
-
-// Force reevalutation of runtime.js.
-g.regeneratorRuntime = undefined;
-
-module.exports = __webpack_require__(/*! ./runtime */ 10);
-
-if (hadRuntime) {
-  // Restore the original runtime.
-  g.regeneratorRuntime = oldRuntime;
-} else {
-  // Remove the global property added by runtime.js.
-  try {
-    delete g.regeneratorRuntime;
-  } catch(e) {
-    g.regeneratorRuntime = undefined;
-  }
-}
-
-
-/***/ }),
-
-/***/ 96:
-/*!**********************************************************************************************************************!*\
-  !*** /Users/chenjinlong/Desktop/mydemo/minidemo/guijimini/main.js?{"page":"pages%2Fpersoncenter%2Fcoupon%2Fcoupon"} ***!
-  \**********************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(createPage) {__webpack_require__(/*! uni-pages */ 4);
-
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _coupon = _interopRequireDefault(__webpack_require__(/*! ./pages/personcenter/coupon/coupon.vue */ 97));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-createPage(_coupon.default);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createPage"]))
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "appid": "" };exports.default = _default;
 
 /***/ })
 

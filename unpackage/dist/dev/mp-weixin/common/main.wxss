@@ -6,12 +6,9 @@ image {
 .df {
   display: -webkit-box;
   display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
 }
 .bgja {
-  background-image: -webkit-gradient(linear, right top, left top, from(#e87d08), to(#eb5e00));
-  background-image: -o-linear-gradient(right, #e87d08, #eb5e00);
   background-image: linear-gradient(right, #e87d08, #eb5e00);
   background-image: -webkit-linear-gradient(right, #e87d08, #eb5e00);
 }
@@ -26,13 +23,11 @@ image {
 .zdTabBar .ul {
   display: -webkit-box;
   display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
 }
 .zdTabBar .ul .li {
   -webkit-box-flex: 1;
   -webkit-flex: 1;
-      -ms-flex: 1;
           flex: 1;
   padding-top: 5px;
   position: relative;
@@ -46,8 +41,6 @@ image {
 .zdTabBar .ul .li .ic {
   width: 65px;
   height: 65px;
-  background-image: -webkit-gradient(linear, right top, left top, from(#e87d08), to(#eb5e00));
-  background-image: -o-linear-gradient(right, #e87d08, #eb5e00);
   background-image: linear-gradient(right, #e87d08, #eb5e00);
   background-image: -webkit-linear-gradient(right, #e87d08, #eb5e00);
   border-radius: 50%;

@@ -27,10 +27,8 @@
 view {
   display: -webkit-box;
   display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   -webkit-flex-wrap: wrap;
-      -ms-flex-wrap: wrap;
           flex-wrap: wrap;
 }
 page {
@@ -78,11 +76,9 @@ page {
     height: 90rpx;
     -webkit-box-pack: center;
     -webkit-justify-content: center;
-        -ms-flex-pack: center;
             justify-content: center;
     -webkit-box-align: center;
     -webkit-align-items: center;
-        -ms-flex-align: center;
             align-items: center;
     font-size: 32rpx;
     color: #999;
@@ -94,7 +90,6 @@ page {
     height: 4rpx;
     background-color: #f06c7a;
     -webkit-transition: all .3s ease-out;
-    -o-transition: all .3s ease-out;
     transition: all .3s ease-out;
 }
 .tabr .border.invalid {
@@ -159,7 +154,6 @@ page {
 .sub-list.showvalid {
     display: -webkit-box;
     display: -webkit-flex;
-    display: -ms-flexbox;
     display: flex;
     -webkit-animation: showValid 0.20s linear both;
             animation: showValid 0.20s linear both;
@@ -167,7 +161,6 @@ page {
 .sub-list.showinvalid {
     display: -webkit-box;
     display: -webkit-flex;
-    display: -ms-flexbox;
     display: flex;
     -webkit-animation: showInvalid 0.20s linear both;
             animation: showInvalid 0.20s linear both;
@@ -177,11 +170,9 @@ page {
     height: 60rpx;
     -webkit-box-pack: center;
     -webkit-justify-content: center;
-        -ms-flex-pack: center;
             justify-content: center;
     -webkit-box-align: center;
     -webkit-align-items: center;
-        -ms-flex-align: center;
             align-items: center;
     color: #C0C0C0;
     font-size: 32rpx;
@@ -192,8 +183,7 @@ page {
 }
 .sub-list .btnContent .btn {
       height: 80rpx;
-      background: -webkit-gradient(linear, left top, right top, from(#3a30cf), to(#4168ee));
-      background: -o-linear-gradient(left, #3a30cf, #4168ee);
+      background: -webkit-linear-gradient(left, #3a30cf, #4168ee);
       background: linear-gradient(90deg, #3a30cf, #4168ee);
       border-radius: 40rpx;
       font-size: 28rpx;
@@ -201,15 +191,12 @@ page {
       font-weight: 400;
       display: -webkit-box;
       display: -webkit-flex;
-      display: -ms-flexbox;
       display: flex;
       -webkit-box-pack: center;
       -webkit-justify-content: center;
-          -ms-flex-pack: center;
               justify-content: center;
       -webkit-box-align: center;
       -webkit-align-items: center;
-          -ms-flex-align: center;
               align-items: center;
       color: white;
       width: 53%;
@@ -253,10 +240,8 @@ page {
   height: 50rpx;
   display: -webkit-box;
   display: -webkit-flex;
-  display: -ms-flexbox;
   display: flex;
   -webkit-justify-content: space-around;
-      -ms-flex-pack: distribute;
           justify-content: space-around;
   padding: 5px;
   background-color: #C8C7CC;
@@ -270,10 +255,8 @@ page {
     height: 50rpx;
     display: -webkit-box;
     display: -webkit-flex;
-    display: -ms-flexbox;
     display: flex;
     -webkit-justify-content: space-around;
-        -ms-flex-pack: distribute;
             justify-content: space-around;
     padding: 5px;
     color: #666666;

@@ -62,14 +62,11 @@ page {
   padding: 12rpx;
   color: #353535;
   font-size: 28rpx;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   -webkit-appearance: none;
-     -moz-appearance: none;
           appearance: none;
   border: 2rpx solid #e5e5e5;
-  -webkit-box-shadow: none;
-          box-shadow: none;
+  box-shadow: none;
   border-radius: 44rpx;
   outline: 0;
   display: block;
